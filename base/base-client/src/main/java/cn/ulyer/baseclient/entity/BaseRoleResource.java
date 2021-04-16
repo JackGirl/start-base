@@ -26,9 +26,5 @@ public class BaseRoleResource extends AbstractBaseModel {
 
     private Long roleId;
 
-    private Date createTime;
-
-    private Date updateTime;
-
 
 }

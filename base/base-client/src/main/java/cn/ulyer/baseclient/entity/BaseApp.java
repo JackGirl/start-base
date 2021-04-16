@@ -45,13 +45,11 @@ public class BaseApp extends AbstractBaseModel {
 
     private Integer refreshTokenValidSeconds;
 
-    private Boolean aotuApproval;
+    private Boolean autoApproval;
 
     private String jsonInformation;
 
-    private Date createTime;
 
-    private Date updateTime;
 
 
 }

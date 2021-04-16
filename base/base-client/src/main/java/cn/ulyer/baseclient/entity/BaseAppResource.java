@@ -28,9 +28,6 @@ public class BaseAppResource extends AbstractBaseModel {
 
     private Date expireTime;
 
-    private Date createTime;
-
-    private Date updateTime;
 
 
 }

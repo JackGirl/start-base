@@ -14,3 +14,5 @@ spring:
         server-addr: ${config.server-addr}
   application:
     name: ${project.artifactId}
+server:
+  port: 8090

@@ -9,6 +9,9 @@ spring:
         shared-configs[1]:
           dataId: db.yml
           group: DEFAULT_GROUP
+        shared-configs[2]:
+            dataId: rocketMq.yml
+            group: DEFAULT_GROUP
         server-addr: ${config.server-addr}
         file-extension: yaml
         name: gateway.yml
@@ -16,9 +19,13 @@ spring:
       discovery:
         namespace: ${config.namespace}
         server-addr: ${config.server-addr}
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
   application:
     name: ${project.artifactId}
-
-
 server:
   port: 9999

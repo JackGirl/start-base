@@ -1,43 +1,79 @@
 package cn.ulyer.common.oauth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
 
+@Data
 public class Oauth2UserDetails implements UserDetails {
+
+    private String id;
+
+    private String account;
+
+    @JsonIgnore
+    private String password;
+
+    private String username;
+
+    private String orgId;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private String remark;
+
+    private String avatar;
+
+    private Integer accountLocked;
+
+    private Integer accountExpired;
+
+    private Integer passwordExpired;
+
+    private Integer enable;
+
+    private Set<Oauth2Authority> authorities;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.account;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return accountExpired==0;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return accountLocked==0;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return passwordExpired==0;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enable==1;
     }
 }

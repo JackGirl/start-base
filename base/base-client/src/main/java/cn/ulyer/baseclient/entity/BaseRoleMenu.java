@@ -26,9 +26,6 @@ public class BaseRoleMenu extends AbstractBaseModel {
 
     private Long menuId;
 
-    private Date createTime;
-
-    private Date updateTime;
 
 
 }

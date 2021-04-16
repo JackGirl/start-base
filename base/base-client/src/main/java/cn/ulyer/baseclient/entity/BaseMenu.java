@@ -41,9 +41,6 @@ public class BaseMenu extends AbstractBaseModel {
 
     private String target;
 
-    private Date createTime;
-
-    private Date updateTime;
 
 
 }

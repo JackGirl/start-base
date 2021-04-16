@@ -29,9 +29,7 @@ public class BaseActionResource extends AbstractBaseModel {
 
     private String resourceId;
 
-    private Date createTime;
 
-    private Date updateTime;
 
 
 }

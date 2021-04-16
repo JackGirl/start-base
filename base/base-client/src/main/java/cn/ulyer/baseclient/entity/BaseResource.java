@@ -29,7 +29,7 @@ public class BaseResource extends AbstractBaseModel {
 
     private String path;
 
-    private String auhtority;
+    private String authority;
 
     private Boolean needAuth;
 
@@ -41,9 +41,6 @@ public class BaseResource extends AbstractBaseModel {
 
     private String resourceName;
 
-    private Date createTime;
-
-    private Date updateTime;
 
 
 }

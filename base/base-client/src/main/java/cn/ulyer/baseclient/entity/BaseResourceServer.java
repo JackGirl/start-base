@@ -29,9 +29,10 @@ public class BaseResourceServer extends AbstractBaseModel {
 
     private String serviceName;
 
-    private Date createTime;
+    private String routePrefix;
 
-    private Date updateTime;
+    private String match;
+
 
 
 }

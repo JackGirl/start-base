@@ -26,9 +26,6 @@ public class BaseRoleUser extends AbstractBaseModel {
 
     private Long userId;
 
-    private Date createTime;
-
-    private Date updateTime;
 
 
 }

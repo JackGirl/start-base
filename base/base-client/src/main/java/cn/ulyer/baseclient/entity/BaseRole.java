@@ -31,9 +31,7 @@ public class BaseRole extends AbstractBaseModel {
 
     private String roleValue;
 
-    private Date createTime;
 
-    private Date updateTime;
 
 
 }

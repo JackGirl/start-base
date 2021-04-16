@@ -39,9 +39,6 @@ public class BaseAction extends AbstractBaseModel {
 
     private Long menuId;
 
-    private Date createTime;
-
-    private Date updateTime;
 
 
 }
