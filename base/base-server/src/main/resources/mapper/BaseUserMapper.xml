@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.baseserver.mapper.BaseUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseUser">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="username" property="username" />
+        <result column="orgId" property="orgId" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="remark" property="remark" />
+        <result column="avatar" property="avatar" />
+        <result column="accountLocked" property="accountLocked" />
+        <result column="accountExpired" property="accountExpired" />
+        <result column="passwordExpired" property="passwordExpired" />
+        <result column="enable" property="enable" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, account, password, username, orgId, createTime, updateTime, remark, avatar, accountLocked, accountExpired, passwordExpired, enable
+    </sql>
+
+</mapper>

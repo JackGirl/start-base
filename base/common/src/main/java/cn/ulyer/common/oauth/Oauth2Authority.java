@@ -1,0 +1,34 @@
+package cn.ulyer.common.oauth;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.util.AntPathMatcher;
+
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+public class Oauth2Authority implements GrantedAuthority {
+
+
+    private String resourceId;
+
+    private String authority;
+
+    private Date expireTime;
+
+
+    @Override
+    public String getAuthority() {
+        return authority;
+    }
+
+
+    @JsonProperty("expired")
+    public boolean expired(){
+        return this.expireTime!=null&&System.currentTimeMillis()>expireTime.getTime();
+    }
+
+}

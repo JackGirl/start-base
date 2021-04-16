@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        namespace: ${config.namespace}
+        shared-configs[0]:
+            dataId : redis.yml
+            group: DEFAULT_GROUP
+        shared-configs[1]:
+            dataId: db.yml
+            group: DEFAULT_GROUP
+        server-addr: ${config.server-addr}
+        file-extension: yaml
+
+      discovery:
+        namespace: ${config.namespace}
+        server-addr: ${config.server-addr}
+  application:
+    name: ${project.artifactId}

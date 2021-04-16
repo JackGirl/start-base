@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.baseserver.mapper.BaseAppMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseApp">
+        <id column="appId" property="appId" />
+        <result column="appName" property="appName" />
+        <result column="appSecret" property="appSecret" />
+        <result column="appType" property="appType" />
+        <result column="appIcon" property="appIcon" />
+        <result column="redirectUri" property="redirectUri" />
+        <result column="scope" property="scope" />
+        <result column="grantTypes" property="grantTypes" />
+        <result column="tokenValidSeconds" property="tokenValidSeconds" />
+        <result column="refreshTokenValidSeconds" property="refreshTokenValidSeconds" />
+        <result column="aotuApproval" property="aotuApproval" />
+        <result column="jsonInformation" property="jsonInformation" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        appId, appName, appSecret, appType, appIcon, redirectUri, scope, grantTypes, tokenValidSeconds, refreshTokenValidSeconds, aotuApproval, jsonInformation, createTime, updateTime
+    </sql>
+
+</mapper>
