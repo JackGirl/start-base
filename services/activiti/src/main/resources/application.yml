@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include:
+      - activiti
+logging:
+  config: classpath:logback.xml
