@@ -3,8 +3,10 @@ package cn.ulyer.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients(basePackages = "cn.ulyer.baseclient.client")
 @RemoteApplicationEventScan(basePackages = {"cn.ulyer.common.event"})
 public class GatewayApplication {
 

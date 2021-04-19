@@ -1,5 +1,9 @@
 spring:
+  application:
+    name: ${project.artifactId}
   cloud:
+    bus:
+      id: ${spring.application.name}:${server.port}
     nacos:
       config:
         namespace: ${config.namespace}
@@ -24,8 +28,8 @@ spring:
         locator:
           enabled: false
           lower-case-service-id: true
-      routes:
-  application:
-    name: ${project.artifactId}
+
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 9999

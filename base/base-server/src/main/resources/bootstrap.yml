@@ -1,5 +1,9 @@
 spring:
+  application:
+    name: ${project.artifactId}
   cloud:
+    bus:
+      id: ${spring.application.name}:${server.port}
     nacos:
       config:
         namespace: ${config.namespace}
@@ -8,11 +12,14 @@ spring:
           group: DEFAULT_GROUP
         server-addr: ${config.server-addr}
         file-extension: yaml
-
+        shared-configs[1]:
+          dataId: rocketMq.yml
+          group: DEFAULT_GROUP
       discovery:
         namespace: ${config.namespace}
         server-addr: ${config.server-addr}
-  application:
-    name: ${project.artifactId}
+
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 8090

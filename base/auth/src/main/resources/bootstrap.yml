@@ -17,5 +17,10 @@ spring:
         server-addr: ${config.server-addr}
   application:
     name: ${project.artifactId}
+  main:
+    allow-bean-definition-overriding: true
+  thymeleaf:
+    cache: true
 server:
   port: 8080
+

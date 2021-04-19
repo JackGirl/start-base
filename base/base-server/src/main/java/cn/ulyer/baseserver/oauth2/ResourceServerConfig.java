@@ -1,5 +1,7 @@
 package cn.ulyer.baseserver.oauth2;
 
+import cn.ulyer.common.oauth.JSONAccessDeniedHandler;
+import cn.ulyer.common.oauth.JSONAuthenticationEntryPoint;
 import cn.ulyer.common.oauth.RedisTokenServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +46,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .formLogin().disable()
                 // /logout退出清除cookie
                 // 认证鉴权错误处理,为了统一异常处理。每个资源服务器都应该加上。
-                .exceptionHandling()
+                .exceptionHandling().accessDeniedHandler(new JSONAccessDeniedHandler())
+                .authenticationEntryPoint(new JSONAuthenticationEntryPoint())
                 .and()
                 .csrf().disable()
                 // 禁用httpBasic

@@ -8,6 +8,7 @@ import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
 
 @Getter
 @Setter
@@ -30,6 +31,11 @@ public class JdbcRouteLocator  implements ApplicationEventPublisherAware , Appli
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.eventPublisher = applicationEventPublisher;
+    }
+
+    @EventListener(classes = RemoteRefreshRouteEvent.class)
+    public void method(RemoteRefreshRouteEvent remoteRefreshRouteEvent){
+        System.out.println("接收到消息2");
     }
 
 
