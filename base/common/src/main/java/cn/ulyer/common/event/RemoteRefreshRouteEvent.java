@@ -4,6 +4,7 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 public class RemoteRefreshRouteEvent extends RemoteApplicationEvent {
 
+    public RemoteRefreshRouteEvent(){}
 
 
     public RemoteRefreshRouteEvent(Object source, String originService, String destinationService) {

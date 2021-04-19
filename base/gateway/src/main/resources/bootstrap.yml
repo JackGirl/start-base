@@ -14,7 +14,7 @@ spring:
           dataId: db.yml
           group: DEFAULT_GROUP
         shared-configs[2]:
-            dataId: rocketMq.yml
+            dataId: rabbitmq.yml
             group: DEFAULT_GROUP
         server-addr: ${config.server-addr}
         file-extension: yaml

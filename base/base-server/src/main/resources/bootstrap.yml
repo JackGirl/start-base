@@ -13,7 +13,7 @@ spring:
         server-addr: ${config.server-addr}
         file-extension: yaml
         shared-configs[1]:
-          dataId: rocketMq.yml
+          dataId: rabbitmq.yml
           group: DEFAULT_GROUP
       discovery:
         namespace: ${config.namespace}

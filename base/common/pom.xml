@@ -66,9 +66,8 @@
 
         <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-bus-rocketmq -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-rocketmq</artifactId>
-            <version>2.2.4.RELEASE</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
 
 

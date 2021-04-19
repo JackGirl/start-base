@@ -33,10 +33,6 @@ public class JdbcRouteLocator  implements ApplicationEventPublisherAware , Appli
         this.eventPublisher = applicationEventPublisher;
     }
 
-    @EventListener(classes = RemoteRefreshRouteEvent.class)
-    public void method(RemoteRefreshRouteEvent remoteRefreshRouteEvent){
-        System.out.println("接收到消息2");
-    }
 
 
 
