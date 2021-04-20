@@ -11,7 +11,6 @@ spring:
             group: DEFAULT_GROUP
         server-addr: ${config.server-addr}
         file-extension: yaml
-
       discovery:
         namespace: ${config.namespace}
         server-addr: ${config.server-addr}

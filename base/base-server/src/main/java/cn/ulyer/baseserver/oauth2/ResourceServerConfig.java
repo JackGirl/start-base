@@ -3,6 +3,7 @@ package cn.ulyer.baseserver.oauth2;
 import cn.ulyer.common.oauth.JSONAccessDeniedHandler;
 import cn.ulyer.common.oauth.JSONAuthenticationEntryPoint;
 import cn.ulyer.common.oauth.RedisTokenServices;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -29,7 +30,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources)  {
-        TokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
         RedisTokenServices redisTokenServices = new RedisTokenServices(tokenStore);
         resources.tokenStore(tokenStore).tokenServices(redisTokenServices);
     }

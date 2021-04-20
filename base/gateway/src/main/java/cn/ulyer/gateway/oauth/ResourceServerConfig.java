@@ -1,6 +1,8 @@
 package cn.ulyer.gateway.oauth;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
+import cn.ulyer.common.oauth.OauthJdkSerialize;
+import cn.ulyer.common.oauth.RedisTokenServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -37,8 +39,10 @@ public class ResourceServerConfig {
     private RedisConnectionFactory redisConnectionFactory;
 
     @Bean
-    public TokenStore tokenStore(){
-        return new RedisTokenStore(redisConnectionFactory);
+    public RedisTokenStore tokenStore(){
+        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+        redisTokenStore.setSerializationStrategy(new OauthJdkSerialize());
+        return redisTokenStore;
     }
 
 

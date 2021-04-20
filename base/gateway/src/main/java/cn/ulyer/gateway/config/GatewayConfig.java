@@ -1,12 +1,12 @@
-package cn.ulyer.gateway.oauth;
+package cn.ulyer.gateway.config;
 
 
-import cn.ulyer.baseclient.client.ResourceServerClient;
 import cn.ulyer.gateway.locator.JdbcRouteLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class GatewayConfig {
@@ -16,11 +16,14 @@ public class GatewayConfig {
     private RouteDefinitionRepository routeDefinitionRepository;
 
     @Autowired
-    private ResourceServerClient resourceServerClient;
+    private JdbcTemplate jdbcTemplate;
 
     @Bean
     public JdbcRouteLocator jdbcRouteLocator(){
-        return new JdbcRouteLocator(resourceServerClient,routeDefinitionRepository);
+        return new JdbcRouteLocator(jdbcTemplate,routeDefinitionRepository);
     }
+
+
+
 
 }

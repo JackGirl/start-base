@@ -8,15 +8,17 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 @Data
 public class RedisTokenServices implements ResourceServerTokenServices {
 
 
-    private TokenStore tokenStore;
+    private RedisTokenStore tokenStore;
 
-    public RedisTokenServices(TokenStore tokenStore){
+    public RedisTokenServices(RedisTokenStore tokenStore){
         this.tokenStore = tokenStore;
+        tokenStore.setSerializationStrategy(new OauthJdkSerialize());
     }
 
     @Override

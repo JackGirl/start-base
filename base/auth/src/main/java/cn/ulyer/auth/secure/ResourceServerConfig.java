@@ -25,9 +25,9 @@ public class ResourceServerConfig  extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers("/login","/oauth/**").permitAll()
+                .antMatchers("/login","/oauth/**","/token").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").permitAll().and()
+                .and().formLogin().loginPage("/login").and()
                 // 认证鉴权错误处理,为了统一异常处理。每个资源服务器都应该加上。
                 .exceptionHandling().accessDeniedHandler(new JSONAccessDeniedHandler())
                 .authenticationEntryPoint(new JSONAuthenticationEntryPoint())

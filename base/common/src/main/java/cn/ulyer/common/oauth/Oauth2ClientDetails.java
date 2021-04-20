@@ -1,5 +1,6 @@
 package cn.ulyer.common.oauth;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
@@ -7,6 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+@Data
 public class Oauth2ClientDetails implements ClientDetails {
 
 

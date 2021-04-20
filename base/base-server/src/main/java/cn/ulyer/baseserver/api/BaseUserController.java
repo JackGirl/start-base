@@ -34,7 +34,7 @@ public class BaseUserController  {
 
 
     @PostMapping("/userLogin")
-    public R<BaseUser> login(String account, HttpServletRequest request) {
+    public R<BaseUser> login(String account) {
         BaseUser baseUser = baseUserService.getOne(new LambdaQueryWrapper<BaseUser>().eq(BaseUser::getAccount,account));
         return R.success().setData(baseUser);
     }
