@@ -70,10 +70,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new CusomJdbcCodeService(dataSource);
     }
 
-    @Bean
-    public OAuth2RequestFactory auth2RequestFactory(){
-        return new DefaultOAuth2RequestFactory(jdbcClientDetailService());
-    }
+
 
     @Bean
     public DefaultTokenServices defaultTokenServices(){
