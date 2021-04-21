@@ -2,6 +2,7 @@ package cn.ulyer.auth.secure;
 
 
 import cn.ulyer.auth.secure.details.CusomJdbcCodeService;
+import cn.ulyer.common.oauth.Md5PasswordEncoder;
 import cn.ulyer.common.oauth.OauthJdkSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -51,7 +52,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     @Primary
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return new Md5PasswordEncoder();
     }
 
 

@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 public class Oauth2UserDetails implements UserDetails {
 
-    private String id;
+    private Long id;
 
     private String account;
 

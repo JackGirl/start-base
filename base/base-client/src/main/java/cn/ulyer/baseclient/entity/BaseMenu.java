@@ -2,12 +2,14 @@ package cn.ulyer.baseclient.entity;
 
 import cn.ulyer.common.model.AbstractBaseModel;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +35,8 @@ public class BaseMenu extends AbstractBaseModel {
 
     private String path;
 
+    private String component;
+
     private Integer status;
 
     private Integer priority;
@@ -41,6 +45,7 @@ public class BaseMenu extends AbstractBaseModel {
 
     private String target;
 
-
+    @TableField(exist = false)
+    private List<BaseMenu> children;
 
 }

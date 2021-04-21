@@ -14,11 +14,11 @@ import java.util.Date;
 public abstract class AbstractBaseModel implements Serializable {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @JsonFormat(timezone = "GMT+8",pattern = "YYYY-MM-DD HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "YYYY-MM-dd HH:mm:ss")
     private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @JsonFormat(timezone = "GMT+8",pattern = "YYYY-MM-DD HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "YYYY-MM-dd HH:mm:ss")
     private Date updateTime;
 
 

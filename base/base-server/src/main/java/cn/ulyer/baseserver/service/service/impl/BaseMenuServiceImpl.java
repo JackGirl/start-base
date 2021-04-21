@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -18,4 +21,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class BaseMenuServiceImpl extends ServiceImpl<BaseMenuMapper, BaseMenu> implements BaseMenuService {
 
+    @Resource
+    private BaseMenuMapper baseMenuMapper;
+
+
+    @Override
+    public List<BaseMenu> getMenuByUserId(Long userId) {
+        return baseMenuMapper.getMenuByUserId(userId);
+    }
 }

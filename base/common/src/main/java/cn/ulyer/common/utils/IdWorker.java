@@ -126,7 +126,11 @@ public final class IdWorker {
 	}
 
 	public static String nextStrId(){
-		return INSTANCE.nextId().toString();
+		return next().toString();
+	}
+
+	public static Long next(){
+		return INSTANCE.nextId();
 	}
 
 	/**

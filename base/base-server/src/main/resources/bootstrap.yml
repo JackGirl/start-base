@@ -15,6 +15,9 @@ spring:
         shared-configs[1]:
           dataId: rabbitmq.yml
           group: DEFAULT_GROUP
+        shared-configs[2]:
+          dataId: redis.yml
+          group: DEFAULT_GROUP
       discovery:
         namespace: ${config.namespace}
         server-addr: ${config.server-addr}

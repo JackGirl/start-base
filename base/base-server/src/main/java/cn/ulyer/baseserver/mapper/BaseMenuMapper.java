@@ -3,6 +3,8 @@ package cn.ulyer.baseserver.mapper;
 import cn.ulyer.baseclient.entity.BaseMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface BaseMenuMapper extends BaseMapper<BaseMenu> {
 
+    List<BaseMenu> getMenuByUserId(Long userId);
 }

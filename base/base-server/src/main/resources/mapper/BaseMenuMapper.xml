@@ -20,5 +20,13 @@
     <sql id="Base_Column_List">
         menuId, parentId, menuName, path, status, priority, icon, target, createTime, updateTime
     </sql>
+    <select id="getMenuByUserId" resultType="cn.ulyer.baseclient.entity.BaseMenu">
+        select <include refid="Base_Column_List"/>
+        from base_menu where status=1 and menuId in (
+            select menuId from base_role_menu where roleId in(
+                select roleId from base_role_user where userId = #{userId}
+             )
+        )
+    </select>
 
 </mapper>
