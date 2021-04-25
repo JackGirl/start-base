@@ -1,7 +1,5 @@
 package cn.ulyer.common.utils;
 
-import com.alibaba.fastjson.JSON;
-import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

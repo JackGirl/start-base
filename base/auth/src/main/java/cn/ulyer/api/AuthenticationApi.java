@@ -14,7 +14,7 @@ public class AuthenticationApi {
 
     @GetMapping("/me")
     public R<Authentication> me(Authentication authentication){
-        return R.success().setData(authentication);
+        return R.success().setData(authentication.getPrincipal());
     }
 
 }

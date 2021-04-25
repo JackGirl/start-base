@@ -34,7 +34,7 @@ public class BaseMenuController {
     @GetMapping("/userMenu")
     public R<List<BaseMenu>> getUserMenus(){
         List<BaseMenu> menus = baseMenuService.getMenuByUserId(OauthUtil.getUserId());
-        return R.success().setData(menus);
+        return R.success().setData(TreeUtil.treeMenu(menus,0L));
     }
 
 

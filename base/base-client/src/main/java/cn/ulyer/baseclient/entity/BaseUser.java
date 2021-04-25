@@ -36,10 +36,6 @@ public class BaseUser extends AbstractBaseModel {
 
     private String orgId;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     private String remark;
 
     private String avatar;
