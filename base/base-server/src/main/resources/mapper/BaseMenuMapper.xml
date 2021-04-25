@@ -14,11 +14,12 @@
         <result column="target" property="target" />
         <result column="createTime" property="createTime" />
         <result column="updateTime" property="updateTime" />
+        <result column="redirect" property="redirect"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        menuId, parentId, menuName, path, status, priority, icon, target, createTime, updateTime,component
+        menuId, parentId, menuName, path, status, priority, icon, target, createTime, updateTime,component,redirect
     </sql>
     <select id="getMenuByUserId" resultType="cn.ulyer.baseclient.entity.BaseMenu">
         select <include refid="Base_Column_List"/>

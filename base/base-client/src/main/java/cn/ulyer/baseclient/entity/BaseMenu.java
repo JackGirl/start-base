@@ -45,6 +45,8 @@ public class BaseMenu extends AbstractBaseModel {
 
     private String target;
 
+    private String redirect;
+
     @TableField(exist = false)
     private List<BaseMenu> children;
 
