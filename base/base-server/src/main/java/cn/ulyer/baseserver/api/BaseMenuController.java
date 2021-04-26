@@ -1,13 +1,12 @@
 package cn.ulyer.baseserver.api;
 
 
-import cn.ulyer.baseclient.entity.BaseMenu;
+import cn.ulyer.baseclient.vo.BaseMenuVo;
 import cn.ulyer.baseserver.service.service.BaseMenuService;
-import cn.ulyer.baseserver.util.TreeUtil;
-import cn.ulyer.common.utils.IdWorker;
+import cn.ulyer.common.model.TreeVo;
+import cn.ulyer.common.utils.TreeUtil;
 import cn.ulyer.common.utils.OauthUtil;
 import cn.ulyer.common.utils.R;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +31,8 @@ public class BaseMenuController {
 
 
     @GetMapping("/userMenu")
-    public R<List<BaseMenu>> getUserMenus(){
-        List<BaseMenu> menus = baseMenuService.getMenuByUserId(OauthUtil.getUserId());
+    public R<List<TreeVo>> getUserMenus(){
+        List<BaseMenuVo> menus = baseMenuService.getMenuByUserId(OauthUtil.getUserId());
         return R.success().setData(TreeUtil.treeMenu(menus,0L));
     }
 

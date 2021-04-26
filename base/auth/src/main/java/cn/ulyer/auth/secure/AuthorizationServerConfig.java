@@ -2,6 +2,8 @@ package cn.ulyer.auth.secure;
 
 
 import cn.ulyer.auth.secure.details.CusomJdbcCodeService;
+import cn.ulyer.auth.secure.details.DaoClientDetailService;
+import cn.ulyer.baseclient.client.AppClient;
 import cn.ulyer.common.oauth.Md5PasswordEncoder;
 import cn.ulyer.common.oauth.OauthJdkSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private AppClient appClient;
 
 
     @Bean
@@ -110,7 +115,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public ClientDetailsService jdbcClientDetailService(){
-        return new JdbcClientDetailsService(dataSource);
+        return new DaoClientDetailService(appClient);
     }
 
 

@@ -15,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,7 +59,7 @@ public class LoginController {
             Map<String,String> requestParams = MapUtil.createMap(HashMap.class);
             ClientDetails clientDetails = clientDetailsService.loadClientByClientId(SystemConstants.ADMIN_APP);
             if(clientDetails==null){
-                throw new OAuth2AuthenticationException(new OAuth2Error("认证失败"));
+                throw new NoSuchClientException("找不到应用");
             }
             requestParams.put("client_id",clientDetails.getClientId());
             requestParams.put("grant_type","password");

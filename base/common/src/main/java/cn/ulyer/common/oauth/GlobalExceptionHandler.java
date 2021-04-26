@@ -7,11 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +55,13 @@ public class GlobalExceptionHandler {
         return r;
     }
 
+    @ExceptionHandler({IllegalArgumentException.class})
+    public static R argumentEx(Exception ex, HttpServletRequest request, HttpServletResponse response) {
+        R r = R.fail().setMessage(ex.getMessage()).setRequestPath(request.getRequestURI()).setCode(ErrorCode.BAD_REQUEST.getCode());
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        return r;
+    }
+
 
 
     /**
@@ -78,92 +82,83 @@ public class GlobalExceptionHandler {
 
 
     public static R resolveException(Exception ex, String path) {
-        ErrorCode code = ErrorCode.ERROR;
+        ErrorCode code;
         String message = ex.getMessage();
-        String className = ex.getClass().getName();
-
-
-        if(className.contains("Oauth2AuthenticationException")||className.contains("AuthenticationException")){
-          code = ErrorCode.UNAUTHORIZED;
-        }
-        if (className.contains("UsernameNotFoundException")) {
-            code = ErrorCode.USERNAME_NOT_FOUND;
-        } else if (className.contains("BadCredentialsException")) {
-            code = ErrorCode.BAD_CREDENTIALS;
-        } else if (className.contains("AccountExpiredException")) {
-            code = ErrorCode.ACCOUNT_EXPIRED;
-        } else if (className.contains("LockedException")) {
-            code = ErrorCode.ACCOUNT_LOCKED;
-        } else if (className.contains("DisabledException")) {
-            code = ErrorCode.ACCOUNT_DISABLED;
-        } else if (className.contains("CredentialsExpiredException")) {
-            code = ErrorCode.CREDENTIALS_EXPIRED;
-        } else if (className.contains("InvalidClientException")) {
-            code = ErrorCode.INVALID_CLIENT;
-        } else if (className.contains("UnauthorizedClientException")) {
-            code = ErrorCode.UNAUTHORIZED_CLIENT;
-        }else if (className.contains("InsufficientAuthenticationException") || className.contains("AuthenticationCredentialsNotFoundException")) {
-            code = ErrorCode.UNAUTHORIZED;
-        } else if (className.contains("InvalidGrantException")) {
-            code = ErrorCode.ALERT;
-            if ("Bad credentials".contains(message)) {
+        String className = ex.getClass().getName().substring(ex.getClass().getName().lastIndexOf(".")+1);
+        switch (className){
+            case "Oauth2AuthenticationException":
+            case "AuthenticationException":
+                code = ErrorCode.UNAUTHORIZED;
+                break;
+            case "NoSuchClientException":
+            case"InvalidClientException":
+                code = ErrorCode.INVALID_CLIENT;
+                break;
+            case"UsernameNotFoundException":
+                code = ErrorCode.USERNAME_NOT_FOUND;
+                break;
+            case"InvalidGrantException":
+                code = ErrorCode.INVALID_GRANT;
+                break;
+            case "BadCredentialsException":
                 code = ErrorCode.BAD_CREDENTIALS;
-            } else if ("User is disabled".contains(message)) {
-                code = ErrorCode.ACCOUNT_DISABLED;
-            } else if ("User account is locked".contains(message)) {
+                break;
+            case"AccountExpiredException":
+                code = ErrorCode.ACCOUNT_EXPIRED;
+                break;
+            case"LockedException":
                 code = ErrorCode.ACCOUNT_LOCKED;
-            }
-        } else if (className.contains("InvalidScopeException")) {
-            code = ErrorCode.INVALID_SCOPE;
-        } else if (className.contains("InvalidTokenException")) {
-            code = ErrorCode.INVALID_TOKEN;
-        } else if (className.contains("InvalidRequestException")) {
-            code = ErrorCode.INVALID_REQUEST;
-        } else if (className.contains("RedirectMismatchException")) {
-            code = ErrorCode.REDIRECT_URI_MISMATCH;
-        } else if (className.contains("UnsupportedGrantTypeException")) {
-            code = ErrorCode.UNSUPPORTED_GRANT_TYPE;
-        } else if (className.contains("UnsupportedResponseTypeException")) {
-            code = ErrorCode.UNSUPPORTED_RESPONSE_TYPE;
-        } else if (className.contains("UserDeniedAuthorizationException")) {
-            code = ErrorCode.ACCESS_DENIED;
-        } else if (className.contains("AccessDeniedException")) {
-            code = ErrorCode.ACCESS_DENIED;
-            if (ErrorCode.ACCESS_DENIED_BLACK_LIMITED.getMessage().contains(message)) {
-                code = ErrorCode.ACCESS_DENIED_BLACK_LIMITED;
-            } else if (ErrorCode.ACCESS_DENIED_WHITE_LIMITED.getMessage().contains(message)) {
-                code = ErrorCode.ACCESS_DENIED_WHITE_LIMITED;
-            } else if (ErrorCode.ACCESS_DENIED_AUTHORITY_EXPIRED.getMessage().contains(message)) {
+                break;
+            case"DisabledException":
+                code = ErrorCode.ACCOUNT_DISABLED;
+                break;
+            case"CredentialsExpiredException":
+                code = ErrorCode.CREDENTIALS_EXPIRED;
+                break;
+            case"UnauthorizedClientException":
+                code = ErrorCode.UNAUTHORIZED_CLIENT;
+                break;
+            case"InvalidScopeException":
+                code = ErrorCode.INVALID_SCOPE;
+                break;
+            case"InvalidTokenException":
+                code = ErrorCode.INVALID_TOKEN;
+                break;
+            case"RedirectMismatchException":
+                code = ErrorCode.REDIRECT_URI_MISMATCH;
+                break;
+            case"UnsupportedGrantTypeException":
+                code = ErrorCode.UNSUPPORTED_GRANT_TYPE;
+                break;
+            case"UnsupportedResponseTypeException":
+                code = ErrorCode.UNSUPPORTED_RESPONSE_TYPE;
+                break;
+            case"UserDeniedAuthorizationException":
                 code = ErrorCode.ACCESS_DENIED_AUTHORITY_EXPIRED;
-            }else if (ErrorCode.ACCESS_DENIED_UPDATING.getMessage().contains(message)) {
-                code = ErrorCode.ACCESS_DENIED_UPDATING;
-            }else if (ErrorCode.ACCESS_DENIED_DISABLED.getMessage().contains(message)) {
-                code = ErrorCode.ACCESS_DENIED_DISABLED;
-            } else if (ErrorCode.ACCESS_DENIED_NOT_OPEN.getMessage().contains(message)) {
-                code = ErrorCode.ACCESS_DENIED_NOT_OPEN;
-            }
-        } else if (className.contains("HttpMessageNotReadableException")
-                || className.contains("TypeMismatchException")
-                || className.contains("MissingServletRequestParameterException")) {
-            code = ErrorCode.BAD_REQUEST;
-        } else if (className.contains("NoHandlerFoundException")) {
-            code = ErrorCode.NOT_FOUND;
-        } else if (className.contains("HttpRequestMethodNotSupportedException")) {
-            code = ErrorCode.METHOD_NOT_ALLOWED;
-        } else if (className.contains("HttpMediaTypeNotAcceptableException")) {
-            code = ErrorCode.MEDIA_TYPE_NOT_ACCEPTABLE;
-        } else if (className.contains("MethodArgumentNotValidException")) {
-            BindingResult bindingResult = ((MethodArgumentNotValidException) ex).getBindingResult();
-            code = ErrorCode.ALERT;
-            return R.fail(code).setRequestPath(path).setMessage(bindingResult.getFieldError().getDefaultMessage());
-        } else if (className.contains("IllegalArgumentException")) {
-            //参数错误
-            code = ErrorCode.BAD_REQUEST;
-        }else if(message.equalsIgnoreCase(ErrorCode.TOO_MANY_REQUESTS.name())){
-            code = ErrorCode.TOO_MANY_REQUESTS;
+                break;
+            case"AccessDeniedException":
+                code = ErrorCode.ACCESS_DENIED;
+                break;
+            case"MissingServletRequestParameterException":
+            case"MethodArgumentNotValidException":
+            case"IllegalArgumentException":
+                code = ErrorCode.BAD_REQUEST;
+                break;
+            case"NoHandlerFoundException":
+                code=ErrorCode.NOT_FOUND;
+                break;
+            case"HttpRequestMethodNotSupportedException":
+            case"MethodNotAllowedException":
+                code=ErrorCode.METHOD_NOT_ALLOWED;
+                break;
+            default:
+                code = ErrorCode.ERROR;
         }
+
         return R.fail(code).setMessage(message).setRequestPath(path);
     }
+
+
 
 
 }

@@ -1,8 +1,10 @@
 package cn.ulyer.baseserver.api;
 
 
+import cn.ulyer.baseclient.client.UserClient;
 import cn.ulyer.baseclient.entity.BaseUser;
 import cn.ulyer.baseserver.service.service.BaseUserService;
+import cn.ulyer.common.oauth.RedisTokenServices;
 import cn.ulyer.common.utils.R;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/baseUser")
-public class BaseUserController  {
+public class BaseUserController  implements UserClient {
 
 
 
@@ -30,14 +32,13 @@ public class BaseUserController  {
     private BaseUserService  baseUserService;
 
 
-
-
-
     @PostMapping("/userLogin")
+    @Override
     public R<BaseUser> login(String account) {
         BaseUser baseUser = baseUserService.getOne(new LambdaQueryWrapper<BaseUser>().eq(BaseUser::getAccount,account));
         return R.success().setData(baseUser);
     }
+
 
 
 

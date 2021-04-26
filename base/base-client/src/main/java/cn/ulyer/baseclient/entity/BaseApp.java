@@ -2,6 +2,7 @@ package cn.ulyer.baseclient.entity;
 
 import cn.ulyer.common.model.AbstractBaseModel;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -48,6 +49,12 @@ public class BaseApp extends AbstractBaseModel {
     private Boolean autoApproval;
 
     private String jsonInformation;
+
+    private Integer status;
+    /**
+     * 是否内部的app   可有由这个字段决定是用用户权限 还是 client权限
+     */
+    private Integer internal;
 
 
 

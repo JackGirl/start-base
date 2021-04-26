@@ -1,20 +1,47 @@
 package cn.ulyer.common.oauth;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Data
 public class Oauth2ClientDetails implements ClientDetails {
 
+    private String appId;
+
+    private String appName;
+
+    private String appSecret;
+
+    private String appType;
+
+    private String redirectUri;
+
+    private String scope;
+
+    private String grantTypes;
+
+    private Integer tokenValidSeconds;
+
+    private Integer refreshTokenValidSeconds;
+
+    private Boolean autoApproval;
+
+    private String jsonInformation;
+
+    Set<GrantedAuthority> authorities;
+
+    private Integer internal;
 
     @Override
     public String getClientId() {
-        return null;
+        return appId;
     }
 
     @Override
@@ -24,12 +51,12 @@ public class Oauth2ClientDetails implements ClientDetails {
 
     @Override
     public boolean isSecretRequired() {
-        return false;
+        return true;
     }
 
     @Override
     public String getClientSecret() {
-        return null;
+        return appSecret;
     }
 
     @Override
@@ -39,41 +66,45 @@ public class Oauth2ClientDetails implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        return null;
+        return StrUtil.isBlank(scope)?null:CollectionUtil.newHashSet(scope.split(","));
     }
 
     @Override
     public Set<String> getAuthorizedGrantTypes() {
-        return null;
+        return StrUtil.isBlank(grantTypes)?null:CollectionUtil.newHashSet(grantTypes.split(","));
     }
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        return null;
+        return StrUtil.isBlank(redirectUri)?null:CollectionUtil.newHashSet(redirectUri.split(","));
     }
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public Integer getAccessTokenValiditySeconds() {
-        return null;
+        return tokenValidSeconds;
     }
 
     @Override
     public Integer getRefreshTokenValiditySeconds() {
-        return null;
+        return refreshTokenValidSeconds;
     }
 
     @Override
     public boolean isAutoApprove(String s) {
-        return false;
+        return autoApproval;
     }
 
     @Override
     public Map<String, Object> getAdditionalInformation() {
-        return null;
+        try{
+            return JSON.parseObject(this.jsonInformation,Map.class);
+        }catch (Exception e){
+            return MapUtil.newHashMap();
+        }
     }
 }
