@@ -1,12 +1,16 @@
 package cn.ulyer.baseserver.api;
 
 
-import cn.ulyer.baseclient.vo.BaseMenuVo;
+import cn.ulyer.baseclient.entity.BaseMenu;
+import cn.ulyer.baseclient.vo.MenuVo;
 import cn.ulyer.baseserver.service.service.BaseMenuService;
+import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.model.TreeVo;
 import cn.ulyer.common.utils.TreeUtil;
 import cn.ulyer.common.utils.OauthUtil;
 import cn.ulyer.common.utils.R;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +36,15 @@ public class BaseMenuController {
 
     @GetMapping("/userMenu")
     public R<List<TreeVo>> getUserMenus(){
-        List<BaseMenuVo> menus = baseMenuService.getMenuByUserId(OauthUtil.getUserId());
+        List<MenuVo> menus = baseMenuService.listUserMenuByUserId(OauthUtil.getUserId());
         return R.success().setData(TreeUtil.treeMenu(menus,0L));
     }
 
-
+    @GetMapping("/list")
+    public R<List<TreeVo>>list(){
+        List<MenuVo> allMenus = baseMenuService.listMenuVo();
+        return R.success().setData(TreeUtil.treeMenu(allMenus,0L));
+    }
 
 
 }

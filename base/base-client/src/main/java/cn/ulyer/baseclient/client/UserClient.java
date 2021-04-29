@@ -1,7 +1,7 @@
 package cn.ulyer.baseclient.client;
 
 import cn.ulyer.baseclient.constants.BaseConstants;
-import cn.ulyer.baseclient.entity.BaseUser;
+import cn.ulyer.baseclient.dto.LoginUser;
 import cn.ulyer.common.utils.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public interface UserClient {
 
 
     @PostMapping("/baseUser/userLogin")
-    R<BaseUser> login(@RequestParam(value = "account") String account);
+    R<LoginUser> login(@RequestParam(value = "account") String account);
 
 
 

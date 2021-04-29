@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Data
-public class Oauth2UserDetails implements UserDetails {
+public class Oauth2User implements UserDetails {
 
     private Long id;
 

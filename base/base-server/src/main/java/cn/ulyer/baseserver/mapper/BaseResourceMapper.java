@@ -1,7 +1,12 @@
 package cn.ulyer.baseserver.mapper;
 
 import cn.ulyer.baseclient.entity.BaseResource;
+import cn.ulyer.baseclient.entity.BaseRole;
+import cn.ulyer.common.oauth.Oauth2Authority;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface BaseResourceMapper extends BaseMapper<BaseResource> {
 
+    List<Oauth2Authority> listResourcesByRoles(@Param("roles") List<BaseRole> roles);
 }

@@ -1,6 +1,7 @@
 package cn.ulyer.baseserver.service.service;
 
-import cn.ulyer.baseclient.entity.BaseUser;
+import cn.ulyer.baseclient.dto.LoginUser;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseUserService extends IService<BaseUser> {
+public interface BaseUserService extends IService<cn.ulyer.baseclient.entity.BaseUser> {
 
+    Page<cn.ulyer.baseclient.entity.BaseUser> pageUserByWrapper(Page<cn.ulyer.baseclient.entity.BaseUser> objectPage, cn.ulyer.baseclient.entity.BaseUser baseUser);
+
+    LoginUser login(String account);
 }

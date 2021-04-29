@@ -1,7 +1,7 @@
 package cn.ulyer.baseserver.service.service;
 
 import cn.ulyer.baseclient.entity.BaseMenu;
-import cn.ulyer.baseclient.vo.BaseMenuVo;
+import cn.ulyer.baseclient.vo.MenuVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -17,7 +17,9 @@ import java.util.List;
 public interface BaseMenuService extends IService<BaseMenu> {
 
 
-    List<BaseMenuVo> getMenuByUserId(Long userId);
+    List<MenuVo> listUserMenuByUserId(Long userId);
 
+
+    List<MenuVo> listMenuVo();
 
 }

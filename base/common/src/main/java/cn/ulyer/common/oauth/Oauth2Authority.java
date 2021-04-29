@@ -9,7 +9,6 @@ import org.springframework.util.AntPathMatcher;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
 public class Oauth2Authority implements GrantedAuthority {
 
 
@@ -18,6 +17,19 @@ public class Oauth2Authority implements GrantedAuthority {
     private String authority;
 
     private Date expireTime;
+
+    public Oauth2Authority(){}
+
+
+    public Oauth2Authority(String resourceId,String authority,Date expireTime){
+        this.resourceId = resourceId;
+        this.authority = authority;
+        this.expireTime = expireTime;
+    }
+
+    public Oauth2Authority(String roleValue){
+        this.authority = roleValue;
+    }
 
 
     @Override

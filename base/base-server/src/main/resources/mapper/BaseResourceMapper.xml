@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseResource">
         <id column="resourceId" property="resourceId" />
         <result column="path" property="path" />
-        <result column="auhtority" property="auhtority" />
+        <result column="authority" property="authority" />
         <result column="needAuth" property="needAuth" />
         <result column="isPublic" property="isPublic" />
         <result column="status" property="status" />
@@ -16,9 +16,28 @@
         <result column="updateTime" property="updateTime" />
     </resultMap>
 
+
+    <resultMap id="authorityMap" type="cn.ulyer.common.oauth.Oauth2Authority">
+            <result column="resourceId" property="resourceId"/>
+            <result column="authority" property="authority"/>
+        <result column="expireTime" property="expireTime"/>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        resourceId, path, auhtority, needAuth, isPublic, status, serviceId, resourceName, createTime, updateTime
+        resourceId, path, authority, needAuth, isPublic, status, serviceId, resourceName, createTime, updateTime
     </sql>
+    <select id="listResourcesByRoles" resultMap="authorityMap">
+        select resourceId,authority from base_resource
+        where resourceId in (
+            select resourceId from base_role_resource
+                where roleId in (
+                     <foreach collection="roles" item="role" separator=",">
+                            #{role.roleId,jdbcType=BIGINT}
+                      </foreach>
+                    )
+            )
+
+    </select>
 
 </mapper>

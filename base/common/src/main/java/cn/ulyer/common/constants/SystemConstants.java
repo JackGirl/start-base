@@ -9,4 +9,7 @@ public interface SystemConstants {
 
     Integer STATUS_VALID = 1;
 
+    String PAGE_NAME = "current";
+
+    String SIZE_PARAM = "pageSize";
 }

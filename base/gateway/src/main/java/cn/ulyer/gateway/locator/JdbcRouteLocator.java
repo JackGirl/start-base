@@ -1,10 +1,8 @@
 package cn.ulyer.gateway.locator;
 
-import cn.ulyer.baseclient.client.ResourceServerClient;
 import cn.ulyer.baseclient.entity.BaseResourceServer;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.event.RemoteRefreshRouteEvent;
-import cn.ulyer.common.utils.R;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

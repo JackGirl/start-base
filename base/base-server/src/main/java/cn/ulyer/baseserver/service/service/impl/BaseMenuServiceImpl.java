@@ -1,7 +1,7 @@
 package cn.ulyer.baseserver.service.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseMenu;
-import cn.ulyer.baseclient.vo.BaseMenuVo;
+import cn.ulyer.baseclient.vo.MenuVo;
 import cn.ulyer.baseserver.mapper.BaseMenuMapper;
 import cn.ulyer.baseserver.service.service.BaseMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,7 +27,12 @@ public class BaseMenuServiceImpl extends ServiceImpl<BaseMenuMapper, BaseMenu> i
 
 
     @Override
-    public List<BaseMenuVo> getMenuByUserId(Long userId) {
-        return baseMenuMapper.getMenuByUserId(userId);
+    public List<MenuVo> listUserMenuByUserId(Long userId) {
+        return baseMenuMapper.listUserMenuByUserId(userId);
+    }
+
+    @Override
+    public List<MenuVo> listMenuVo() {
+        return baseMenuMapper.listMenuVo();
     }
 }

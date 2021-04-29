@@ -19,5 +19,26 @@
     <sql id="Base_Column_List">
         actionId, actionName, actionValue, status, priority, remark, menuId, createTime, updateTime
     </sql>
+    <select id="listActionByRoles" resultType="cn.ulyer.baseclient.entity.BaseAction">
+        select  <include refid="Base_Column_List"></include>
+        from base_action
+        where status=1 and  menuId in(
+            select menuId
+            from base_menu where status=1 and menuId in (
+            select menuId from base_role_menu where roleId in(
+                <foreach collection="roles" item="role" separator=",">
+                     #{role.roleId,jdbcType=BIGINT}
+                 </foreach>
+                     )
+                )
+        )
+    </select>
+
+    <select id="listActionByMenuId" resultType="cn.ulyer.baseclient.vo.ActionVo">
+        select  <include refid="Base_Column_List"></include>
+        from base_action
+        where menuId = #{menuod,jdbcType=BIGINT}
+        and status=1
+    </select>
 
 </mapper>

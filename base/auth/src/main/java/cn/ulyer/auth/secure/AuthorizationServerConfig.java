@@ -54,13 +54,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AppClient appClient;
 
 
-    @Bean
-    @Primary
-    public PasswordEncoder passwordEncoder(){
-        return new Md5PasswordEncoder();
-    }
-
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.approvalStore(approvalStore())

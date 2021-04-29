@@ -2,13 +2,15 @@ package cn.ulyer.baseclient.entity;
 
 import cn.ulyer.common.model.AbstractBaseModel;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
+import java.util.List;
+
 
 /**
  * <p>
@@ -30,6 +32,7 @@ public class BaseUser extends AbstractBaseModel {
 
     private String account;
 
+    @JsonIgnore
     private String password;
 
     private String username;
@@ -48,5 +51,6 @@ public class BaseUser extends AbstractBaseModel {
 
     private Integer enable;
 
+    private String phone;
 
 }

@@ -64,6 +64,7 @@ public class GlobalExceptionHandler {
 
 
 
+
     /**
      * 其他异常
      *
@@ -74,8 +75,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({Exception.class})
     public static R exception(Exception ex, HttpServletRequest request, HttpServletResponse response) {
-        R r = R.fail().setMessage(ex.getMessage()).setRequestPath(request.getRequestURI()).setCode(ErrorCode.ERROR.getCode());
-        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        R r = resolveException(ex,request.getRequestURI());
+        response.setStatus(r.getHttpStatus().value());
         return r;
     }
 
@@ -85,77 +86,107 @@ public class GlobalExceptionHandler {
         ErrorCode code;
         String message = ex.getMessage();
         String className = ex.getClass().getName().substring(ex.getClass().getName().lastIndexOf(".")+1);
+        HttpStatus httpStatus ;
         switch (className){
             case "Oauth2AuthenticationException":
             case "AuthenticationException":
                 code = ErrorCode.UNAUTHORIZED;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case "NoSuchClientException":
             case"InvalidClientException":
                 code = ErrorCode.INVALID_CLIENT;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"UsernameNotFoundException":
                 code = ErrorCode.USERNAME_NOT_FOUND;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"InvalidGrantException":
                 code = ErrorCode.INVALID_GRANT;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case "BadCredentialsException":
                 code = ErrorCode.BAD_CREDENTIALS;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"AccountExpiredException":
                 code = ErrorCode.ACCOUNT_EXPIRED;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"LockedException":
                 code = ErrorCode.ACCOUNT_LOCKED;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"DisabledException":
                 code = ErrorCode.ACCOUNT_DISABLED;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"CredentialsExpiredException":
                 code = ErrorCode.CREDENTIALS_EXPIRED;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"UnauthorizedClientException":
                 code = ErrorCode.UNAUTHORIZED_CLIENT;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"InvalidScopeException":
                 code = ErrorCode.INVALID_SCOPE;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"InvalidTokenException":
                 code = ErrorCode.INVALID_TOKEN;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"RedirectMismatchException":
                 code = ErrorCode.REDIRECT_URI_MISMATCH;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"UnsupportedGrantTypeException":
                 code = ErrorCode.UNSUPPORTED_GRANT_TYPE;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"UnsupportedResponseTypeException":
                 code = ErrorCode.UNSUPPORTED_RESPONSE_TYPE;
+                httpStatus = HttpStatus.UNAUTHORIZED;
                 break;
             case"UserDeniedAuthorizationException":
                 code = ErrorCode.ACCESS_DENIED_AUTHORITY_EXPIRED;
+                httpStatus = HttpStatus.FORBIDDEN;
                 break;
             case"AccessDeniedException":
                 code = ErrorCode.ACCESS_DENIED;
+                httpStatus = HttpStatus.FORBIDDEN;
                 break;
             case"MissingServletRequestParameterException":
             case"MethodArgumentNotValidException":
             case"IllegalArgumentException":
                 code = ErrorCode.BAD_REQUEST;
+                httpStatus = HttpStatus.BAD_REQUEST;
                 break;
             case"NoHandlerFoundException":
                 code=ErrorCode.NOT_FOUND;
+                httpStatus = HttpStatus.NOT_FOUND;
                 break;
             case"HttpRequestMethodNotSupportedException":
             case"MethodNotAllowedException":
                 code=ErrorCode.METHOD_NOT_ALLOWED;
+                httpStatus = HttpStatus.METHOD_NOT_ALLOWED;
+                break;
+            case"ServiceUnavailableException":
+                code=ErrorCode.SERVICE_UNAVAILABLE;
+                httpStatus = HttpStatus.SERVICE_UNAVAILABLE;
+                break;
+            case"TimeoutException":
+                code=ErrorCode.GATEWAY_TIMEOUT;
+                httpStatus = HttpStatus.GATEWAY_TIMEOUT;
                 break;
             default:
                 code = ErrorCode.ERROR;
+                httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return R.fail(code).setMessage(message).setRequestPath(path);
+        return R.fail(code).setMessage(message).setRequestPath(path).setHttpStatus(httpStatus);
     }
 
 

@@ -24,4 +24,5 @@
         id, account, password, username, orgId, createTime, updateTime, remark, avatar, accountLocked, accountExpired, passwordExpired, enable
     </sql>
 
+
 </mapper>

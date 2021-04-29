@@ -7,11 +7,13 @@ import cn.ulyer.common.constants.ErrorCode;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.utils.R;
 import lombok.Data;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
@@ -47,8 +49,12 @@ public class LoginController {
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+
     /**
-     *  自定义token
+     *  自定义登录 token
+     *  主要是当前系统门户使用
+     *  手动封装usernamePasswordToken 提交给认证管理器走一遍认证
+     *  认证完毕根拿当前app信息组装token 返回
      */
     @PostMapping("/token")
     @ResponseBody

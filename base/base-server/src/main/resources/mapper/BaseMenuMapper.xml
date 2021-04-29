@@ -17,11 +17,27 @@
         <result column="redirect" property="redirect"/>
     </resultMap>
 
+    <resultMap id="menuVoActionMap" type="cn.ulyer.baseclient.vo.MenuVo">
+        <id column="menuId" property="menuId" />
+        <result column="parentId" property="parentId" />
+        <result column="menuName" property="menuName" />
+        <result column="path" property="path" />
+        <result column="status" property="status" />
+        <result column="priority" property="priority" />
+        <result column="icon" property="icon" />
+        <result column="target" property="target" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="redirect" property="redirect"/>
+        <collection property="actions" ofType="cn.ulyer.baseclient.vo.ActionVo" column="menuId"
+        select="cn.ulyer.baseserver.mapper.BaseActionMapper.listActionByMenuId"/>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         menuId, parentId, menuName, path, status, priority, icon, target, createTime, updateTime,component,redirect
     </sql>
-    <select id="getMenuByUserId" resultType="cn.ulyer.baseclient.vo.BaseMenuVo">
+    <select id="listUserMenuByUserId" resultType="cn.ulyer.baseclient.vo.MenuVo">
         select <include refid="Base_Column_List"/>
         from base_menu where status=1 and menuId in (
             select menuId from base_role_menu where roleId in(
@@ -29,5 +45,12 @@
              )
         )
     </select>
+    <select id="listMenuVo" resultMap="menuVoActionMap">
+        select <include refid="Base_Column_List"></include>
+        from base_menu where status=1
+        order by priority asc ,createTime desc
+    </select>
+
+
 
 </mapper>
