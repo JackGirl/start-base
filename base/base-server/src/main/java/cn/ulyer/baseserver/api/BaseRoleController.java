@@ -68,7 +68,7 @@ public class BaseRoleController {
      * 更新角色的菜单 和 action
      */
     @PreAuthorize("hasRole('"+RoleValue.SUPER_ADMIN+"')")
-    @PostMapping("/updateRolePermission")
+    @PostMapping("/updateRoleMenu")
     public R updateRolePermission(@RequestBody JSONObject jsonObject){
         Long roleId = jsonObject.getLong("roleId");
         Assert.notNull(roleId);

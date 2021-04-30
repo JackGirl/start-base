@@ -4,12 +4,15 @@ package cn.ulyer.api;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.ulyer.common.constants.ErrorCode;
+import cn.ulyer.common.constants.LoginType;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.utils.R;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,13 +23,11 @@ import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +60,18 @@ public class LoginController {
     @PostMapping("/token")
     @ResponseBody
     public R<OAuth2AccessToken> loginToken(@Valid  @RequestBody LoginModel loginModel){
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginModel.getAccount(),loginModel.getPassword());
+        LoginType loginType = LoginType.resolveType(loginModel.getLoginType());
+        Authentication authenticationToken = null;
+        switch (loginType){
+            case FORM:
+
+                 authenticationToken = new UsernamePasswordAuthenticationToken(loginModel.getAccount(),loginModel.getPassword());
+                 break;
+            case PHONE:
+            case OAUTH2:
+            case INVALID:
+            default:
+        }
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         if(authentication.isAuthenticated()){
             Map<String,String> requestParams = MapUtil.createMap(HashMap.class);
@@ -80,17 +92,40 @@ public class LoginController {
         return R.fail(ErrorCode.UNAUTHORIZED).setMessage("认证失败");
     }
 
+
+
+
+    @GetMapping("/getCode")
+    public R<String> sendPhoneCode(@RequestParam @Valid @Pattern(regexp = "^1[0-9]{2}\\d{4}\\d{4}$") String phone){
+
+        return R.success();
+    }
+
+
+
     @Data
     static class LoginModel{
 
-        @NotBlank(message = "账号不能为空")
         private String account;
 
-        @NotBlank(message = "密码不能为空")
         private String password;
+
+        @JsonProperty(defaultValue = "form")
+        private String loginType;
+
+        private String mobile;
+
+        private String captcha;
 
         public LoginModel(){}
 
+    }
+
+
+    public static void main(String[] args) {
+        String s = "23970282242";
+         s = s.replaceAll("^1[0-9]{2}\\d{4}\\d{4}$","");
+        System.out.println(s);
     }
 
 }

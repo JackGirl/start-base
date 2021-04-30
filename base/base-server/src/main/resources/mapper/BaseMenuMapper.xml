@@ -17,7 +17,7 @@
         <result column="redirect" property="redirect"/>
     </resultMap>
 
-    <resultMap id="menuVoActionMap" type="cn.ulyer.baseclient.vo.MenuVo">
+    <resultMap id="menuVoMap" type="cn.ulyer.baseclient.vo.MenuVo">
         <id column="menuId" property="menuId" />
         <result column="parentId" property="parentId" />
         <result column="menuName" property="menuName" />
@@ -29,8 +29,6 @@
         <result column="createTime" property="createTime" />
         <result column="updateTime" property="updateTime" />
         <result column="redirect" property="redirect"/>
-        <collection property="actions" ofType="cn.ulyer.baseclient.vo.ActionVo" column="menuId"
-        select="cn.ulyer.baseserver.mapper.BaseActionMapper.listActionByMenuId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -45,7 +43,7 @@
              )
         )
     </select>
-    <select id="listMenuVo" resultMap="menuVoActionMap">
+    <select id="listMenuVo" resultMap="menuVoMap">
         select <include refid="Base_Column_List"></include>
         from base_menu where status=1
         order by priority asc ,createTime desc
