@@ -11,76 +11,51 @@
  Target Server Version : 50713
  File Encoding         : 65001
 
- Date: 25/04/2021 10:00:30
+ Date: 30/04/2021 17:42:35
 */
-
-create database code-package;
-use code-package;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for base_action
--- ----------------------------
-DROP TABLE IF EXISTS `base_action`;
-CREATE TABLE `base_action`  (
-  `actionId` bigint(20) NOT NULL,
-  `actionName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `actionValue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `priority` int(4) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `menuId` bigint(20) NOT NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`actionId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for base_action_resource
--- ----------------------------
-DROP TABLE IF EXISTS `base_action_resource`;
-CREATE TABLE `base_action_resource`  (
-  `actionId` bigint(20) NOT NULL,
-  `resourceId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`actionId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for base_app
 -- ----------------------------
 DROP TABLE IF EXISTS `base_app`;
 CREATE TABLE `base_app`  (
-  `appId` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `appName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `appSecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `appType` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `appIcon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `redirectUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `grantTypes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `tokenValidSeconds` int(10) NULL DEFAULT NULL,
-  `refreshTokenValidSeconds` int(10) NULL DEFAULT NULL,
-  `autoApproval` tinyint(1) NULL DEFAULT NULL,
-  `jsonInformation` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`appId`) USING BTREE
+                             `appId` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                             `appName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `appSecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `appType` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `appIcon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `redirectUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `grantTypes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `tokenValidSeconds` int(10) NULL DEFAULT NULL,
+                             `refreshTokenValidSeconds` int(10) NULL DEFAULT NULL,
+                             `autoApproval` tinyint(1) NULL DEFAULT NULL,
+                             `jsonInformation` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                             `createTime` timestamp(0) NULL DEFAULT NULL,
+                             `updateTime` timestamp(0) NULL DEFAULT NULL,
+                             `internal` tinyint(255) NULL DEFAULT 0 COMMENT '是否内部应用 0否',
+                             `status` tinyint(255) NULL DEFAULT NULL COMMENT '是否有效0无效',
+                             PRIMARY KEY (`appId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of base_app
+-- ----------------------------
+INSERT INTO `base_app` VALUES ('121321412', '内部admin', '$2a$2a$2a$10$pGwGuuLhTAqWT.RA3qvzW.MehPYhafgND7EWNrj7cNNA.B9S5TwzO', 'PC', NULL, 'http://localhost:8188', 'read', 'authorization_code,refresh_token,client_credentials', 7200, 28800, 1, NULL, '2021-04-26 16:29:45', NULL, 1, 1);
 
 -- ----------------------------
 -- Table structure for base_app_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `base_app_resource`;
 CREATE TABLE `base_app_resource`  (
-  `resourceId` bigint(20) NOT NULL,
-  `appId` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `expireTime` datetime(0) NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL
+                                      `resourceId` bigint(20) NOT NULL,
+                                      `appId` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                                      `expireTime` datetime(0) NULL,
+                                      `createTime` timestamp(0) NULL DEFAULT NULL,
+                                      `updateTime` timestamp(0) NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -88,45 +63,47 @@ CREATE TABLE `base_app_resource`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `base_menu`;
 CREATE TABLE `base_menu`  (
-  `menuId` bigint(20) NOT NULL,
-  `parentId` bigint(20) NOT NULL DEFAULT 0,
-  `menuName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `status` tinyint(255) NULL DEFAULT NULL,
-  `priority` int(4) NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `target` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL,
-  `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`menuId`) USING BTREE
+                              `menuId` bigint(20) NOT NULL,
+                              `parentId` bigint(20) NOT NULL DEFAULT 0,
+                              `menuName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                              `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `status` tinyint(255) NULL DEFAULT NULL,
+                              `priority` int(4) NULL DEFAULT NULL,
+                              `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `target` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `createTime` timestamp(0) NULL DEFAULT NULL,
+                              `updateTime` timestamp(0) NULL DEFAULT NULL,
+                              `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `redirect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父模板空组件面包屑有问题',
+                              PRIMARY KEY (`menuId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_menu
 -- ----------------------------
-INSERT INTO `base_menu` VALUES (416283369090383872, 0, '系统管理', '/system', 1, 1, NULL, NULL, '2021-04-21 15:35:43', '2021-04-21 15:35:57', '');
-INSERT INTO `base_menu` VALUES (416283369090383873, 416283369090383872, '角色管理', '/system/role', 1, 1, NULL, '', '2021-04-21 15:39:01', NULL, 'system/role/index');
-INSERT INTO `base_menu` VALUES (416283369090383874, 416283369090383872, '用户管理', '/system/user', 1, 2, NULL, NULL, '2021-04-21 15:39:55', NULL, 'system/user/index');
-INSERT INTO `base_menu` VALUES (416283369090383876, 416283369090383872, '菜单管理', '/system/menu', 1, 3, NULL, NULL, '2021-04-21 15:41:35', NULL, 'system/menu/index');
-INSERT INTO `base_menu` VALUES (416283369090383877, 416283369090383872, '应用管理', '/system/application', 1, 4, '', '', '2021-04-25 09:55:18', NULL, 'system/applicaton/index');
+INSERT INTO `base_menu` VALUES (416283369090383872, 0, '系统管理', '/system', 1, 1, 'setting', NULL, '2021-04-21 15:35:43', '2021-04-21 15:35:57', '', '/system/user');
+INSERT INTO `base_menu` VALUES (416283369090383873, 416283369090383872, '角色管理', '/system/role', 1, 1, 'user-add', '', '2021-04-21 15:39:01', NULL, 'system/role/index', NULL);
+INSERT INTO `base_menu` VALUES (416283369090383874, 416283369090383872, '用户管理', '/system/user', 1, 2, 'user', NULL, '2021-04-21 15:39:55', NULL, 'system/user/index', NULL);
+INSERT INTO `base_menu` VALUES (416283369090383876, 416283369090383872, '菜单管理', '/system/menu', 1, 3, 'table', NULL, '2021-04-21 15:41:35', NULL, 'system/menu/index', NULL);
+INSERT INTO `base_menu` VALUES (416283369090383877, 416283369090383872, '应用管理', '/system/application', 1, 4, 'windows', '', '2021-04-25 09:55:18', NULL, 'system/application/index', NULL);
+INSERT INTO `base_menu` VALUES (416283369090383878, 416283369090383872, 'API资源管理', '/system/resource', 1, 5, 'global', NULL, '2021-04-30 15:58:59', NULL, 'system/resource/index', NULL);
 
 -- ----------------------------
 -- Table structure for base_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `base_resource`;
 CREATE TABLE `base_resource`  (
-  `resourceId` bigint(20) NOT NULL,
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `needAuth` tinyint(1) NULL DEFAULT NULL,
-  `isPublic` tinyint(1) NULL DEFAULT NULL,
-  `status` tinyint(255) NULL DEFAULT NULL,
-  `serviceId` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `resourceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`resourceId`) USING BTREE
+                                  `resourceId` bigint(20) NOT NULL,
+                                  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                                  `authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                  `needAuth` tinyint(1) NULL DEFAULT NULL,
+                                  `isPublic` tinyint(1) NULL DEFAULT NULL,
+                                  `status` tinyint(255) NULL DEFAULT NULL,
+                                  `serviceId` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                  `resourceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                                  `createTime` timestamp(0) NULL DEFAULT NULL,
+                                  `updateTime` timestamp(0) NULL DEFAULT NULL,
+                                  PRIMARY KEY (`resourceId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -134,13 +111,13 @@ CREATE TABLE `base_resource`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `base_resource_server`;
 CREATE TABLE `base_resource_server`  (
-  `serviceId` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `serviceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `createTime` timestamp(0) NULL DEFAULT NULL,
-  `updateTime` timestamp(0) NULL DEFAULT NULL,
-  `routerMatch` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `status` tinyint(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`serviceId`) USING BTREE
+                                         `serviceId` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                                         `serviceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                                         `createTime` timestamp(0) NULL DEFAULT NULL,
+                                         `updateTime` timestamp(0) NULL DEFAULT NULL,
+                                         `routerMatch` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                         `status` tinyint(255) NULL DEFAULT NULL,
+                                         PRIMARY KEY (`serviceId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -154,28 +131,30 @@ INSERT INTO `base_resource_server` VALUES ('base-server', '基础资源服务', 
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role`;
 CREATE TABLE `base_role`  (
-  `roleId` bigint(20) NOT NULL,
-  `roleName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `roleValue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `updateTime` timestamp(0) NOT NULL,
-  PRIMARY KEY (`roleId`) USING BTREE
+                              `roleId` bigint(20) NOT NULL,
+                              `roleName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `roleValue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                              `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              PRIMARY KEY (`roleId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_role
 -- ----------------------------
-INSERT INTO `base_role` VALUES (1, '超级管理员', 'ROLE_SUPER_ADMIN', '2021-04-21 15:44:27', '0000-00-00 00:00:00');
+INSERT INTO `base_role` VALUES (1, '超级管理员', 'ROLE_SUPER_ADMIN', '2021-04-29 09:42:34', '2021-04-28 15:34:18');
+INSERT INTO `base_role` VALUES (2, '管理员', 'ROLE_ADMIN', '2021-04-29 13:43:15', '2021-04-29 13:43:13');
+INSERT INTO `base_role` VALUES (1388027923394555906, '用户', 'ROLE_USER', '2021-04-30 15:48:57', '2021-04-30 15:48:57');
 
 -- ----------------------------
 -- Table structure for base_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role_menu`;
 CREATE TABLE `base_role_menu`  (
-  `roleId` bigint(20) NULL DEFAULT NULL,
-  `menuId` bigint(20) NULL DEFAULT NULL,
-  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `updateTime` timestamp(0) NOT NULL
+                                   `roleId` bigint(20) NOT NULL,
+                                   `menuId` bigint(20) NOT NULL,
+                                   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                   `updateTime` timestamp(0) NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -185,16 +164,19 @@ INSERT INTO `base_role_menu` VALUES (1, 416283369090383872, '2021-04-21 15:45:03
 INSERT INTO `base_role_menu` VALUES (1, 416283369090383873, '2021-04-21 15:45:09', '0000-00-00 00:00:00');
 INSERT INTO `base_role_menu` VALUES (1, 416283369090383874, '2021-04-21 15:45:14', '0000-00-00 00:00:00');
 INSERT INTO `base_role_menu` VALUES (1, 416283369090383876, '2021-04-21 15:45:17', '0000-00-00 00:00:00');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383877, '2021-04-25 16:37:56', '0000-00-00 00:00:00');
+INSERT INTO `base_role_menu` VALUES (1388027923394555906, 416283369090383874, '2021-04-30 15:48:57', '2021-04-30 15:48:57');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383878, '2021-04-30 16:00:03', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for base_role_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role_resource`;
 CREATE TABLE `base_role_resource`  (
-  `resourceId` bigint(20) NULL DEFAULT NULL,
-  `roleId` bigint(20) NULL DEFAULT NULL,
-  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `updateTime` timestamp(0) NOT NULL
+                                       `resourceId` bigint(20) NOT NULL,
+                                       `roleId` bigint(20) NOT NULL,
+                                       `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                       `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -202,56 +184,60 @@ CREATE TABLE `base_role_resource`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role_user`;
 CREATE TABLE `base_role_user`  (
-  `roleId` bigint(20) NOT NULL,
-  `userId` bigint(20) NOT NULL,
-  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `updateTime` timestamp(0) NOT NULL
+                                   `roleId` bigint(20) NOT NULL,
+                                   `userId` bigint(20) NOT NULL,
+                                   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                                   `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_role_user
 -- ----------------------------
-INSERT INTO `base_role_user` VALUES (1, 321312, '2021-04-21 15:44:38', '0000-00-00 00:00:00');
+INSERT INTO `base_role_user` VALUES (1, 321312, '2021-04-28 15:34:03', '2021-04-28 15:34:01');
+INSERT INTO `base_role_user` VALUES (2, 321312, '2021-04-29 13:49:46', '2021-04-29 13:49:46');
 
 -- ----------------------------
 -- Table structure for base_user
 -- ----------------------------
 DROP TABLE IF EXISTS `base_user`;
 CREATE TABLE `base_user`  (
-  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `orgId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-  `updateTime` timestamp(0) NOT NULL,
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `accountLocked` tinyint(255) NULL DEFAULT 0,
-  `accountExpired` tinyint(255) NULL DEFAULT 0,
-  `passwordExpired` tinyint(255) NULL DEFAULT 0,
-  `enable` tinyint(255) NULL DEFAULT 1,
-  PRIMARY KEY (`id`) USING BTREE
+                              `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                              `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                              `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `orgId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+                              `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              `accountLocked` tinyint(255) NULL DEFAULT 0,
+                              `accountExpired` tinyint(255) NULL DEFAULT 0,
+                              `passwordExpired` tinyint(255) NULL DEFAULT 0,
+                              `enable` tinyint(255) NULL DEFAULT 1,
+                              `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                              PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_user
 -- ----------------------------
-INSERT INTO `base_user` VALUES ('321312', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'ulyer', '1', '2021-04-21 17:39:28', '2021-04-16 14:59:48', NULL, NULL, 0, 0, 0, 1);
+INSERT INTO `base_user` VALUES ('1387646772607717378', 'system', '$2a$10$2E.l4c3fjy2tfoU6lJQTe.SQHf/uflw0bgcONOMFZJXt23Ly4Ahjm', 'system', NULL, '2021-04-30 13:59:03', '2021-04-29 13:55:46', NULL, NULL, 0, 0, 0, 1, NULL);
+INSERT INTO `base_user` VALUES ('1387647855082082306', 'test', '$2a$10$zSE1pIPnfONv66b5tRj61eqByct61kHh1VlXRUwWAsBTTVN/y/BvK', 'test', NULL, '2021-04-30 13:59:05', '2021-04-29 14:00:04', NULL, NULL, 0, 0, 0, 1, NULL);
+INSERT INTO `base_user` VALUES ('321312', 'admin', '$2a$10$45852ceeqBCsLk5odu73v.fp/h0rJLqx9giTGAfNKmSLbVO8JwVMS', 'ulyer', '1', '2021-04-29 11:08:19', '2021-04-16 14:59:48', NULL, NULL, 0, 0, 0, 1, NULL);
 
 -- ----------------------------
 -- Table structure for oauth_access_token
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_access_token`;
 CREATE TABLE `oauth_access_token`  (
-  `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `token` blob NULL,
-  `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `authentication` blob NULL,
-  `refresh_token` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`authentication_id`) USING BTREE
+                                       `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       `token` blob NULL,
+                                       `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                                       `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       `authentication` blob NULL,
+                                       `refresh_token` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       PRIMARY KEY (`authentication_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2访问令牌' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -259,36 +245,36 @@ CREATE TABLE `oauth_access_token`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_approvals`;
 CREATE TABLE `oauth_approvals`  (
-  `userId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `clientId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `scope` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `expiresAt` datetime(0) NULL DEFAULT NULL,
-  `lastModifiedAt` datetime(0) NULL DEFAULT NULL
+                                    `userId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                    `clientId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                    `scope` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                    `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                    `expiresAt` datetime(0) NULL DEFAULT NULL,
+                                    `lastModifiedAt` datetime(0) NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2已授权客户端' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of oauth_approvals
 -- ----------------------------
-INSERT INTO `oauth_approvals` VALUES ('admin', '121321412', 'read', 'APPROVED', '2021-05-07 17:27:17', '2021-04-07 17:27:17');
+INSERT INTO `oauth_approvals` VALUES ('admin', '121321412', 'read', 'APPROVED', '2021-05-29 11:59:56', '2021-04-29 11:59:56');
 
 -- ----------------------------
 -- Table structure for oauth_client_details
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details`  (
-  `client_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `client_secret` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `resource_ids` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `scope` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `authorized_grant_types` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `web_server_redirect_uri` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `authorities` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `access_token_validity` int(11) NULL DEFAULT NULL,
-  `refresh_token_validity` int(11) NULL DEFAULT NULL,
-  `additional_information` varchar(4096) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `autoapprove` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`client_id`) USING BTREE
+                                         `client_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                                         `client_secret` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                                         `resource_ids` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         `scope` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         `authorized_grant_types` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         `web_server_redirect_uri` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         `authorities` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         `access_token_validity` int(11) NULL DEFAULT NULL,
+                                         `refresh_token_validity` int(11) NULL DEFAULT NULL,
+                                         `additional_information` varchar(4096) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         `autoapprove` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                         PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2客户端信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -301,12 +287,12 @@ INSERT INTO `oauth_client_details` VALUES ('121321412', 'e10adc3949ba59abbe56e05
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_token`;
 CREATE TABLE `oauth_client_token`  (
-  `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `token` blob NULL,
-  `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`authentication_id`) USING BTREE
+                                       `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       `token` blob NULL,
+                                       `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                                       `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                       PRIMARY KEY (`authentication_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2客户端令牌' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -314,8 +300,8 @@ CREATE TABLE `oauth_client_token`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_code`;
 CREATE TABLE `oauth_code`  (
-  `code` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `authentication` blob NULL
+                               `code` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                               `authentication` blob NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2授权码' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -327,15 +313,16 @@ INSERT INTO `oauth_code` VALUES ('WQ0I67', 0xACED0005737200416F72672E737072696E6
 INSERT INTO `oauth_code` VALUES ('FojmyM', 0xACED0005737200416F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F417574683241757468656E7469636174696F6EBD400B02166252130200024C000D73746F7265645265717565737474003C4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F4F4175746832526571756573743B4C00127573657241757468656E7469636174696F6E7400324C6F72672F737072696E676672616D65776F726B2F73656375726974792F636F72652F41757468656E7469636174696F6E3B787200476F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E416273747261637441757468656E7469636174696F6E546F6B656ED3AA287E6E47640E0200035A000D61757468656E746963617465644C000B617574686F7269746965737400164C6A6176612F7574696C2F436F6C6C656374696F6E3B4C000764657461696C737400124C6A6176612F6C616E672F4F626A6563743B787000737200266A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654C697374FC0F2531B5EC8E100200014C00046C6973747400104C6A6176612F7574696C2F4C6973743B7872002C6A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65436F6C6C656374696F6E19420080CB5EF71E0200014C00016371007E00047870737200136A6176612E7574696C2E41727261794C6973747881D21D99C7619D03000149000473697A657870000000007704000000007871007E000C707372003A6F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F41757468325265717565737400000000000000010200075A0008617070726F7665644C000B617574686F72697469657371007E00044C000A657874656E73696F6E7374000F4C6A6176612F7574696C2F4D61703B4C000B72656469726563745572697400124C6A6176612F6C616E672F537472696E673B4C00077265667265736874003B4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F546F6B656E526571756573743B4C000B7265736F7572636549647374000F4C6A6176612F7574696C2F5365743B4C000D726573706F6E7365547970657371007E0011787200386F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E426173655265717565737436287A3EA37169BD0200034C0008636C69656E74496471007E000F4C001172657175657374506172616D657465727371007E000E4C000573636F706571007E00117870740009313231333231343132737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654D6170F1A5A8FE74F507420200014C00016D71007E000E7870737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000674000A6772616E745F74797065740012616875746F72697A6174696F6E5F636F646574000573636F70657400047265616474000D726573706F6E73655F74797065740004636F646574000D636C69656E745F73656372657474000631323334353674000C72656469726563745F757269740015687474703A2F2F6C6F63616C686F73743A38313838740009636C69656E745F696471007E001478737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65536574801D92D18F9B80550200007871007E0009737200176A6176612E7574696C2E4C696E6B656448617368536574D86CD75A95DD2A1E020000787200116A6176612E7574696C2E48617368536574BA44859596B8B7340300007870770C000000103F4000000000000171007E001C78017371007E0027770C000000103F40000000000000787371007E00173F400000000000007708000000100000000078740015687474703A2F2F6C6F63616C686F73743A38313838707371007E0027770C000000103F40000000000000787371007E0027770C000000103F4000000000000171007E001E787372004F6F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E557365726E616D6550617373776F726441757468656E7469636174696F6E546F6B656E00000000000002120200024C000B63726564656E7469616C7371007E00054C00097072696E636970616C71007E00057871007E0003017372001F6A6176612E7574696C2E436F6C6C656374696F6E7324456D7074794C6973747AB817B43CA79EDE0200007870737200486F72672E737072696E676672616D65776F726B2E73656375726974792E7765622E61757468656E7469636174696F6E2E57656241757468656E7469636174696F6E44657461696C7300000000000002120200024C000D72656D6F74654164647265737371007E000F4C000973657373696F6E496471007E000F787074000F303A303A303A303A303A303A303A3174002046433446334430364233423032414532414235363441443339414337393436337073720027636E2E756C7965722E617574682E7365637572652E64657461696C732E55736572456E74697479146BB3281839DD490200054C0002696471007E000F4C00046E616D6571007E000F4C00056F7267496471007E000F4C000870617373776F726471007E000F4C0008757365726E616D6571007E000F7870740006333231333132740005756C7965727400013174003C24326124313024694C2F46767A526855354D75685749684F626A4C4F2E6A4C4356794C72765239734568334550535370726F382E6543534C646B6F2E74000561646D696E);
 INSERT INTO `oauth_code` VALUES ('foifYI', 0xACED0005737200416F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F417574683241757468656E7469636174696F6EBD400B02166252130200024C000D73746F7265645265717565737474003C4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F4F4175746832526571756573743B4C00127573657241757468656E7469636174696F6E7400324C6F72672F737072696E676672616D65776F726B2F73656375726974792F636F72652F41757468656E7469636174696F6E3B787200476F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E416273747261637441757468656E7469636174696F6E546F6B656ED3AA287E6E47640E0200035A000D61757468656E746963617465644C000B617574686F7269746965737400164C6A6176612F7574696C2F436F6C6C656374696F6E3B4C000764657461696C737400124C6A6176612F6C616E672F4F626A6563743B787000737200266A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654C697374FC0F2531B5EC8E100200014C00046C6973747400104C6A6176612F7574696C2F4C6973743B7872002C6A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65436F6C6C656374696F6E19420080CB5EF71E0200014C00016371007E00047870737200136A6176612E7574696C2E41727261794C6973747881D21D99C7619D03000149000473697A657870000000007704000000007871007E000C707372003A6F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F41757468325265717565737400000000000000010200075A0008617070726F7665644C000B617574686F72697469657371007E00044C000A657874656E73696F6E7374000F4C6A6176612F7574696C2F4D61703B4C000B72656469726563745572697400124C6A6176612F6C616E672F537472696E673B4C00077265667265736874003B4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F546F6B656E526571756573743B4C000B7265736F7572636549647374000F4C6A6176612F7574696C2F5365743B4C000D726573706F6E7365547970657371007E0011787200386F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E426173655265717565737436287A3EA37169BD0200034C0008636C69656E74496471007E000F4C001172657175657374506172616D657465727371007E000E4C000573636F706571007E00117870740009313231333231343132737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654D6170F1A5A8FE74F507420200014C00016D71007E000E7870737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000674000A6772616E745F74797065740012616875746F72697A6174696F6E5F636F646574000573636F70657400047265616474000D726573706F6E73655F74797065740004636F646574000D636C69656E745F73656372657474000631323334353674000C72656469726563745F757269740015687474703A2F2F6C6F63616C686F73743A38313838740009636C69656E745F696471007E001478737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65536574801D92D18F9B80550200007871007E0009737200176A6176612E7574696C2E4C696E6B656448617368536574D86CD75A95DD2A1E020000787200116A6176612E7574696C2E48617368536574BA44859596B8B7340300007870770C000000103F400000000000017400047265616478017371007E0027770C000000103F40000000000000787371007E00173F400000000000007708000000100000000078740015687474703A2F2F6C6F63616C686F73743A38313838707371007E0027770C000000103F40000000000000787371007E0027770C000000103F4000000000000171007E001E787372004F6F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E557365726E616D6550617373776F726441757468656E7469636174696F6E546F6B656E00000000000002120200024C000B63726564656E7469616C7371007E00054C00097072696E636970616C71007E00057871007E0003017372001F6A6176612E7574696C2E436F6C6C656374696F6E7324456D7074794C6973747AB817B43CA79EDE0200007870737200486F72672E737072696E676672616D65776F726B2E73656375726974792E7765622E61757468656E7469636174696F6E2E57656241757468656E7469636174696F6E44657461696C7300000000000002120200024C000D72656D6F74654164647265737371007E000F4C000973657373696F6E496471007E000F787074000F303A303A303A303A303A303A303A3174002046323036453638363641374338334437374645423045303639363643303146467073720027636E2E756C7965722E617574682E7365637572652E64657461696C732E55736572456E74697479146BB3281839DD490200054C0002696471007E000F4C00046E616D6571007E000F4C00056F7267496471007E000F4C000870617373776F726471007E000F4C0008757365726E616D6571007E000F7870740006333231333132740005756C7965727400013174003C24326124313024694C2F46767A526855354D75685749684F626A4C4F2E6A4C4356794C72765239734568334550535370726F382E6543534C646B6F2E74000561646D696E);
 INSERT INTO `oauth_code` VALUES ('u5Iey2', 0xACED0005737200416F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F417574683241757468656E7469636174696F6EBD400B02166252130200024C000D73746F7265645265717565737474003C4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F4F4175746832526571756573743B4C00127573657241757468656E7469636174696F6E7400324C6F72672F737072696E676672616D65776F726B2F73656375726974792F636F72652F41757468656E7469636174696F6E3B787200476F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E416273747261637441757468656E7469636174696F6E546F6B656ED3AA287E6E47640E0200035A000D61757468656E746963617465644C000B617574686F7269746965737400164C6A6176612F7574696C2F436F6C6C656374696F6E3B4C000764657461696C737400124C6A6176612F6C616E672F4F626A6563743B787000737200266A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654C697374FC0F2531B5EC8E100200014C00046C6973747400104C6A6176612F7574696C2F4C6973743B7872002C6A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65436F6C6C656374696F6E19420080CB5EF71E0200014C00016371007E00047870737200136A6176612E7574696C2E41727261794C6973747881D21D99C7619D03000149000473697A657870000000007704000000007871007E000C707372003A6F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F41757468325265717565737400000000000000010200075A0008617070726F7665644C000B617574686F72697469657371007E00044C000A657874656E73696F6E7374000F4C6A6176612F7574696C2F4D61703B4C000B72656469726563745572697400124C6A6176612F6C616E672F537472696E673B4C00077265667265736874003B4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F546F6B656E526571756573743B4C000B7265736F7572636549647374000F4C6A6176612F7574696C2F5365743B4C000D726573706F6E7365547970657371007E0011787200386F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E426173655265717565737436287A3EA37169BD0200034C0008636C69656E74496471007E000F4C001172657175657374506172616D657465727371007E000E4C000573636F706571007E00117870740009313231333231343132737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654D6170F1A5A8FE74F507420200014C00016D71007E000E7870737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000674000A6772616E745F74797065740012616875746F72697A6174696F6E5F636F646574000573636F70657400047265616474000D726573706F6E73655F74797065740004636F646574000D636C69656E745F73656372657474000631323334353674000C72656469726563745F757269740015687474703A2F2F6C6F63616C686F73743A38313838740009636C69656E745F696471007E001478737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65536574801D92D18F9B80550200007871007E0009737200176A6176612E7574696C2E4C696E6B656448617368536574D86CD75A95DD2A1E020000787200116A6176612E7574696C2E48617368536574BA44859596B8B7340300007870770C000000103F400000000000017400047265616478017371007E0027770C000000103F40000000000000787371007E00173F400000000000007708000000100000000078740015687474703A2F2F6C6F63616C686F73743A38313838707371007E0027770C000000103F40000000000000787371007E0027770C000000103F4000000000000171007E001E787372004F6F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E557365726E616D6550617373776F726441757468656E7469636174696F6E546F6B656E00000000000002120200024C000B63726564656E7469616C7371007E00054C00097072696E636970616C71007E00057871007E0003017372001F6A6176612E7574696C2E436F6C6C656374696F6E7324456D7074794C6973747AB817B43CA79EDE0200007870737200486F72672E737072696E676672616D65776F726B2E73656375726974792E7765622E61757468656E7469636174696F6E2E57656241757468656E7469636174696F6E44657461696C7300000000000002120200024C000D72656D6F74654164647265737371007E000F4C000973657373696F6E496471007E000F787074000F303A303A303A303A303A303A303A3174002037334244383631323937443241374643374430363233464532444530363646467073720027636E2E756C7965722E636F6D6D6F6E2E6F617574682E4F61757468325573657244657461696C73F12C4F292308E2E402000E4C00076163636F756E7471007E000F4C000E6163636F756E74457870697265647400134C6A6176612F6C616E672F496E74656765723B4C000D6163636F756E744C6F636B656471007E00384C000B617574686F72697469657371007E00114C000661766174617271007E000F4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C0006656E61626C6571007E00384C0002696471007E000F4C00056F7267496471007E000F4C000870617373776F726471007E000F4C000F70617373776F72644578706972656471007E00384C000672656D61726B71007E000F4C000A75706461746554696D6571007E00394C0008757365726E616D6571007E000F787074000561646D696E737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000071007E003E70707372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000176A2FEFAA0787371007E003C000000017400063332313331327400013174003C24326124313024694C2F46767A526855354D75685749684F626A4C4F2E6A4C4356794C72765239734568334550535370726F382E6543534C646B6F2E71007E003E707371007E003F770800000176A2FEFAA078740005756C796572);
+INSERT INTO `oauth_code` VALUES ('eCaJto', 0xACED0005737200416F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F417574683241757468656E7469636174696F6EBD400B02166252130200024C000D73746F7265645265717565737474003C4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F4F4175746832526571756573743B4C00127573657241757468656E7469636174696F6E7400324C6F72672F737072696E676672616D65776F726B2F73656375726974792F636F72652F41757468656E7469636174696F6E3B787200476F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E416273747261637441757468656E7469636174696F6E546F6B656ED3AA287E6E47640E0200035A000D61757468656E746963617465644C000B617574686F7269746965737400164C6A6176612F7574696C2F436F6C6C656374696F6E3B4C000764657461696C737400124C6A6176612F6C616E672F4F626A6563743B787000737200266A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654C697374FC0F2531B5EC8E100200014C00046C6973747400104C6A6176612F7574696C2F4C6973743B7872002C6A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65436F6C6C656374696F6E19420080CB5EF71E0200014C00016371007E00047870737200136A6176612E7574696C2E41727261794C6973747881D21D99C7619D03000149000473697A6578700000000177040000000173720025636E2E756C7965722E636F6D6D6F6E2E6F617574682E4F6175746832417574686F726974799A8406A4526A1DF50200034C0009617574686F726974797400124C6A6176612F6C616E672F537472696E673B4C000A65787069726554696D657400104C6A6176612F7574696C2F446174653B4C000A7265736F75726365496471007E000E7870740010524F4C455F53555045525F41444D494E70707871007E000C707372003A6F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E4F41757468325265717565737400000000000000010200075A0008617070726F7665644C000B617574686F72697469657371007E00044C000A657874656E73696F6E7374000F4C6A6176612F7574696C2F4D61703B4C000B726564697265637455726971007E000E4C00077265667265736874003B4C6F72672F737072696E676672616D65776F726B2F73656375726974792F6F61757468322F70726F76696465722F546F6B656E526571756573743B4C000B7265736F7572636549647374000F4C6A6176612F7574696C2F5365743B4C000D726573706F6E7365547970657371007E0015787200386F72672E737072696E676672616D65776F726B2E73656375726974792E6F61757468322E70726F76696465722E426173655265717565737436287A3EA37169BD0200034C0008636C69656E74496471007E000E4C001172657175657374506172616D657465727371007E00134C000573636F706571007E00157870740009313231333231343132737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C654D6170F1A5A8FE74F507420200014C00016D71007E00137870737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F400000000000067708000000080000000574000D726573706F6E73655F74797065740004636F646574000D636C69656E745F73656372657474000631323334353674000A6772616E745F74797065740012616875746F72697A6174696F6E5F636F6465740009636C69656E745F696471007E001874000573636F70657400047265616478737200256A6176612E7574696C2E436F6C6C656374696F6E7324556E6D6F6469666961626C65536574801D92D18F9B80550200007871007E0009737200176A6176612E7574696C2E4C696E6B656448617368536574D86CD75A95DD2A1E020000787200116A6176612E7574696C2E48617368536574BA44859596B8B7340300007870770C000000103F4000000000000171007E002578017371007E0029770C000000103F40000000000000787371007E001B3F400000000000007708000000100000000078740015687474703A2F2F6C6F63616C686F73743A38313838707371007E0029770C000000103F40000000000000787371007E0029770C000000103F4000000000000171007E001E787372004F6F72672E737072696E676672616D65776F726B2E73656375726974792E61757468656E7469636174696F6E2E557365726E616D6550617373776F726441757468656E7469636174696F6E546F6B656E00000000000002120200024C000B63726564656E7469616C7371007E00054C00097072696E636970616C71007E00057871007E0003017371007E00077371007E000B0000000177040000000171007E00107871007E0033737200486F72672E737072696E676672616D65776F726B2E73656375726974792E7765622E61757468656E7469636174696F6E2E57656241757468656E7469636174696F6E44657461696C7300000000000002120200024C000D72656D6F74654164647265737371007E000E4C000973657373696F6E496471007E000E787074000F303A303A303A303A303A303A303A3174002035423545313037423446374545383146354135394234423630414134334638427073720020636E2E756C7965722E636F6D6D6F6E2E6F617574682E4F617574683255736572EE152AEDF7634D6402000E4C00076163636F756E7471007E000E4C000E6163636F756E74457870697265647400134C6A6176612F6C616E672F496E74656765723B4C000D6163636F756E744C6F636B656471007E00394C000B617574686F72697469657371007E00154C000661766174617271007E000E4C000A63726561746554696D6571007E000F4C0006656E61626C6571007E00394C000269647400104C6A6176612F6C616E672F4C6F6E673B4C00056F7267496471007E000E4C000870617373776F726471007E000E4C000F70617373776F72644578706972656471007E00394C000672656D61726B71007E000E4C000A75706461746554696D6571007E000F4C0008757365726E616D6571007E000E787074000561646D696E737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000071007E003F7371007E0029770C000000103F4000000000000171007E001078707372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000176A22B0CB8787371007E003D000000017372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C75657871007E003E000000000004E7207400013174003C243261243130243435383532636565714243734C6B356F64753733762E66702F6830724A4C7178396769544741664E4B6D534C62564F384A77564D5371007E003F707371007E0041770800000176A2FEFAA078740005756C796572);
 
 -- ----------------------------
 -- Table structure for oauth_refresh_token
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_refresh_token`;
 CREATE TABLE `oauth_refresh_token`  (
-  `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `token` blob NULL,
-  `authentication` blob NULL
+                                        `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                                        `token` blob NULL,
+                                        `authentication` blob NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2刷新令牌' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
