@@ -1,8 +1,12 @@
 package cn.ulyer.baseserver.api;
 
 
+import cn.hutool.core.lang.Assert;
 import cn.ulyer.baseclient.entity.BaseRole;
-import cn.ulyer.baseserver.service.service.BaseRoleService;
+import cn.ulyer.baseclient.vo.MenuVo;
+import cn.ulyer.baseserver.service.BaseMenuService;
+import cn.ulyer.baseserver.service.BaseResourceService;
+import cn.ulyer.baseserver.service.BaseRoleService;
 import cn.ulyer.common.constants.RoleValue;
 import cn.ulyer.common.utils.R;
 import com.alibaba.fastjson.JSONObject;
@@ -26,6 +30,13 @@ public class BaseRoleController {
 
     @Autowired
     private BaseRoleService baseRoleService;
+
+    @Autowired
+    private BaseResourceService baseResourceService;
+
+
+    @Autowired
+    private BaseMenuService baseMenuService;
 
     @GetMapping("/list")
     R<List<BaseRole>> list(){
@@ -58,12 +69,27 @@ public class BaseRoleController {
      */
     @PreAuthorize("hasRole('"+RoleValue.SUPER_ADMIN+"')")
     @PostMapping("/updateRolePermission")
-    public R updateRolePermission(JSONObject jsonObject){
-
+    public R updateRolePermission(@RequestBody JSONObject jsonObject){
+        Long roleId = jsonObject.getLong("roleId");
+        Assert.notNull(roleId);
+        String roleName = jsonObject.getString("roleName");
+        List<Long> menuId = jsonObject.getJSONArray("menus").toJavaList(Long.class);
+        BaseRole role = new BaseRole();
+        role.setRoleId(roleId);
+        role.setRoleName(roleName);
+        baseRoleService.updateRoleMenu(role,menuId);
         return R.success();
     }
 
 
+    /**
+     * 角色已分配 actions 和 menu
+     */
+
+    @GetMapping("/roleMenus")
+    public R<List<MenuVo>> rolePermissions(@RequestParam Long roleId){
+       return R.success().setData(baseMenuService.listByRoleId(roleId));
+    }
 
 
 }

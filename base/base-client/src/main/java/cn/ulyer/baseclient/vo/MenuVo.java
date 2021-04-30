@@ -12,7 +12,6 @@ public class MenuVo extends BaseMenu implements TreeVo<Long, MenuVo> {
 
     private List<MenuVo> children;
 
-    private List<ActionVo> actions;
 
     @Override
     public Long getId() {

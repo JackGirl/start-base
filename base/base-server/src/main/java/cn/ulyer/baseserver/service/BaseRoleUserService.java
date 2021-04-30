@@ -1,6 +1,6 @@
-package cn.ulyer.baseserver.service.service;
+package cn.ulyer.baseserver.service;
 
-import cn.ulyer.baseclient.entity.BaseRole;
+import cn.ulyer.baseclient.entity.BaseRoleUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseRoleService extends IService<BaseRole> {
+public interface BaseRoleUserService extends IService<BaseRoleUser> {
 
 }

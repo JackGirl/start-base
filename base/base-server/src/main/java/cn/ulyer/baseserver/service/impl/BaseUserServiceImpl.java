@@ -1,20 +1,23 @@
-package cn.ulyer.baseserver.service.service.impl;
+package cn.ulyer.baseserver.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ulyer.baseclient.entity.*;
 import cn.ulyer.baseclient.dto.LoginUser;
+import cn.ulyer.baseclient.entity.BaseRole;
+import cn.ulyer.baseclient.entity.BaseRoleUser;
+import cn.ulyer.baseclient.entity.BaseUser;
 import cn.ulyer.baseserver.mapper.BaseUserMapper;
-import cn.ulyer.baseserver.service.service.*;
-import cn.ulyer.common.model.AbstractBaseModel;
+import cn.ulyer.baseserver.service.BaseResourceService;
+import cn.ulyer.baseserver.service.BaseRoleService;
+import cn.ulyer.baseserver.service.BaseRoleUserService;
+import cn.ulyer.baseserver.service.BaseUserService;
 import cn.ulyer.common.oauth.Oauth2Authority;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +49,6 @@ public class BaseUserServiceImpl extends ServiceImpl<BaseUserMapper, cn.ulyer.ba
     @Autowired
     private BaseResourceService baseResourceService;
 
-    @Autowired
-    private BaseActionService baseActionService;
 
     @Override
     public Page<cn.ulyer.baseclient.entity.BaseUser> pageUserByWrapper(Page<cn.ulyer.baseclient.entity.BaseUser> objectPage, cn.ulyer.baseclient.entity.BaseUser baseUser) {
@@ -81,15 +82,12 @@ public class BaseUserServiceImpl extends ServiceImpl<BaseUserMapper, cn.ulyer.ba
         if(CollectionUtil.isEmpty(roles)){
             return loginUser;
         }
-
+        List<Long> roleId = roles.stream().map(BaseRole::getRoleId).collect(Collectors.toList());
         //resources
-        List<Oauth2Authority> resources = baseResourceService.listResourcesByRoles(roles);
+        List<Oauth2Authority> resources = baseResourceService.listResourcesByRoles(roleId);
         oauth2Authorities.addAll(resources);
         //role
         roles.forEach(role->oauth2Authorities.add(new Oauth2Authority(role.getRoleValue())));
-        //actionValue
-        List<BaseAction> actions = baseActionService.listActionsByRoles(roles);
-        actions.forEach(action->oauth2Authorities.add(new Oauth2Authority(action.getActionValue())));
         return loginUser;
     }
 }

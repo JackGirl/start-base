@@ -3,11 +3,10 @@ package cn.ulyer.baseserver.api;
 
 import cn.ulyer.baseclient.client.ResourceClient;
 import cn.ulyer.baseclient.entity.BaseResource;
-import cn.ulyer.baseserver.service.service.BaseResourceService;
+import cn.ulyer.baseserver.service.BaseResourceService;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.utils.R;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

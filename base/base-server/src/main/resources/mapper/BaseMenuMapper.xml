@@ -50,7 +50,13 @@
         from base_menu where status=1
         order by priority asc ,createTime desc
     </select>
-
+    <select id="listByRoleId" resultType="cn.ulyer.baseclient.vo.MenuVo">
+        select <include refid="Base_Column_List"/>
+        from base_menu where status=1 and menuId in (
+        select menuId from base_role_menu where roleId
+            = #{roleId,jdbcType=BIGINT}
+        )
+    </select>
 
 
 </mapper>

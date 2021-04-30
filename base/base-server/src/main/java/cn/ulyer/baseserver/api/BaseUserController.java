@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.ulyer.baseclient.client.UserClient;
 import cn.ulyer.baseclient.dto.LoginUser;
 import cn.ulyer.baseclient.entity.BaseUser;
-import cn.ulyer.baseserver.service.service.BaseUserService;
+import cn.ulyer.baseserver.service.BaseUserService;
 import cn.ulyer.common.constants.RoleValue;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.utils.PageResult;
@@ -57,7 +57,7 @@ public class BaseUserController  implements UserClient {
 
     @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
     @PostMapping("/update")
-    public R update(@RequestBody LoginUser baseUser){
+    public R update(@RequestBody BaseUser baseUser){
         boolean updateFlag = baseUserService.update(Wrappers.<cn.ulyer.baseclient.entity.BaseUser>lambdaUpdate()
         .eq(cn.ulyer.baseclient.entity.BaseUser::getId, baseUser.getId())
         .set(cn.ulyer.baseclient.entity.BaseUser::getAccountLocked, baseUser.getAccountLocked())
@@ -65,7 +65,7 @@ public class BaseUserController  implements UserClient {
         .set(ObjectUtil.isNotNull(baseUser.getEnable()), cn.ulyer.baseclient.entity.BaseUser::getEnable, baseUser.getEnable())
         .set(cn.ulyer.baseclient.entity.BaseUser::getRemark, baseUser.getRemark())
         .set(StrUtil.isNotBlank(baseUser.getUsername()), cn.ulyer.baseclient.entity.BaseUser::getUsername, baseUser.getUsername()));
-        return updateFlag?R.success():R.fail();
+        return R.instance(updateFlag);
     }
 
     /**

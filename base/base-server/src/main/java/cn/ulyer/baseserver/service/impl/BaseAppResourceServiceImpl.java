@@ -1,8 +1,8 @@
-package cn.ulyer.baseserver.service.service.impl;
+package cn.ulyer.baseserver.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseAppResource;
 import cn.ulyer.baseserver.mapper.BaseAppResourceMapper;
-import cn.ulyer.baseserver.service.service.BaseAppResourceService;
+import cn.ulyer.baseserver.service.BaseAppResourceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;

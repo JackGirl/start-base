@@ -32,8 +32,8 @@
         where resourceId in (
             select resourceId from base_role_resource
                 where roleId in (
-                     <foreach collection="roles" item="role" separator=",">
-                            #{role.roleId,jdbcType=BIGINT}
+                     <foreach collection="roles" item="roleId" separator=",">
+                            #{roleId,jdbcType=BIGINT}
                       </foreach>
                     )
             )

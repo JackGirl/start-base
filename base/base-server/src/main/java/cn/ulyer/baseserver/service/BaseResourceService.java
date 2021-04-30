@@ -1,4 +1,4 @@
-package cn.ulyer.baseserver.service.service;
+package cn.ulyer.baseserver.service;
 
 import cn.ulyer.baseclient.entity.BaseResource;
 import cn.ulyer.baseclient.entity.BaseRole;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface BaseResourceService extends IService<BaseResource> {
 
-    List<Oauth2Authority> listResourcesByRoles(List<BaseRole> roles);
+    List<Oauth2Authority> listResourcesByRoles(List<Long> roles);
 
 
 }

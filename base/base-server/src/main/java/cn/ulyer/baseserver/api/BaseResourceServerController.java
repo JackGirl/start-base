@@ -2,7 +2,7 @@ package cn.ulyer.baseserver.api;
 
 
 import cn.ulyer.baseclient.entity.BaseResourceServer;
-import cn.ulyer.baseserver.service.service.BaseResourceServerService;
+import cn.ulyer.baseserver.service.BaseResourceServerService;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.utils.R;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

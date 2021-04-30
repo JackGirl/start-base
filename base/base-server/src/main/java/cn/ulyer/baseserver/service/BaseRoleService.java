@@ -1,6 +1,5 @@
-package cn.ulyer.baseserver.service.service;
+package cn.ulyer.baseserver.service;
 
-import cn.ulyer.baseclient.entity.BaseAction;
 import cn.ulyer.baseclient.entity.BaseRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseActionService extends IService<BaseAction> {
+public interface BaseRoleService extends IService<BaseRole> {
 
-    List<BaseAction> listActionsByRoles(List<BaseRole> roles);
+    void updateRoleMenu(BaseRole role,  List<Long> menuId);
 }

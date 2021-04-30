@@ -18,5 +18,5 @@ import java.util.List;
  */
 public interface BaseResourceMapper extends BaseMapper<BaseResource> {
 
-    List<Oauth2Authority> listResourcesByRoles(@Param("roles") List<BaseRole> roles);
+    List<Oauth2Authority> listResourcesByRoles(@Param("roles") List<Long> roles);
 }

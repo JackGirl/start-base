@@ -1,9 +1,8 @@
-package cn.ulyer.baseserver.service.service.impl;
+package cn.ulyer.baseserver.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseResource;
-import cn.ulyer.baseclient.entity.BaseRole;
 import cn.ulyer.baseserver.mapper.BaseResourceMapper;
-import cn.ulyer.baseserver.service.service.BaseResourceService;
+import cn.ulyer.baseserver.service.BaseResourceService;
 import cn.ulyer.common.oauth.Oauth2Authority;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -27,7 +26,7 @@ public class BaseResourceServiceImpl extends ServiceImpl<BaseResourceMapper, Bas
     private BaseResourceMapper baseResourceMapper;
 
     @Override
-    public List<Oauth2Authority> listResourcesByRoles(List<BaseRole> roles){
+    public List<Oauth2Authority> listResourcesByRoles(List<Long> roles){
         return baseResourceMapper.listResourcesByRoles(roles);
     }
 

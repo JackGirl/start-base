@@ -1,9 +1,9 @@
-package cn.ulyer.baseserver.service.service.impl;
+package cn.ulyer.baseserver.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseMenu;
 import cn.ulyer.baseclient.vo.MenuVo;
 import cn.ulyer.baseserver.mapper.BaseMenuMapper;
-import cn.ulyer.baseserver.service.service.BaseMenuService;
+import cn.ulyer.baseserver.service.BaseMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
@@ -34,5 +34,10 @@ public class BaseMenuServiceImpl extends ServiceImpl<BaseMenuMapper, BaseMenu> i
     @Override
     public List<MenuVo> listMenuVo() {
         return baseMenuMapper.listMenuVo();
+    }
+
+    @Override
+    public List<MenuVo> listByRoleId(Long roleId) {
+        return baseMenuMapper.listByRoleId(roleId);
     }
 }

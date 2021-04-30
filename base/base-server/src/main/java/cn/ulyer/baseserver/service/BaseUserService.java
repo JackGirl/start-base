@@ -1,4 +1,4 @@
-package cn.ulyer.baseserver.service.service;
+package cn.ulyer.baseserver.service;
 
 import cn.ulyer.baseclient.dto.LoginUser;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

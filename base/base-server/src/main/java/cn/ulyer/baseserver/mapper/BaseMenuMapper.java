@@ -19,4 +19,6 @@ public interface BaseMenuMapper extends BaseMapper<BaseMenu> {
     List<MenuVo> listUserMenuByUserId(Long userId);
 
     List<MenuVo> listMenuVo();
+
+    List<MenuVo> listByRoleId(Long roleId);
 }

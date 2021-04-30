@@ -1,4 +1,4 @@
-package cn.ulyer.baseserver.service.service;
+package cn.ulyer.baseserver.service;
 
 import cn.ulyer.baseclient.entity.BaseMenu;
 import cn.ulyer.baseclient.vo.MenuVo;
@@ -21,5 +21,7 @@ public interface BaseMenuService extends IService<BaseMenu> {
 
 
     List<MenuVo> listMenuVo();
+
+    List<MenuVo> listByRoleId(Long roleId);
 
 }

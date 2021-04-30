@@ -3,6 +3,7 @@ package cn.ulyer.common.oauth;
 import cn.ulyer.common.constants.ErrorCode;
 import cn.ulyer.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
@@ -77,6 +78,7 @@ public class GlobalExceptionHandler {
     public static R exception(Exception ex, HttpServletRequest request, HttpServletResponse response) {
         R r = resolveException(ex,request.getRequestURI());
         response.setStatus(r.getHttpStatus().value());
+        log.error("error for request  system error :{}", ExceptionUtils.getStackTrace(ex));
         return r;
     }
 

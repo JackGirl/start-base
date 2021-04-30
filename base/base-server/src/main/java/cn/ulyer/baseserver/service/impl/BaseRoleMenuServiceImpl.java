@@ -1,8 +1,8 @@
-package cn.ulyer.baseserver.service.service.impl;
+package cn.ulyer.baseserver.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseRoleMenu;
 import cn.ulyer.baseserver.mapper.BaseRoleMenuMapper;
-import cn.ulyer.baseserver.service.service.BaseRoleMenuService;
+import cn.ulyer.baseserver.service.BaseRoleMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
