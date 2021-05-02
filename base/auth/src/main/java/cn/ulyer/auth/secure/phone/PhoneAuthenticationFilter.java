@@ -31,6 +31,6 @@ public class PhoneAuthenticationFilter extends AbstractAuthenticationProcessingF
         }
         String code = httpServletRequest.getParameter("code");
         PhoneAuthenticationToken phoneAuthenticationToken = new PhoneAuthenticationToken(phone,code);
-        return getAuthenticationManager().authenticate(phoneAuthenticationToken);
+        return super.getAuthenticationManager().authenticate(phoneAuthenticationToken);
     }
 }

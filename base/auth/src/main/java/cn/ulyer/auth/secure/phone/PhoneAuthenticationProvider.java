@@ -33,7 +33,7 @@ public class PhoneAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.isAssignableFrom(PhoneAuthenticationToken.class);
+        return aClass.equals(PhoneAuthenticationToken.class);
     }
 
 

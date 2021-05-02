@@ -30,31 +30,19 @@ import javax.annotation.Resource;
 @Configuration
 public class ResourceServerConfig  extends ResourceServerConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Resource
-    private UserClient userClient;
+
 
     @Autowired
     private PhoneProperties properties;
 
 
-    @Bean
     public PhoneAuthenticationFilter phoneAuthenticationFilter(){
         PhoneAuthenticationFilter phoneAuthenticationFilter = new PhoneAuthenticationFilter(properties.getLoginPath());
-        phoneAuthenticationFilter.setAuthenticationManager(authenticationManager);
         return phoneAuthenticationFilter;
     }
 
-    /**
-     * 短信
-     * @return
-     */
-    @Bean
-    public PhoneAuthenticationProvider authenticationProvider(){
-        return new PhoneAuthenticationProvider(userClient);
-    }
+
 
 
 

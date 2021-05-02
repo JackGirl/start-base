@@ -3,9 +3,11 @@ package cn.ulyer.api;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.ulyer.auth.secure.phone.PhoneAuthenticationToken;
 import cn.ulyer.common.constants.ErrorCode;
 import cn.ulyer.common.constants.LoginType;
 import cn.ulyer.common.constants.SystemConstants;
+import cn.ulyer.common.exception.LoginTypeException;
 import cn.ulyer.common.utils.R;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -64,12 +66,14 @@ public class LoginController {
         Authentication authenticationToken = null;
         switch (loginType){
             case FORM:
-
                  authenticationToken = new UsernamePasswordAuthenticationToken(loginModel.getAccount(),loginModel.getPassword());
                  break;
             case PHONE:
+                authenticationToken = new PhoneAuthenticationToken(loginModel.mobile,loginModel.captcha);
+                break;
             case OAUTH2:
             case INVALID:
+                throw new LoginTypeException("非法的登陆类型请求");
             default:
         }
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
@@ -110,8 +114,7 @@ public class LoginController {
 
         private String password;
 
-        @JsonProperty(defaultValue = "form")
-        private String loginType;
+        private String loginType = LoginType.FORM.name();
 
         private String mobile;
 
@@ -122,10 +125,6 @@ public class LoginController {
     }
 
 
-    public static void main(String[] args) {
-        String s = "23970282242";
-         s = s.replaceAll("^1[0-9]{2}\\d{4}\\d{4}$","");
-        System.out.println(s);
-    }
+
 
 }
