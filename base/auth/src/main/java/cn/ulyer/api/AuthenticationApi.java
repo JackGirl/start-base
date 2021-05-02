@@ -17,4 +17,5 @@ public class AuthenticationApi {
         return R.success().setData(authentication.getPrincipal());
     }
 
+
 }

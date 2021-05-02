@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -31,10 +32,13 @@ public class BaseMenu extends AbstractBaseModel {
 
     private Long parentId;
 
+    @NotBlank(message = "菜单名不能为空")
     private String menuName;
 
+    @NotBlank(message = "菜单路径不能为空")
     private String path;
 
+    @NotBlank(message = "菜单组建不能为空")
     private String component;
 
     private Integer status;

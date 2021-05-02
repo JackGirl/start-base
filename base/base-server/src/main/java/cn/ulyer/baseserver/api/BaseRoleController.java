@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class BaseRoleController {
 
     @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"')")
     @PostMapping("/newRole")
-    public R createRole(@RequestBody BaseRole baseRole){
+    public R createRole(@RequestBody @Valid  BaseRole baseRole){
         baseRole.setRoleId(null);
         return R.instance( baseRoleService.save(baseRole));
     }
@@ -58,7 +59,7 @@ public class BaseRoleController {
      */
     @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"')")
     @PostMapping("/updateRole")
-    public R updateRole(@RequestBody BaseRole baseRole){
+    public R updateRole(@RequestBody @Valid  BaseRole baseRole){
         baseRole.setRoleValue(null);
         return R.instance(baseRoleService.updateById(baseRole));
     }

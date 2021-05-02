@@ -40,4 +40,9 @@ public class BaseMenuServiceImpl extends ServiceImpl<BaseMenuMapper, BaseMenu> i
     public List<MenuVo> listByRoleId(Long roleId) {
         return baseMenuMapper.listByRoleId(roleId);
     }
+
+    @Override
+    public boolean updateMenuAndResources(MenuVo menuVo) {
+        return false;
+    }
 }

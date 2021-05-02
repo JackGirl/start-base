@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -29,6 +30,7 @@ public class BaseRole extends AbstractBaseModel {
 
     private String roleName;
 
+    @NotBlank(message = "roleValue cannot be null")
     private String roleValue;
 
 

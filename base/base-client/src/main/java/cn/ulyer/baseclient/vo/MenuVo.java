@@ -1,6 +1,7 @@
 package cn.ulyer.baseclient.vo;
 
 import cn.ulyer.baseclient.entity.BaseMenu;
+import cn.ulyer.baseclient.entity.BaseResource;
 import cn.ulyer.common.model.TreeVo;
 import lombok.Data;
 
@@ -11,6 +12,8 @@ public class MenuVo extends BaseMenu implements TreeVo<Long, MenuVo> {
 
 
     private List<MenuVo> children;
+
+    private List<BaseResource>  resources;
 
 
     @Override

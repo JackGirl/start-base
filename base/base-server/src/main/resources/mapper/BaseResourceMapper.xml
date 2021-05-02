@@ -39,5 +39,25 @@
             )
 
     </select>
+    <select id="listResourceVo" resultType="cn.ulyer.baseclient.vo.ResourceVo">
+        select resource.*,server.serviceName resourceServerName from base_resource resource inner join base_resource_server server on  resource.serviceId = server.serviceId
+        <where>
+            <if test="resourceName!=null and resourceName!=''">
+                resource.resourceName = #{resourceName,jdbcType=VARCHAR}
+            </if>
+            <if test="path!=null and path!=''">
+               and resource.path = #{path,jdbcType=VARCHAR}
+            </if>
+            <if test="serviceId!=null and serviceId!=''">
+                and server.serviceId = #{serviceId,jdbcType=VARCHAR}
+            </if>
+            <if test="status!=null and status!=''">
+                and resource.status = #{status,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+
+
+    </select>
 
 </mapper>

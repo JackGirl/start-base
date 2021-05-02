@@ -1,17 +1,18 @@
 package cn.ulyer.baseserver.api;
 
 
+import cn.ulyer.baseclient.entity.BaseMenu;
 import cn.ulyer.baseclient.vo.MenuVo;
 import cn.ulyer.baseserver.service.BaseMenuService;
 import cn.ulyer.common.model.TreeVo;
 import cn.ulyer.common.utils.TreeUtil;
 import cn.ulyer.common.utils.OauthUtil;
 import cn.ulyer.common.utils.R;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -42,6 +43,22 @@ public class BaseMenuController {
         return R.success().setData(TreeUtil.treeMenu(allMenus,0L));
     }
 
+    @GetMapping("/newMenu")
+    public R createMenu(@RequestBody @Valid BaseMenu baseMenu){
+        baseMenuService.save(baseMenu);
+        return R.success();
+    }
+
+    @GetMapping("/update")
+    public R updateMenu(@RequestBody @Valid MenuVo menuVo){
+        baseMenuService.updateMenuAndResources(menuVo);
+        return R.success();
+    }
+
+    @GetMapping("/remove")
+    public R remove(@RequestParam Long menuId){
+        return R.success();
+    }
 
 }
 

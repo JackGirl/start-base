@@ -2,6 +2,7 @@ package cn.ulyer.baseserver.service;
 
 import cn.ulyer.baseclient.entity.BaseResource;
 import cn.ulyer.baseclient.entity.BaseRole;
+import cn.ulyer.baseclient.vo.ResourceVo;
 import cn.ulyer.common.oauth.Oauth2Authority;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -20,4 +21,5 @@ public interface BaseResourceService extends IService<BaseResource> {
     List<Oauth2Authority> listResourcesByRoles(List<Long> roles);
 
 
+    List<ResourceVo> listResourceVo(ResourceVo resourceVo);
 }

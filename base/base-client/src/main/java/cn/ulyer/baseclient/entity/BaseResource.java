@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -27,16 +28,19 @@ public class BaseResource extends AbstractBaseModel {
     @TableId(value = "resourceId", type = IdType.ASSIGN_ID)
     private Long resourceId;
 
+    @NotBlank(message = "path cannot be null")
     private String path;
 
+    @NotBlank(message = "authority cannot be null")
     private String authority;
 
-    private Boolean needAuth;
+    private Integer needAuth;
 
-    private Boolean isPublic;
+    private Integer isPublic;
 
     private Integer status;
 
+    @NotBlank(message = "serviceId cannot be null")
     private String serviceId;
 
     private String resourceName;

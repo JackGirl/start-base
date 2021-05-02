@@ -1,6 +1,7 @@
 package cn.ulyer.baseserver.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseResource;
+import cn.ulyer.baseclient.vo.ResourceVo;
 import cn.ulyer.baseserver.mapper.BaseResourceMapper;
 import cn.ulyer.baseserver.service.BaseResourceService;
 import cn.ulyer.common.oauth.Oauth2Authority;
@@ -30,4 +31,8 @@ public class BaseResourceServiceImpl extends ServiceImpl<BaseResourceMapper, Bas
         return baseResourceMapper.listResourcesByRoles(roles);
     }
 
+    @Override
+    public List<ResourceVo> listResourceVo(ResourceVo resourceVo) {
+        return baseResourceMapper.listResourceVo(resourceVo);
+    }
 }
