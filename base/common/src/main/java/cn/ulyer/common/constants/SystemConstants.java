@@ -12,4 +12,7 @@ public interface SystemConstants {
     String PAGE_NAME = "current";
 
     String SIZE_PARAM = "pageSize";
+
+    Integer STATUS_INVALID = 0;
+
 }

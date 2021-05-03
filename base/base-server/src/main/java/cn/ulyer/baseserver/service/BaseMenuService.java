@@ -24,10 +24,5 @@ public interface BaseMenuService extends IService<BaseMenu> {
 
     List<MenuVo> listByRoleId(Long roleId);
 
-    /**
-     * 更新菜单信息 还有菜单绑定的资源
-     * @param menuVo
-     * @return
-     */
-    boolean updateMenuAndResources(MenuVo menuVo);
+
 }

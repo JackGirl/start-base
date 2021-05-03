@@ -27,12 +27,17 @@ public class BaseResourceServiceImpl extends ServiceImpl<BaseResourceMapper, Bas
     private BaseResourceMapper baseResourceMapper;
 
     @Override
-    public List<Oauth2Authority> listResourcesByRoles(List<Long> roles){
+    public List<Oauth2Authority> listAutorityByRoles(List<Long> roles){
         return baseResourceMapper.listResourcesByRoles(roles);
     }
 
     @Override
     public List<ResourceVo> listResourceVo(ResourceVo resourceVo) {
         return baseResourceMapper.listResourceVo(resourceVo);
+    }
+
+    @Override
+    public List<ResourceVo> listResourceVoByRoleId(Long roleId) {
+        return baseResourceMapper.listResourceVoByRoleId(roleId);
     }
 }

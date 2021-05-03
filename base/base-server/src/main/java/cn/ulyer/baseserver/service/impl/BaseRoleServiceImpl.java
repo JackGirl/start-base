@@ -2,6 +2,7 @@ package cn.ulyer.baseserver.service.impl;
 
 import cn.ulyer.baseclient.entity.BaseRole;
 import cn.ulyer.baseclient.entity.BaseRoleMenu;
+import cn.ulyer.baseclient.entity.BaseRoleResource;
 import cn.ulyer.baseserver.mapper.BaseRoleMapper;
 import cn.ulyer.baseserver.mapper.BaseRoleMenuMapper;
 import cn.ulyer.baseserver.mapper.BaseRoleResourceMapper;
@@ -9,6 +10,7 @@ import cn.ulyer.baseserver.service.BaseRoleService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,15 +37,23 @@ public class BaseRoleServiceImpl extends ServiceImpl<BaseRoleMapper, BaseRole> i
 ;
 
     @Override
-    public void updateRoleMenu(BaseRole role,  List<Long> menuId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void updateRolePermissions(BaseRole role, List<Long> menus, List<Long> resources) {
         baseRoleMapper.updateById(role);
         baseRoleMenuMapper.delete(Wrappers.<BaseRoleMenu>lambdaUpdate().eq(BaseRoleMenu::getRoleId,role.getRoleId()));
         BaseRoleMenu roleMenu = new BaseRoleMenu();
         roleMenu.setRoleId(role.getRoleId());
-        menuId.forEach(id->{
+        menus.forEach(id->{
             roleMenu.setMenuId(id);
             baseRoleMenuMapper.insert(roleMenu);
         });
-
+        //清空绑定权限
+        baseRoleResourceMapper.delete(Wrappers.<BaseRoleResource>lambdaUpdate().eq(BaseRoleResource::getRoleId,role.getRoleId()));
+        BaseRoleResource roleResource = new BaseRoleResource();
+        roleResource.setRoleId(role.getRoleId());
+        resources.forEach(id->{
+            roleResource.setResourceId(id);
+            baseRoleResourceMapper.insert(roleResource);
+        });
     }
 }

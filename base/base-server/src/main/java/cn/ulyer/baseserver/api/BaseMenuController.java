@@ -4,12 +4,15 @@ package cn.ulyer.baseserver.api;
 import cn.ulyer.baseclient.entity.BaseMenu;
 import cn.ulyer.baseclient.vo.MenuVo;
 import cn.ulyer.baseserver.service.BaseMenuService;
+import cn.ulyer.common.constants.RoleValue;
+import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.model.TreeVo;
 import cn.ulyer.common.utils.TreeUtil;
 import cn.ulyer.common.utils.OauthUtil;
 import cn.ulyer.common.utils.R;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,25 +43,41 @@ public class BaseMenuController {
     @GetMapping("/list")
     public R<List<TreeVo>>list(){
         List<MenuVo> allMenus = baseMenuService.listMenuVo();
-        return R.success().setData(TreeUtil.treeMenu(allMenus,0L));
+        return R.success().setData(allMenus);
     }
 
-    @GetMapping("/newMenu")
+    @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
+    @PostMapping("/newMenu")
     public R createMenu(@RequestBody @Valid BaseMenu baseMenu){
+        baseMenu.setStatus(SystemConstants.STATUS_VALID);
         baseMenuService.save(baseMenu);
         return R.success();
     }
 
-    @GetMapping("/update")
-    public R updateMenu(@RequestBody @Valid MenuVo menuVo){
-        baseMenuService.updateMenuAndResources(menuVo);
+    /**
+     * 更新菜单
+     * @param menu
+     * @return
+     */
+    @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
+    @PostMapping("/update")
+    public R updateMenu(@RequestBody @Valid BaseMenu menu){
+        baseMenuService.updateById(menu);
         return R.success();
     }
 
-    @GetMapping("/remove")
+    /**
+     * 父子组件全部改为不可用
+     * @param menuId
+     * @return
+     */
+    @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
+    @PostMapping("/remove")
     public R remove(@RequestParam Long menuId){
+
         return R.success();
     }
+
 
 }
 

@@ -22,4 +22,6 @@ public interface BaseResourceMapper extends BaseMapper<BaseResource> {
     List<Oauth2Authority> listResourcesByRoles(@Param("roles") List<Long> roles);
 
     List<ResourceVo> listResourceVo(ResourceVo resourceVo);
+
+    List<ResourceVo> listResourceVoByRoleId(Long roleId);
 }

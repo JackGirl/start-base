@@ -18,8 +18,11 @@ import java.util.List;
  */
 public interface BaseResourceService extends IService<BaseResource> {
 
-    List<Oauth2Authority> listResourcesByRoles(List<Long> roles);
+    List<Oauth2Authority> listAutorityByRoles(List<Long> roles);
 
 
     List<ResourceVo> listResourceVo(ResourceVo resourceVo);
+
+    List<ResourceVo> listResourceVoByRoleId(Long roleId);
+
 }

@@ -5,6 +5,10 @@ mybatis-plus:
     map-underscore-to-camel-case: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+  global-config:
+    db-config:
+      insert-strategy: not_null
+      update-strategy: not_null
 
 spring:
   devtools:

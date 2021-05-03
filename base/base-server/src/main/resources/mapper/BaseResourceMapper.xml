@@ -4,22 +4,22 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseResource">
-        <id column="resourceId" property="resourceId" />
-        <result column="path" property="path" />
-        <result column="authority" property="authority" />
-        <result column="needAuth" property="needAuth" />
-        <result column="isPublic" property="isPublic" />
-        <result column="status" property="status" />
-        <result column="serviceId" property="serviceId" />
-        <result column="resourceName" property="resourceName" />
-        <result column="createTime" property="createTime" />
-        <result column="updateTime" property="updateTime" />
+        <id column="resourceId" property="resourceId"/>
+        <result column="path" property="path"/>
+        <result column="authority" property="authority"/>
+        <result column="needAuth" property="needAuth"/>
+        <result column="isPublic" property="isPublic"/>
+        <result column="status" property="status"/>
+        <result column="serviceId" property="serviceId"/>
+        <result column="resourceName" property="resourceName"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
     </resultMap>
 
 
     <resultMap id="authorityMap" type="cn.ulyer.common.oauth.Oauth2Authority">
-            <result column="resourceId" property="resourceId"/>
-            <result column="authority" property="authority"/>
+        <result column="resourceId" property="resourceId"/>
+        <result column="authority" property="authority"/>
         <result column="expireTime" property="expireTime"/>
     </resultMap>
 
@@ -30,23 +30,24 @@
     <select id="listResourcesByRoles" resultMap="authorityMap">
         select resourceId,authority from base_resource
         where resourceId in (
-            select resourceId from base_role_resource
-                where roleId in (
-                     <foreach collection="roles" item="roleId" separator=",">
-                            #{roleId,jdbcType=BIGINT}
-                      </foreach>
-                    )
-            )
+        select resourceId from base_role_resource
+        where roleId in (
+        <foreach collection="roles" item="roleId" separator=",">
+            #{roleId,jdbcType=BIGINT}
+        </foreach>
+        )
+        )
 
     </select>
     <select id="listResourceVo" resultType="cn.ulyer.baseclient.vo.ResourceVo">
-        select resource.*,server.serviceName resourceServerName from base_resource resource inner join base_resource_server server on  resource.serviceId = server.serviceId
+        select resource.*,server.serviceName resourceServerName from base_resource resource inner join
+        base_resource_server server on resource.serviceId = server.serviceId
         <where>
             <if test="resourceName!=null and resourceName!=''">
                 resource.resourceName = #{resourceName,jdbcType=VARCHAR}
             </if>
             <if test="path!=null and path!=''">
-               and resource.path = #{path,jdbcType=VARCHAR}
+                and resource.path = #{path,jdbcType=VARCHAR}
             </if>
             <if test="serviceId!=null and serviceId!=''">
                 and server.serviceId = #{serviceId,jdbcType=VARCHAR}
@@ -58,6 +59,15 @@
         </where>
 
 
+    </select>
+    <select id="listResourceVoByRoleId" resultType="cn.ulyer.baseclient.vo.ResourceVo">
+        select resource.*,server.serviceName resourceServerName from base_resource resource
+        inner join base_resource_server server on resource.serviceId = server.serviceId
+        where resourceId in (
+        select resourceId from base_role_resource
+        where roleId = #{roleId,jdbcType=BIGINT}
+
+        )
     </select>
 
 </mapper>

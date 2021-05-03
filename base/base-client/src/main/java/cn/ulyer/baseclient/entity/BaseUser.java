@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
@@ -28,13 +29,14 @@ public class BaseUser extends AbstractBaseModel {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+    private Long id;
 
     private String account;
 
     @JsonIgnore
     private String password;
 
+    @NotBlank
     private String username;
 
     private String orgId;

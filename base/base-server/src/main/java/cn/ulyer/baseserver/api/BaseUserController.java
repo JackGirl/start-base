@@ -1,12 +1,17 @@
 package cn.ulyer.baseserver.api;
 
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.ulyer.baseclient.client.UserClient;
 import cn.ulyer.baseclient.dto.LoginUser;
+import cn.ulyer.baseclient.entity.BaseRole;
+import cn.ulyer.baseclient.entity.BaseRoleUser;
 import cn.ulyer.baseclient.entity.BaseUser;
+import cn.ulyer.baseserver.service.BaseRoleService;
+import cn.ulyer.baseserver.service.BaseRoleUserService;
 import cn.ulyer.baseserver.service.BaseUserService;
 import cn.ulyer.common.constants.RoleValue;
 import cn.ulyer.common.constants.SystemConstants;
@@ -21,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -42,9 +48,16 @@ public class BaseUserController  implements UserClient {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private BaseRoleService baseRoleService;
+
+    @Autowired
+    private BaseRoleUserService baseRoleUserService;
+
+
     @PostMapping("/userLogin")
     @Override
-    public R<LoginUser> login(String account) {
+    public R<LoginUser> login(@RequestParam(value = "account")String account) {
         LoginUser baseUser = baseUserService.login(account);
         return R.success().setData(baseUser);
     }
@@ -66,6 +79,25 @@ public class BaseUserController  implements UserClient {
         .set(cn.ulyer.baseclient.entity.BaseUser::getRemark, baseUser.getRemark())
         .set(StrUtil.isNotBlank(baseUser.getUsername()), cn.ulyer.baseclient.entity.BaseUser::getUsername, baseUser.getUsername()));
         return R.instance(updateFlag);
+    }
+
+
+    @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
+    @PostMapping("/updateUserAndRoles")
+    public R updateUserRole(@RequestBody JSONObject jsonObject){
+        BaseUser baseUser = jsonObject.getObject("user",BaseUser.class);
+        Assert.notNull(baseUser.getId());
+        baseUser.setPassword(null);
+        List<Long> roleIds = jsonObject.getJSONArray("roles").toJavaList(Long.class);
+        baseUserService.updateById(baseUser);
+        BaseRoleUser roleUser = new BaseRoleUser();
+        roleUser.setUserId(baseUser.getId());
+        roleIds.forEach(r->{
+            Assert.notNull(r);
+            roleUser.setRoleId(r);
+            baseRoleUserService.save(roleUser);
+        });
+        return R.success();
     }
 
     /**
@@ -97,6 +129,16 @@ public class BaseUserController  implements UserClient {
     }
 
 
-
+    /**
+     * 获取用户的角色
+     */
+    @GetMapping("/getRolesByUserId")
+    public R<List<BaseRole>> roles(@RequestParam Long userId){
+        List<BaseRoleUser> baseRoleUsers = baseRoleUserService.list(Wrappers.<BaseRoleUser>lambdaUpdate().eq(BaseRoleUser::getUserId,userId));
+        if(CollectionUtil.isEmpty(baseRoleUsers)){
+            return R.success().setData(baseRoleUsers);
+        }
+        return R.success().setData(baseRoleService.listByIds(baseRoleUsers.stream().map(BaseRoleUser::getRoleId).collect(Collectors.toList())));
+    }
 }
 

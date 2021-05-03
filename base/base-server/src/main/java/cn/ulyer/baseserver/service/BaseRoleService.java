@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface BaseRoleService extends IService<BaseRole> {
 
-    void updateRoleMenu(BaseRole role,  List<Long> menuId);
+    void updateRolePermissions(BaseRole role, List<Long> menus, List<Long> resources);
 }
