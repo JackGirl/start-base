@@ -33,7 +33,6 @@ public class BaseApp extends AbstractBaseModel {
     @NotBlank
     private String appName;
 
-    @NotBlank
     private String appSecret;
 
     @NotBlank
