@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -26,34 +28,44 @@ public class BaseApp extends AbstractBaseModel {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "appId", type = IdType.ASSIGN_ID)
-    private String appId;
+    private Long appId;
 
+    @NotBlank
     private String appName;
 
+    @NotBlank
     private String appSecret;
 
+    @NotBlank
     private String appType;
 
     private String appIcon;
 
+    @NotBlank
     private String redirectUri;
 
     private String scope;
 
+    @NotBlank
     private String grantTypes;
 
+    @NotNull
     private Integer tokenValidSeconds;
 
+    @NotNull
     private Integer refreshTokenValidSeconds;
 
-    private Boolean autoApproval;
+    @NotNull
+    private Integer autoApproval;
 
     private String jsonInformation;
 
+    @NotNull
     private Integer status;
     /**
      * 是否内部的app   可有由这个字段决定是用用户权限 还是 client权限
      */
+    @NotNull
     private Integer internal;
 
 

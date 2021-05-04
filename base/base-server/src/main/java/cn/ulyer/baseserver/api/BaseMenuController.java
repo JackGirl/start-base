@@ -49,6 +49,7 @@ public class BaseMenuController {
     @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
     @PostMapping("/newMenu")
     public R createMenu(@RequestBody @Valid BaseMenu baseMenu){
+        baseMenu.setMenuId(null);
         baseMenu.setStatus(SystemConstants.STATUS_VALID);
         baseMenuService.save(baseMenu);
         return R.success();
