@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -24,11 +25,14 @@ public class BaseResourceServer extends AbstractBaseModel {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "serviceId", type = IdType.ASSIGN_ID)
+    @TableId(value = "serviceId", type = IdType.INPUT)
+    @NotBlank
     private String serviceId;
 
+    @NotBlank(message = "服务器名不能为空")
     private String serviceName;
 
+    @NotBlank(message = "服务器名不能为空")
     private String routerMatch;
 
     private Integer status;

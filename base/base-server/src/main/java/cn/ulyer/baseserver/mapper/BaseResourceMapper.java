@@ -2,6 +2,7 @@ package cn.ulyer.baseserver.mapper;
 
 import cn.ulyer.baseclient.entity.BaseResource;
 import cn.ulyer.baseclient.entity.BaseRole;
+import cn.ulyer.baseclient.vo.AuthorityVo;
 import cn.ulyer.baseclient.vo.ResourceVo;
 import cn.ulyer.common.oauth.Oauth2Authority;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -24,4 +25,8 @@ public interface BaseResourceMapper extends BaseMapper<BaseResource> {
     List<ResourceVo> listResourceVo(ResourceVo resourceVo);
 
     List<ResourceVo> listResourceVoByRoleId(Long roleId);
+
+    List<Oauth2Authority> listAuthorityByAppId(Long appId);
+
+    List<AuthorityVo> listAuthorityVoByAppId(Long appId);
 }

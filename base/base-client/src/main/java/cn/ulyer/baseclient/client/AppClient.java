@@ -1,7 +1,7 @@
 package cn.ulyer.baseclient.client;
 
 import cn.ulyer.baseclient.constants.BaseConstants;
-import cn.ulyer.baseclient.entity.BaseApp;
+import cn.ulyer.baseclient.dto.App;
 import cn.ulyer.common.utils.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AppClient {
 
     @GetMapping("/baseApp/loadAppByAppId")
-    R<BaseApp> loadAppByAppId(@RequestParam("appId") String appId);
+    R<App> loadAppByAppId(@RequestParam("appId") Long appId);
 
 }

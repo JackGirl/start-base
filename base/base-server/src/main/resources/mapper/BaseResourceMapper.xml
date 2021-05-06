@@ -69,5 +69,16 @@
 
         )
     </select>
+    <select id="listAuthorityByAppId" resultType="cn.ulyer.common.oauth.Oauth2Authority">
+        select resource.resourceId,resource.authority,relation.expireTime from base_resource resource inner join base_app_resource relation
+                                                                                      on resource.resourceId = relation.resourceId
+        where relation.appId = #{appId,jdbcType=BIGINT}
+    </select>
+    <select id="listAuthorityVoByAppId" resultType="cn.ulyer.baseclient.vo.AuthorityVo">
+        select resource.*,server.serviceName resourceServerName,relation.expireTime,relation.id appResourceId from base_resource resource left join
+                                                                     base_resource_server server on resource.serviceId = server.serviceId
+            inner join base_app_resource relation on resource.resourceId = relation.resourceId
+        where relation.appId = #{appId,jdbcType=BIGINT}
+    </select>
 
 </mapper>

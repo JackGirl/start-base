@@ -84,7 +84,7 @@ public class BaseUserServiceImpl extends ServiceImpl<BaseUserMapper, cn.ulyer.ba
         }
         List<Long> roleId = roles.stream().map(BaseRole::getRoleId).collect(Collectors.toList());
         //resources
-        List<Oauth2Authority> resources = baseResourceService.listAutorityByRoles(roleId);
+        List<Oauth2Authority> resources = baseResourceService.listAuthorityByRoles(roleId);
         oauth2Authorities.addAll(resources);
         //role
         roles.forEach(role->oauth2Authorities.add(new Oauth2Authority(role.getRoleValue())));
