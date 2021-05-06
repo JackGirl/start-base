@@ -43,7 +43,7 @@ public class BaseResourceServerController implements ApplicationEventPublisherAw
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.eventPublisher = eventPublisher;
+        this.eventPublisher = applicationEventPublisher;
     }
 
     @GetMapping("/loadResourceServers")
@@ -63,6 +63,9 @@ public class BaseResourceServerController implements ApplicationEventPublisherAw
      */
     @PostMapping("/addResourceServer")
     public R addResourceServer(@RequestBody @Valid BaseResourceServer resourceServer){
+        if(baseResourceServerService.getById(resourceServer.getServiceId())!=null){
+            throw new IllegalArgumentException("serviceId已存在相同");
+        }
         baseResourceServerService.save(resourceServer);
         eventPublisher.publishEvent(new RemoteRefreshRouteEvent(this,busProperties.getId(),null));
         return R.success();

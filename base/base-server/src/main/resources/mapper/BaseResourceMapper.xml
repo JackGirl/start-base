@@ -55,8 +55,8 @@
             <if test="status!=null and status!=''">
                 and resource.status = #{status,jdbcType=VARCHAR}
             </if>
-
         </where>
+        order by resource.createTime desc
 
 
     </select>
