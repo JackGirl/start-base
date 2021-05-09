@@ -11,7 +11,7 @@
  Target Server Version : 50713
  File Encoding         : 65001
 
- Date: 30/04/2021 17:42:35
+ Date: 09/05/2021 10:33:42
 */
 
 SET NAMES utf8mb4;
@@ -22,60 +22,72 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `base_app`;
 CREATE TABLE `base_app`  (
-                             `appId` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                             `appName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `appSecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `appType` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `appIcon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `redirectUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `grantTypes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `tokenValidSeconds` int(10) NULL DEFAULT NULL,
-                             `refreshTokenValidSeconds` int(10) NULL DEFAULT NULL,
-                             `autoApproval` tinyint(1) NULL DEFAULT NULL,
-                             `jsonInformation` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                             `createTime` timestamp(0) NULL DEFAULT NULL,
-                             `updateTime` timestamp(0) NULL DEFAULT NULL,
-                             `internal` tinyint(255) NULL DEFAULT 0 COMMENT '是否内部应用 0否',
-                             `status` tinyint(255) NULL DEFAULT NULL COMMENT '是否有效0无效',
-                             PRIMARY KEY (`appId`) USING BTREE
+  `appId` bigint(32) NOT NULL,
+  `appName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `appSecret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `appType` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `appIcon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `redirectUri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `grantTypes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `tokenValidSeconds` int(10) NULL DEFAULT NULL,
+  `refreshTokenValidSeconds` int(10) NULL DEFAULT NULL,
+  `autoApproval` tinyint(1) NULL DEFAULT NULL,
+  `jsonInformation` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `createTime` timestamp(0) NULL DEFAULT NULL,
+  `updateTime` timestamp(0) NULL DEFAULT NULL,
+  `internal` tinyint(255) NULL DEFAULT 0 COMMENT '是否内部应用 0否',
+  `status` tinyint(255) NULL DEFAULT NULL COMMENT '是否有效0无效',
+  PRIMARY KEY (`appId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_app
 -- ----------------------------
-INSERT INTO `base_app` VALUES ('121321412', '内部admin', '$2a$2a$2a$10$pGwGuuLhTAqWT.RA3qvzW.MehPYhafgND7EWNrj7cNNA.B9S5TwzO', 'PC', NULL, 'http://localhost:8188', 'read', 'authorization_code,refresh_token,client_credentials', 7200, 28800, 1, NULL, '2021-04-26 16:29:45', NULL, 1, 1);
+INSERT INTO `base_app` VALUES (121321412, '内部admin', '$2a$2a$2a$10$pGwGuuLhTAqWT.RA3qvzW.MehPYhafgND7EWNrj7cNNA.B9S5TwzO', 'WEB', NULL, 'http://localhost:8188', 'read', 'authorization_code,refresh_token,client_credentials', 7200, 28800, 1, NULL, '2021-04-26 16:29:45', NULL, 1, 1);
+INSERT INTO `base_app` VALUES (1390145951443804162, 'test', '$2a$10$Ic2r1..zmZtaV8K9QD4M3unDtklndtIg/rhZ6RkjUr5.oL9wO7TdC', 'WEB', NULL, 'http://www.baidu.com', NULL, 'authorization_code,client_credentials', 7200, 7200, 0, NULL, '2021-05-06 11:26:37', '2021-05-09 10:05:16', 0, 1);
 
 -- ----------------------------
 -- Table structure for base_app_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `base_app_resource`;
 CREATE TABLE `base_app_resource`  (
-                                      `resourceId` bigint(20) NOT NULL,
-                                      `appId` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                                      `expireTime` datetime(0) NULL,
-                                      `createTime` timestamp(0) NULL DEFAULT NULL,
-                                      `updateTime` timestamp(0) NULL DEFAULT NULL
+  `id` bigint(20) NOT NULL,
+  `resourceId` bigint(20) NOT NULL,
+  `appId` bigint(20) NOT NULL,
+  `expireTime` timestamp(0) NULL DEFAULT NULL,
+  `createTime` timestamp(0) NULL DEFAULT NULL,
+  `updateTime` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of base_app_resource
+-- ----------------------------
+INSERT INTO `base_app_resource` VALUES (1390234736084918273, 1390193244402425858, 121321412, '2020-12-27 17:25:16', '2021-05-06 17:19:25', '2021-05-06 17:25:31');
+INSERT INTO `base_app_resource` VALUES (1390239832919252994, 1390193404301877249, 121321412, '2020-12-27 17:39:40', '2021-05-06 17:39:40', '2021-05-06 17:39:49');
+INSERT INTO `base_app_resource` VALUES (1390239909620490242, 1390193244402425858, 1390145951443804162, NULL, '2021-05-06 17:39:59', '2021-05-06 17:39:59');
+INSERT INTO `base_app_resource` VALUES (1391212499155677186, 1390300861124677633, 1390145951443804162, NULL, '2021-05-09 10:04:42', '2021-05-09 10:04:42');
+INSERT INTO `base_app_resource` VALUES (1391212579489181698, 1390303252926504962, 1390145951443804162, '2020-12-27 10:05:01', '2021-05-09 10:05:01', '2021-05-09 10:05:06');
 
 -- ----------------------------
 -- Table structure for base_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `base_menu`;
 CREATE TABLE `base_menu`  (
-                              `menuId` bigint(20) NOT NULL,
-                              `parentId` bigint(20) NOT NULL DEFAULT 0,
-                              `menuName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                              `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `status` tinyint(255) NULL DEFAULT NULL,
-                              `priority` int(4) NULL DEFAULT NULL,
-                              `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `target` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `createTime` timestamp(0) NULL DEFAULT NULL,
-                              `updateTime` timestamp(0) NULL DEFAULT NULL,
-                              `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `redirect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父模板空组件面包屑有问题',
-                              PRIMARY KEY (`menuId`) USING BTREE
+  `menuId` bigint(20) NOT NULL,
+  `parentId` bigint(20) NOT NULL DEFAULT 0,
+  `menuName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `status` tinyint(255) NULL DEFAULT NULL,
+  `priority` int(4) NULL DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `target` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `createTime` timestamp(0) NULL DEFAULT NULL,
+  `updateTime` timestamp(0) NULL DEFAULT NULL,
+  `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `redirect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父模板空组件面包屑有问题',
+  PRIMARY KEY (`menuId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -87,63 +99,102 @@ INSERT INTO `base_menu` VALUES (416283369090383874, 416283369090383872, '用户�
 INSERT INTO `base_menu` VALUES (416283369090383876, 416283369090383872, '菜单管理', '/system/menu', 1, 3, 'table', NULL, '2021-04-21 15:41:35', NULL, 'system/menu/index', NULL);
 INSERT INTO `base_menu` VALUES (416283369090383877, 416283369090383872, '应用管理', '/system/application', 1, 4, 'windows', '', '2021-04-25 09:55:18', NULL, 'system/application/index', NULL);
 INSERT INTO `base_menu` VALUES (416283369090383878, 416283369090383872, 'API资源管理', '/system/resource', 1, 5, 'global', NULL, '2021-04-30 15:58:59', NULL, 'system/resource/index', NULL);
+INSERT INTO `base_menu` VALUES (1390183031792209921, 416283369090383872, '路由管理', '/system/route', 1, 1, 'hdd', NULL, '2021-05-06 13:53:58', '2021-05-06 13:53:58', 'system/route/index', NULL);
 
 -- ----------------------------
 -- Table structure for base_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `base_resource`;
 CREATE TABLE `base_resource`  (
-                                  `resourceId` bigint(20) NOT NULL,
-                                  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                                  `authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                  `needAuth` tinyint(1) NULL DEFAULT NULL,
-                                  `isPublic` tinyint(1) NULL DEFAULT NULL,
-                                  `status` tinyint(255) NULL DEFAULT NULL,
-                                  `serviceId` varchar(0) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                  `resourceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                                  `createTime` timestamp(0) NULL DEFAULT NULL,
-                                  `updateTime` timestamp(0) NULL DEFAULT NULL,
-                                  PRIMARY KEY (`resourceId`) USING BTREE
+  `resourceId` bigint(20) NOT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `needAuth` tinyint(1) NULL DEFAULT NULL,
+  `isPublic` tinyint(1) NULL DEFAULT NULL,
+  `status` tinyint(255) NULL DEFAULT NULL,
+  `serviceId` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `resourceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `createTime` timestamp(0) NULL DEFAULT NULL,
+  `updateTime` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`resourceId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of base_resource
+-- ----------------------------
+INSERT INTO `base_resource` VALUES (1390193244402425858, '/baseApp/listAppAuthorities', '/baseApp/listAppAuthorities', 1, 1, 1, 'base-server', '获取应用权限', '2021-05-06 14:34:33', '2021-05-06 21:50:53');
+INSERT INTO `base_resource` VALUES (1390193404301877249, '/baseApp/addAppAuthorities', '/baseApp/addAppAuthorities', 1, 1, 1, 'base-server', '添加应用权限', '2021-05-06 14:35:11', '2021-05-06 21:50:46');
+INSERT INTO `base_resource` VALUES (1390300091281149954, '/authentication/me', '/authentication/me', 0, 1, 1, 'auth', '获取认证信息', '2021-05-06 21:39:07', '2021-05-06 21:39:07');
+INSERT INTO `base_resource` VALUES (1390300347951583233, '/token', '/token', 0, 1, 1, 'auth', '登录token接口', '2021-05-06 21:40:08', '2021-05-06 21:40:35');
+INSERT INTO `base_resource` VALUES (1390300586829778945, '/getCode', '/getCode', 0, 1, 1, 'auth', '获取登录手机验证码', '2021-05-06 21:41:05', '2021-05-06 21:41:05');
+INSERT INTO `base_resource` VALUES (1390300742753030145, '/oauth/authorize', '/oauth/authorize', 0, 1, 1, 'auth', 'oauth认证', '2021-05-06 21:41:42', '2021-05-06 21:41:42');
+INSERT INTO `base_resource` VALUES (1390300861124677633, '/oauth/token', '/oauth/token', 0, 1, 1, 'auth', 'oauth2token接口', '2021-05-06 21:42:10', '2021-05-06 21:42:10');
+INSERT INTO `base_resource` VALUES (1390301664258379778, '/baseApp/list', '/baseApp/list', 1, 1, 1, 'base-server', '获取应用列表', '2021-05-06 21:45:22', '2021-05-06 21:45:22');
+INSERT INTO `base_resource` VALUES (1390302403114377218, '/baseApp/createApp', '/baseApp/createApp', 1, 1, 1, 'base-server', '添加应用', '2021-05-06 21:48:18', '2021-05-06 21:48:18');
+INSERT INTO `base_resource` VALUES (1390302506290061313, '/baseApp/update', '/baseApp/update', 1, 1, 1, 'base-server', '修改应用', '2021-05-06 21:48:43', '2021-05-06 21:48:43');
+INSERT INTO `base_resource` VALUES (1390302875485282306, '/baseApp/updateAppAuthority', '/baseApp/updateAppAuthority', 1, 1, 1, 'base-server', '修改app权限过期时间', '2021-05-06 21:50:11', '2021-05-06 21:50:11');
+INSERT INTO `base_resource` VALUES (1390302967470563330, '/baseApp/removeAppAuthorities', '/baseApp/removeAppAuthorities', 1, 1, 1, 'base-server', '删除应用权限', '2021-05-06 21:50:33', '2021-05-06 21:50:33');
+INSERT INTO `base_resource` VALUES (1390303252926504962, '/baseMenu/list', '/baseMenu/list', 1, 1, 1, 'base-server', '菜单列表', '2021-05-06 21:51:41', '2021-05-06 21:51:41');
+INSERT INTO `base_resource` VALUES (1390303348976066562, '/baseMenu/newMenu', '/baseMenu/newMenu', 1, 1, 1, 'base-server', '添加菜单', '2021-05-06 21:52:04', '2021-05-06 21:52:04');
+INSERT INTO `base_resource` VALUES (1390303428403601410, '/baseMenu/update', '/baseMenu/update', 1, 1, 1, 'base-server', '修改菜单', '2021-05-06 21:52:23', '2021-05-06 21:52:23');
+INSERT INTO `base_resource` VALUES (1390303562101235713, '/baseResource/list', '/baseResource/list', 1, 1, 1, 'base-server', '资源列表', '2021-05-06 21:52:54', '2021-05-06 21:52:54');
+INSERT INTO `base_resource` VALUES (1390303667265019906, '/baseResource/createResource', '/baseResource/createResource', 1, 1, 1, 'base-server', '添加资源', '2021-05-06 21:53:20', '2021-05-06 21:53:20');
+INSERT INTO `base_resource` VALUES (1390303775897493506, '/baseResource/edit', '/baseResource/edit', 1, 1, 1, 'base-server', '修改资源', '2021-05-06 21:53:45', '2021-05-09 09:04:03');
+INSERT INTO `base_resource` VALUES (1390303962992812033, '/baseResourceServer/loadResourceServers', '/baseResourceServer/loadResourceServers', 1, 1, 1, 'base-server', '路由服务列表', '2021-05-06 21:54:30', '2021-05-06 21:56:20');
+INSERT INTO `base_resource` VALUES (1390304113350221825, '/baseResourceServer/addResourceServer', '/baseResourceServer/addResourceServer', 1, 1, 1, 'base-server', '添加路由服务', '2021-05-06 21:55:06', '2021-05-06 21:56:14');
+INSERT INTO `base_resource` VALUES (1390304317172424706, '/baseResourceServer/updateResourceServer', '/baseResourceServer/updateResourceServer', 1, 1, 1, 'base-server', '修改路由服务', '2021-05-06 21:55:54', '2021-05-06 21:56:07');
+INSERT INTO `base_resource` VALUES (1390305141172805634, '/baseRole/list', '/baseRole/list', 1, 1, 1, 'base-server', '角色列表', '2021-05-06 21:59:11', '2021-05-06 21:59:11');
+INSERT INTO `base_resource` VALUES (1390305219698565122, '/baseRole/newRole', '/baseRole/newRole', 1, 1, 1, 'base-server', '添加角色', '2021-05-06 21:59:30', '2021-05-06 21:59:30');
+INSERT INTO `base_resource` VALUES (1390305415958437889, '/baseRole/updateRolePermissions', '/baseRole/updateRolePermissions', 1, 1, 1, 'base-server', '修改角色菜单和权限', '2021-05-06 22:00:16', '2021-05-06 22:00:16');
+INSERT INTO `base_resource` VALUES (1390305524809015297, '/baseRole/roleMenus', '/baseRole/roleMenus', 1, 1, 1, 'base-server', '获取角色已分配菜单', '2021-05-06 22:00:42', '2021-05-06 22:00:42');
+INSERT INTO `base_resource` VALUES (1390305614298685442, '/baseRole/roleResources', '/baseRole/roleResources', 1, 1, 1, 'base-server', '获取角色已分配资源权限', '2021-05-06 22:01:04', '2021-05-06 22:01:04');
+INSERT INTO `base_resource` VALUES (1390305738886291457, '/baseUser/listUser', '/baseUser/listUser', 1, 1, 1, 'base-server', '用户列表', '2021-05-06 22:01:33', '2021-05-06 22:01:33');
+INSERT INTO `base_resource` VALUES (1390305812248862721, '/baseUser/update', '/baseUser/update', 1, 1, 1, 'base-server', '修改用户', '2021-05-06 22:01:51', '2021-05-06 22:01:51');
+INSERT INTO `base_resource` VALUES (1390305920197664770, '/baseUser/updateUserAndRoles', '/baseUser/updateUserAndRoles', 1, 1, 1, 'base-server', '修改用户和角色', '2021-05-06 22:02:17', '2021-05-06 22:02:17');
+INSERT INTO `base_resource` VALUES (1390306035503276033, '/baseUser/newUser', '/baseUser/newUser', 1, 1, 1, 'base-server', '添加用户', '2021-05-06 22:02:44', '2021-05-06 22:02:44');
+INSERT INTO `base_resource` VALUES (1390306127677300738, '/baseUser/getRolesByUserId', '/baseUser/getRolesByUserId', 1, 1, 1, 'base-server', '获取用户已分配角色', '2021-05-06 22:03:06', '2021-05-06 22:03:06');
+INSERT INTO `base_resource` VALUES (1390306335282765825, '/baseUser/resetPassword', '/baseUser/resetPassword', 1, 1, 1, 'base-server', '重置个人密码', '2021-05-06 22:03:56', '2021-05-06 22:03:56');
+INSERT INTO `base_resource` VALUES (1390306398658699265, '/baseMenu/userMenu', '/baseMenu/userMenu', 1, 1, 1, 'base-server', '获取个人菜单', '2021-05-06 22:04:11', '2021-05-08 17:55:25');
 
 -- ----------------------------
 -- Table structure for base_resource_server
 -- ----------------------------
 DROP TABLE IF EXISTS `base_resource_server`;
 CREATE TABLE `base_resource_server`  (
-                                         `serviceId` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                                         `serviceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                                         `createTime` timestamp(0) NULL DEFAULT NULL,
-                                         `updateTime` timestamp(0) NULL DEFAULT NULL,
-                                         `routerMatch` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                                         `status` tinyint(255) NULL DEFAULT NULL,
-                                         PRIMARY KEY (`serviceId`) USING BTREE
+  `serviceId` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `serviceName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `createTime` timestamp(0) NULL DEFAULT NULL,
+  `updateTime` timestamp(0) NULL DEFAULT NULL,
+  `routerMatch` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `status` tinyint(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`serviceId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_resource_server
 -- ----------------------------
 INSERT INTO `base_resource_server` VALUES ('auth', '认证服务器', '2021-04-16 15:10:44', NULL, '/auth', 1);
-INSERT INTO `base_resource_server` VALUES ('base-server', '基础资源服务', '2021-04-16 15:11:07', NULL, '/base-server', 1);
+INSERT INTO `base_resource_server` VALUES ('base-server', '基础资源服务', '2021-04-16 15:11:07', '2021-05-07 16:31:26', '/base-server', 1);
+INSERT INTO `base_resource_server` VALUES ('gateway', '123大大撒', '2021-05-06 21:29:23', '2021-05-09 08:51:52', 'das', 1);
 
 -- ----------------------------
 -- Table structure for base_role
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role`;
 CREATE TABLE `base_role`  (
-                              `roleId` bigint(20) NOT NULL,
-                              `roleName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `roleValue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-                              `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                              PRIMARY KEY (`roleId`) USING BTREE
+  `roleId` bigint(20) NOT NULL,
+  `roleName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `roleValue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`roleId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_role
 -- ----------------------------
-INSERT INTO `base_role` VALUES (1, '超级管理员', 'ROLE_SUPER_ADMIN', '2021-04-29 09:42:34', '2021-04-28 15:34:18');
-INSERT INTO `base_role` VALUES (2, '管理员', 'ROLE_ADMIN', '2021-04-29 13:43:15', '2021-04-29 13:43:13');
+INSERT INTO `base_role` VALUES (1, '超级管理员', 'ROLE_SUPER_ADMIN', '2021-05-06 22:04:51', '2021-05-06 22:04:52');
+INSERT INTO `base_role` VALUES (2, '管理员', 'ROLE_ADMIN', '2021-05-06 16:20:34', '2021-05-06 16:20:35');
 INSERT INTO `base_role` VALUES (1388027923394555906, '用户', 'ROLE_USER', '2021-04-30 15:48:57', '2021-04-30 15:48:57');
 
 -- ----------------------------
@@ -151,43 +202,85 @@ INSERT INTO `base_role` VALUES (1388027923394555906, '用户', 'ROLE_USER', '202
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role_menu`;
 CREATE TABLE `base_role_menu`  (
-                                   `roleId` bigint(20) NOT NULL,
-                                   `menuId` bigint(20) NOT NULL,
-                                   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-                                   `updateTime` timestamp(0) NOT NULL
+  `roleId` bigint(20) NOT NULL,
+  `menuId` bigint(20) NOT NULL,
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `updateTime` timestamp(0) NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_role_menu
 -- ----------------------------
-INSERT INTO `base_role_menu` VALUES (1, 416283369090383872, '2021-04-21 15:45:03', '0000-00-00 00:00:00');
-INSERT INTO `base_role_menu` VALUES (1, 416283369090383873, '2021-04-21 15:45:09', '0000-00-00 00:00:00');
-INSERT INTO `base_role_menu` VALUES (1, 416283369090383874, '2021-04-21 15:45:14', '0000-00-00 00:00:00');
-INSERT INTO `base_role_menu` VALUES (1, 416283369090383876, '2021-04-21 15:45:17', '0000-00-00 00:00:00');
-INSERT INTO `base_role_menu` VALUES (1, 416283369090383877, '2021-04-25 16:37:56', '0000-00-00 00:00:00');
 INSERT INTO `base_role_menu` VALUES (1388027923394555906, 416283369090383874, '2021-04-30 15:48:57', '2021-04-30 15:48:57');
-INSERT INTO `base_role_menu` VALUES (1, 416283369090383878, '2021-04-30 16:00:03', '0000-00-00 00:00:00');
+INSERT INTO `base_role_menu` VALUES (2, 416283369090383873, '2021-05-06 16:20:35', '2021-05-06 16:20:35');
+INSERT INTO `base_role_menu` VALUES (2, 1390183031792209921, '2021-05-06 16:20:35', '2021-05-06 16:20:35');
+INSERT INTO `base_role_menu` VALUES (2, 416283369090383872, '2021-05-06 16:20:35', '2021-05-06 16:20:35');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383872, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383873, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383874, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383876, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383877, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_menu` VALUES (1, 416283369090383878, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_menu` VALUES (1, 1390183031792209921, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
 
 -- ----------------------------
 -- Table structure for base_role_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role_resource`;
 CREATE TABLE `base_role_resource`  (
-                                       `resourceId` bigint(20) NOT NULL,
-                                       `roleId` bigint(20) NOT NULL,
-                                       `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-                                       `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `resourceId` bigint(20) NOT NULL,
+  `roleId` bigint(20) NOT NULL,
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of base_role_resource
+-- ----------------------------
+INSERT INTO `base_role_resource` VALUES (1390300347951583233, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390300091281149954, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303348976066562, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303252926504962, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390302967470563330, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390302875485282306, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390302506290061313, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390302403114377218, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390301664258379778, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390300861124677633, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390300742753030145, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390300586829778945, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305297783922689, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305219698565122, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305141172805634, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390304317172424706, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390304113350221825, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303962992812033, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303775897493506, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303667265019906, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303562101235713, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390303428403601410, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390193404301877249, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390193244402425858, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390306398658699265, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390306335282765825, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390306127677300738, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390306035503276033, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305920197664770, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305812248862721, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305738886291457, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305614298685442, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305524809015297, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
+INSERT INTO `base_role_resource` VALUES (1390305415958437889, 1, '2021-05-06 22:04:52', '2021-05-06 22:04:52');
 
 -- ----------------------------
 -- Table structure for base_role_user
 -- ----------------------------
 DROP TABLE IF EXISTS `base_role_user`;
 CREATE TABLE `base_role_user`  (
-                                   `roleId` bigint(20) NOT NULL,
-                                   `userId` bigint(20) NOT NULL,
-                                   `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-                                   `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `roleId` bigint(20) NOT NULL,
+  `userId` bigint(20) NOT NULL,
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -201,27 +294,29 @@ INSERT INTO `base_role_user` VALUES (2, 321312, '2021-04-29 13:49:46', '2021-04-
 -- ----------------------------
 DROP TABLE IF EXISTS `base_user`;
 CREATE TABLE `base_user`  (
-                              `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                              `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                              `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `orgId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
-                              `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                              `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              `accountLocked` tinyint(255) NULL DEFAULT 0,
-                              `accountExpired` tinyint(255) NULL DEFAULT 0,
-                              `passwordExpired` tinyint(255) NULL DEFAULT 0,
-                              `enable` tinyint(255) NULL DEFAULT 1,
-                              `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-                              PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `orgId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `updateTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `accountLocked` tinyint(255) NULL DEFAULT 0,
+  `accountExpired` tinyint(255) NULL DEFAULT 0,
+  `passwordExpired` tinyint(255) NULL DEFAULT 0,
+  `enable` tinyint(255) NULL DEFAULT 1,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of base_user
 -- ----------------------------
 INSERT INTO `base_user` VALUES ('1387646772607717378', 'system', '$2a$10$2E.l4c3fjy2tfoU6lJQTe.SQHf/uflw0bgcONOMFZJXt23Ly4Ahjm', 'system', NULL, '2021-04-30 13:59:03', '2021-04-29 13:55:46', NULL, NULL, 0, 0, 0, 1, NULL);
+INSERT INTO `base_user` VALUES ('1387647855082082301', 'test', '1312321', NULL, NULL, '2021-05-08 18:31:09', '2021-05-08 18:31:09', NULL, NULL, 0, 0, 0, 1, NULL);
+INSERT INTO `base_user` VALUES ('1387647855082082305', 'test', '1111', 'test', NULL, '2021-05-08 18:23:45', '2021-05-08 18:23:45', NULL, NULL, 0, 0, 0, 1, NULL);
 INSERT INTO `base_user` VALUES ('1387647855082082306', 'test', '$2a$10$zSE1pIPnfONv66b5tRj61eqByct61kHh1VlXRUwWAsBTTVN/y/BvK', 'test', NULL, '2021-04-30 13:59:05', '2021-04-29 14:00:04', NULL, NULL, 0, 0, 0, 1, NULL);
 INSERT INTO `base_user` VALUES ('321312', 'admin', '$2a$10$45852ceeqBCsLk5odu73v.fp/h0rJLqx9giTGAfNKmSLbVO8JwVMS', 'ulyer', '1', '2021-04-29 11:08:19', '2021-04-16 14:59:48', NULL, NULL, 0, 0, 0, 1, NULL);
 
@@ -230,14 +325,14 @@ INSERT INTO `base_user` VALUES ('321312', 'admin', '$2a$10$45852ceeqBCsLk5odu73v
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_access_token`;
 CREATE TABLE `oauth_access_token`  (
-                                       `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       `token` blob NULL,
-                                       `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                       `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       `authentication` blob NULL,
-                                       `refresh_token` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       PRIMARY KEY (`authentication_id`) USING BTREE
+  `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `token` blob NULL,
+  `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `authentication` blob NULL,
+  `refresh_token` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`authentication_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2访问令牌' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -245,12 +340,12 @@ CREATE TABLE `oauth_access_token`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_approvals`;
 CREATE TABLE `oauth_approvals`  (
-                                    `userId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                    `clientId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                    `scope` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                    `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                    `expiresAt` datetime(0) NULL DEFAULT NULL,
-                                    `lastModifiedAt` datetime(0) NULL DEFAULT NULL
+  `userId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `clientId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `scope` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `expiresAt` datetime(0) NULL DEFAULT NULL,
+  `lastModifiedAt` datetime(0) NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2已授权客户端' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -259,40 +354,16 @@ CREATE TABLE `oauth_approvals`  (
 INSERT INTO `oauth_approvals` VALUES ('admin', '121321412', 'read', 'APPROVED', '2021-05-29 11:59:56', '2021-04-29 11:59:56');
 
 -- ----------------------------
--- Table structure for oauth_client_details
--- ----------------------------
-DROP TABLE IF EXISTS `oauth_client_details`;
-CREATE TABLE `oauth_client_details`  (
-                                         `client_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                         `client_secret` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                         `resource_ids` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         `scope` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         `authorized_grant_types` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         `web_server_redirect_uri` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         `authorities` varchar(2048) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         `access_token_validity` int(11) NULL DEFAULT NULL,
-                                         `refresh_token_validity` int(11) NULL DEFAULT NULL,
-                                         `additional_information` varchar(4096) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         `autoapprove` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                         PRIMARY KEY (`client_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2客户端信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of oauth_client_details
--- ----------------------------
-INSERT INTO `oauth_client_details` VALUES ('121321412', 'e10adc3949ba59abbe56e057f20f883e', '', 'read', 'authorization_code,refresh_token,client_credentials', 'http://localhost:8188', '', 7200, 28800, NULL, NULL);
-
--- ----------------------------
 -- Table structure for oauth_client_token
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_token`;
 CREATE TABLE `oauth_client_token`  (
-                                       `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       `token` blob NULL,
-                                       `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                       `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                       PRIMARY KEY (`authentication_id`) USING BTREE
+  `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `token` blob NULL,
+  `authentication_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `client_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`authentication_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2客户端令牌' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -300,8 +371,8 @@ CREATE TABLE `oauth_client_token`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_code`;
 CREATE TABLE `oauth_code`  (
-                               `code` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                               `authentication` blob NULL
+  `code` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `authentication` blob NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2授权码' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -320,9 +391,9 @@ INSERT INTO `oauth_code` VALUES ('eCaJto', 0xACED0005737200416F72672E737072696E6
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_refresh_token`;
 CREATE TABLE `oauth_refresh_token`  (
-                                        `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                        `token` blob NULL,
-                                        `authentication` blob NULL
+  `token_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `token` blob NULL,
+  `authentication` blob NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oauth2刷新令牌' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
