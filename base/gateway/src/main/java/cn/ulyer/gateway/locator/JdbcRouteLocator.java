@@ -1,8 +1,9 @@
 package cn.ulyer.gateway.locator;
 
 import cn.ulyer.baseclient.entity.BaseResourceServer;
-import cn.ulyer.common.constants.SystemConstants;
-import cn.ulyer.common.event.RemoteRefreshRouteEvent;
+import cn.ulyer.common.binder.RouteBinding;
+import cn.ulyer.common.event.RefreshRouteEvent;
+import cn.ulyer.common.utils.SpringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +13,7 @@ import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.cloud.gateway.support.NameUtils;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.context.ApplicationListener;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
@@ -26,38 +23,33 @@ import java.util.List;
 @Getter
 @Setter
 @Slf4j
-public class JdbcRouteLocator  implements ApplicationEventPublisherAware , ApplicationListener<RemoteRefreshRouteEvent> {
+public class JdbcRouteLocator  {
 
-    private JdbcTemplate jdbcTemplate;
+    private ResourceLocator resourceLocator;
 
     private RouteDefinitionRepository routeDefinitionRepository;
 
-    private ApplicationEventPublisher eventPublisher;
-
-    final static String QUERY = "select * from base_resource_server where status="+ SystemConstants.STATUS_VALID;
 
 
-    public JdbcRouteLocator (JdbcTemplate jdbcTemplate, RouteDefinitionRepository repository){
-        this.jdbcTemplate = jdbcTemplate;
+
+    public JdbcRouteLocator (ResourceLocator resourceLocator, RouteDefinitionRepository repository){
+        this.resourceLocator = resourceLocator;
         this.routeDefinitionRepository = repository;
     }
 
 
 
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.eventPublisher = applicationEventPublisher;
-    }
+
 
 
     public Mono<Void> refresh(){
         this.loadRoutes();
-        this.eventPublisher.publishEvent(new RefreshRoutesEvent(this));
+        SpringUtils.publishEvent(new RefreshRoutesEvent(this));
         return Mono.empty();
     }
 
     private Mono<Void> loadRoutes() {
-        List<BaseResourceServer> resourceServers = this.jdbcTemplate.query(QUERY,new BeanPropertyRowMapper<>(BaseResourceServer.class));
+        List<BaseResourceServer> resourceServers = resourceLocator.refreshResourceServer();
         resourceServers.forEach(baseResourceServer -> {
             RouteDefinition route = new RouteDefinition();
             route.setId(baseResourceServer.getServiceId());
@@ -83,10 +75,17 @@ public class JdbcRouteLocator  implements ApplicationEventPublisherAware , Appli
     }
 
 
-    @Override
-    public void onApplicationEvent(RemoteRefreshRouteEvent remoteRefreshRouteEvent) {
-       log.info("remoteRefreshRouteEvent :{}",remoteRefreshRouteEvent);
-       refresh();
-       log.info("refresh end;");
+    @StreamListener(value = RouteBinding.INPUT,condition = "headers['"+RefreshRouteEvent.FLAG_NAME+"']==true")
+    public void onEvent(RefreshRouteEvent refreshRouteEvent){
+        log.info("刷新网关");
+        this.refresh();
     }
+
+
+
+
+
+
+
+
 }

@@ -1,14 +1,30 @@
 package cn.ulyer.gateway.oauth;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.ulyer.baseclient.entity.BaseResource;
+import cn.ulyer.common.constants.ErrorCode;
+import cn.ulyer.common.constants.SystemConstants;
+import cn.ulyer.common.oauth.Oauth2Authority;
+import cn.ulyer.common.oauth.Oauth2ClientDetails;
+import cn.ulyer.common.oauth.Oauth2User;
+import cn.ulyer.gateway.locator.ResourceLocator;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.gateway.support.NotFoundException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.*;
+
 
 @Slf4j
 @Data
@@ -16,10 +32,11 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
 
     private StaticPathMatcher staticPathMatcher;
 
+    private ResourceLocator resourceLocator;
 
 
-    public AccessManager (){
-
+    public AccessManager(ResourceLocator resourceLocator) {
+        this.resourceLocator = resourceLocator;
     }
 
     @Override
@@ -28,37 +45,62 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
 
         //请求资源
         String requestPath = context.getExchange().getRequest().getURI().getPath();
-        log.info("requestPath :{}",requestPath);
+        log.info("requestPath :{}", requestPath);
         // 是否直接放行
         if (staticPathMatcher.permit(context.getExchange())) {
             return Mono.just(new AuthorizationDecision(true));
         }
 
         return mono.map(auth ->
-            new AuthorizationDecision(checkAuthorities(context.getExchange(), auth, requestPath))
+                new AuthorizationDecision(checkAuthorities(context.getExchange(), auth, requestPath))
         ).defaultIfEmpty(new AuthorizationDecision(false));
 
 
     }
 
 
-
-
-
-
-    //权限校验
+    /**
+     * 检验权限
+     *
+     * @param exchange
+     * @param auth
+     * @param requestPath
+     * @return
+     */
     private boolean checkAuthorities(ServerWebExchange exchange, Authentication auth, String requestPath) {
-        if(auth instanceof OAuth2Authentication){
-            OAuth2Authentication athentication = (OAuth2Authentication) auth;
-            String clientId = athentication.getOAuth2Request().getClientId();
-            log.info("clientId is {}",clientId);
+        Map<String, BaseResource> resourceMap = resourceLocator.getRouterResourceMap();
+        BaseResource resource = resourceMap.get(requestPath);
+        if (resource == null || !SystemConstants.STATUS_VALID.equals(resource.getStatus())) {
+            return false;
+        }
+        //不公开但不是内部应用
+        if (!resource.isPublicApi() ) {
+            return false;
+        }
+        //不需要权限验证
+        if (!resource.needAuth()) {
+            return true;
+        }
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+        //没权限直接拒绝
+        if (CollectionUtil.isEmpty(authorities)) {
+            return false;
+        }
+        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+        int result = 0;
+        while (iterator.hasNext()){
+            Oauth2Authority authority = (Oauth2Authority) iterator.next();
+            if(authority.getAuthority().equals(resource.getAuthority())){
+                if(authority.expired()){
+                    throw new AccessDeniedException(ErrorCode.ACCESS_DENIED_AUTHORITY_EXPIRED.getMessage());
+                }
+                result++;
+            }
+
         }
 
-        Object principal = auth.getPrincipal();
-        log.info("用户信息:{}",principal.toString());
-        return true;
+        return result>0;
     }
-
 
 
 }

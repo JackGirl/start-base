@@ -4,6 +4,7 @@ import cn.ulyer.common.model.AbstractBaseModel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -45,6 +46,13 @@ public class BaseResource extends AbstractBaseModel {
 
     private String resourceName;
 
+    public boolean isPublicApi(){
+        return isPublic==1;
+    }
+
+    public boolean needAuth(){
+        return needAuth==1;
+    }
 
 
 }

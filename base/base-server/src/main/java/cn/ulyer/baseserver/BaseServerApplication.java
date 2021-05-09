@@ -1,13 +1,14 @@
 package cn.ulyer.baseserver;
 
+import cn.ulyer.common.binder.RouteOutput;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 
 @SpringBootApplication(scanBasePackages = "cn.ulyer")
 @MapperScan(basePackages = "cn.ulyer.baseserver.mapper")
-@RemoteApplicationEventScan(basePackages = {"cn.ulyer.common.event"})
+@EnableBinding(RouteOutput.class)
 public class BaseServerApplication {
 
     public static void main(String[] args) {

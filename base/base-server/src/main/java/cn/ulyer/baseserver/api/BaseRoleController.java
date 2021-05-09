@@ -64,17 +64,6 @@ public class BaseRoleController {
         return R.instance( baseRoleService.save(baseRole));
     }
 
-    /**
-     * 角色更新
-     * @param baseRole
-     * @return
-     */
-    @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"')")
-    @PostMapping("/updateRole")
-    public R updateRole(@RequestBody @Valid  BaseRole baseRole){
-        baseRole.setRoleValue(null);
-        return R.instance(baseRoleService.updateById(baseRole));
-    }
 
 
     /**

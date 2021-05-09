@@ -92,6 +92,7 @@ public class GlobalExceptionHandler {
         switch (className){
             case "Oauth2AuthenticationException":
             case "AuthenticationException":
+            case "AuthenticationCredentialsNotFoundException":
                 code = ErrorCode.UNAUTHORIZED;
                 httpStatus = HttpStatus.UNAUTHORIZED;
                 break;

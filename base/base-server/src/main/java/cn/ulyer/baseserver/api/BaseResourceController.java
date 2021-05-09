@@ -8,12 +8,13 @@ import cn.ulyer.baseclient.entity.BaseResourceServer;
 import cn.ulyer.baseclient.vo.ResourceVo;
 import cn.ulyer.baseserver.service.BaseResourceServerService;
 import cn.ulyer.baseserver.service.BaseResourceService;
+import cn.ulyer.common.binder.RouteOutput;
 import cn.ulyer.common.constants.SystemConstants;
+import cn.ulyer.common.event.RefreshResourceEvent;
 import cn.ulyer.common.utils.R;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,11 +35,15 @@ public class BaseResourceController implements ResourceClient {
     @Autowired
     private BaseResourceServerService baseResourceServerService;
 
+
     @Autowired
     private BaseResourceService baseResourceService;
 
+    @Autowired
+    private RouteOutput routeOutput;
+
     @Override
-    @PostMapping("/baseResource/systemResources")
+    @PostMapping("/systemResources")
     public R<List<BaseResource>> loadSystemResources() {
         return R.success().setData(baseResourceService.list(Wrappers.<BaseResource>lambdaQuery().eq(BaseResource::getStatus, SystemConstants.STATUS_VALID)));
     }
@@ -58,6 +63,7 @@ public class BaseResourceController implements ResourceClient {
         Assert.notNull(baseResourceServer,"未找到资源服务器");
         baseResource.setStatus(SystemConstants.STATUS_VALID);
         baseResourceService.save(baseResource);
+        sendRemoteEvent(baseResource, RefreshResourceEvent.ActionType.INSERT);
         return R.success();
     }
 
@@ -66,9 +72,15 @@ public class BaseResourceController implements ResourceClient {
         BaseResourceServer baseResourceServer = baseResourceServerService.getById(baseResource.getServiceId());
         Assert.notNull(baseResourceServer,"未找到资源服务器");
         baseResourceService.updateById(baseResource);
+        sendRemoteEvent(baseResource, RefreshResourceEvent.ActionType.UPDATE);
         return R.success();
     }
 
+
+    private void sendRemoteEvent(BaseResource baseResource, RefreshResourceEvent.ActionType actionType){
+        RefreshResourceEvent remoteRefreshResourceEvent = new RefreshResourceEvent(baseResource,actionType);
+        routeOutput.output().send(MessageBuilder.withPayload(remoteRefreshResourceEvent).setHeader(RefreshResourceEvent.FLAG_NAME,true).build());
+    }
 
 
 

@@ -1,33 +1,26 @@
 package cn.ulyer.gateway.api;
 
 
-import cn.ulyer.common.event.RemoteRefreshRouteEvent;
+import cn.ulyer.common.binder.RouteBinding;
+import cn.ulyer.common.event.RefreshRouteEvent;
 import cn.ulyer.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.bus.BusProperties;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Refresh implements ApplicationEventPublisherAware {
-
-    private ApplicationEventPublisher publisher;
+public class Refresh  {
 
     @Autowired
-    private BusProperties busProperties;
+    private RouteBinding routeBinding;
 
-    @GetMapping("/refreshEvent")
-    public R<String> publish(String destination){
-        publisher.publishEvent(new RemoteRefreshRouteEvent(this,busProperties.getId(),destination));
+    @GetMapping("/refreshRoute")
+    public R<String> publish(){
+        routeBinding.output().send(MessageBuilder.withPayload(new RefreshRouteEvent("")).setHeader(RefreshRouteEvent.FLAG_NAME,true).build());
         return R.success("刷新网关");
     }
 
 
 
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.publisher = applicationEventPublisher;
-    }
 }

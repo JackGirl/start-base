@@ -39,6 +39,10 @@ public class Oauth2ClientDetails implements ClientDetails {
 
     private Integer internal;
 
+    public boolean isInternalApp(){
+        return internal==1;
+    }
+
     @Override
     public String getClientId() {
         return appId;
@@ -64,9 +68,13 @@ public class Oauth2ClientDetails implements ClientDetails {
         return false;
     }
 
+    /**
+     * 权限判断由authorities scope 不用
+     * @return
+     */
     @Override
     public Set<String> getScope() {
-        return StrUtil.isBlank(scope)?null:CollectionUtil.newHashSet(scope.split(","));
+        return StrUtil.isBlank(scope)?CollectionUtil.newHashSet("read"):CollectionUtil.newHashSet(scope.split(","));
     }
 
     @Override

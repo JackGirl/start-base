@@ -90,6 +90,7 @@ public class LoginController {
                             true,clientDetails.getScope(),clientDetails.getResourceIds(),null, CollectionUtil.newHashSet("token"),null);
             OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request,authentication);
             oAuth2Authentication.setAuthenticated(true);
+            oAuth2Authentication.setDetails(clientDetails);
             OAuth2AccessToken accessToken = tokenService.createAccessToken(oAuth2Authentication);
             return R.success().setData(accessToken);
         }

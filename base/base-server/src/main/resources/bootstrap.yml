@@ -2,8 +2,11 @@ spring:
   application:
     name: ${project.artifactId}
   cloud:
-    bus:
-      id: ${spring.application.name}:${server.port}
+    stream:
+      bindings:
+        routeOutput:
+          destination: routeRefresh
+          group: ${spring.application.name}
     nacos:
       config:
         namespace: ${config.namespace}
@@ -13,7 +16,7 @@ spring:
         server-addr: ${config.server-addr}
         file-extension: yaml
         shared-configs[1]:
-          dataId: rabbitmq.yml
+          dataId: rocketmq.yml
           group: DEFAULT_GROUP
         shared-configs[2]:
           dataId: redis.yml
@@ -21,6 +24,7 @@ spring:
       discovery:
         namespace: ${config.namespace}
         server-addr: ${config.server-addr}
+
 
   main:
     allow-bean-definition-overriding: true

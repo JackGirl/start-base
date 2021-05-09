@@ -1,16 +1,20 @@
 package cn.ulyer.gateway;
 
+import cn.ulyer.common.binder.RouteBinding;
+import cn.ulyer.common.utils.SpringUtils;
 import cn.ulyer.gateway.locator.JdbcRouteLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
+@Import(SpringUtils.class)
 @EnableFeignClients(basePackages = "cn.ulyer.baseclient.client")
-@RemoteApplicationEventScan(basePackages = {"cn.ulyer.common.event"})
+@EnableBinding(RouteBinding.class)
 public class GatewayApplication implements CommandLineRunner {
 
     @Autowired
@@ -21,7 +25,7 @@ public class GatewayApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args)  {
         jdbcRouteLocator.refresh();
     }
 }

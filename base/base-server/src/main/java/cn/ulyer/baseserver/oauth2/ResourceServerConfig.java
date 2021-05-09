@@ -42,7 +42,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/baseUser/userLogin",
-                        "/baseApp/loadAppByAppId"
+                        "/baseApp/loadAppByAppId",
+                        "/baseResource/systemResources"
                 )
                 .permitAll()
                 // 监控端点内部放行

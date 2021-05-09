@@ -1,9 +1,19 @@
 spring:
+  devtools:
+    restart:
+      enabled: false
   application:
     name: ${project.artifactId}
   cloud:
-    bus:
-      id: ${spring.application.name}:${server.port}
+    stream:
+      bindings:
+        routeInput:
+          destination: routeRefresh
+          group: ${spring.application.name}
+        routeOutput:
+          destination: routeRefresh
+          group: ${spring.application.name}
+
     nacos:
       config:
         namespace: ${config.namespace}
@@ -14,7 +24,7 @@ spring:
           dataId: db.yml
           group: DEFAULT_GROUP
         shared-configs[2]:
-            dataId: rabbitmq.yml
+            dataId: rocketmq.yml
             group: DEFAULT_GROUP
         server-addr: ${config.server-addr}
         file-extension: yaml

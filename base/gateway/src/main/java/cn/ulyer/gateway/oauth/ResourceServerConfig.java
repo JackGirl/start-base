@@ -1,8 +1,11 @@
 package cn.ulyer.gateway.oauth;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
+import cn.ulyer.baseclient.client.ResourceClient;
 import cn.ulyer.common.oauth.OauthJdkSerialize;
 import cn.ulyer.common.oauth.RedisTokenServices;
+import cn.ulyer.gateway.locator.JdbcRouteLocator;
+import cn.ulyer.gateway.locator.ResourceLocator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -46,6 +49,8 @@ public class ResourceServerConfig {
     }
 
 
+    @Autowired
+    private JdbcRouteLocator jdbcRouteLocator;
 
     /**
      * 跨域配置
@@ -81,6 +86,8 @@ public class ResourceServerConfig {
 
 
 
+
+
     @Bean
     public StaticPathMatcher webPathMatcher(){
         StaticPathMatcher staticPathMatcher = new StaticPathMatcher();
@@ -89,11 +96,14 @@ public class ResourceServerConfig {
        return staticPathMatcher;
     }
 
+    @Autowired
+    private ResourceLocator resourceLocator;
+
 
 
     @Bean
     public AccessManager accessManager(){
-       AccessManager accessManager = new AccessManager();
+       AccessManager accessManager = new AccessManager(resourceLocator);
        accessManager.setStaticPathMatcher(webPathMatcher());
        return accessManager;
     }
@@ -119,6 +129,7 @@ public class ResourceServerConfig {
                 .logout().disable()
                 .formLogin().disable().authorizeExchange()
                .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                .pathMatchers("/refreshRoute").permitAll()
                 .anyExchange().access(accessManager())
                 .and()
                 // 跨域过滤器

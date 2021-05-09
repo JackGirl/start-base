@@ -5,16 +5,16 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import cn.ulyer.baseclient.entity.BaseResourceServer;
 import cn.ulyer.baseserver.service.BaseResourceServerService;
-import cn.ulyer.common.constants.SystemConstants;
-import cn.ulyer.common.event.RemoteRefreshRouteEvent;
+import cn.ulyer.common.binder.RouteBinding;
+import cn.ulyer.common.binder.RouteOutput;
+import cn.ulyer.common.event.RefreshRouteEvent;
 import cn.ulyer.common.model.AbstractBaseModel;
 import cn.ulyer.common.utils.R;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.bus.BusProperties;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,20 +31,16 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/baseResourceServer")
-public class BaseResourceServerController implements ApplicationEventPublisherAware {
+@Slf4j
+public class BaseResourceServerController {
 
-    private ApplicationEventPublisher eventPublisher;
-
-    @Autowired
-    private BusProperties busProperties;
 
     @Autowired
     private BaseResourceServerService baseResourceServerService;
 
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.eventPublisher = applicationEventPublisher;
-    }
+    @Autowired
+    private RouteOutput routeOutput;
+
 
     @GetMapping("/loadResourceServers")
     public R<List<BaseResourceServer>> loadResourceServers(BaseResourceServer baseResourceServer){
@@ -67,7 +63,7 @@ public class BaseResourceServerController implements ApplicationEventPublisherAw
             throw new IllegalArgumentException("serviceId已存在相同");
         }
         baseResourceServerService.save(resourceServer);
-        eventPublisher.publishEvent(new RemoteRefreshRouteEvent(this,busProperties.getId(),null));
+        routeOutput.output().send(MessageBuilder.withPayload(new RefreshRouteEvent(resourceServer)).setHeader(RefreshRouteEvent.FLAG_NAME,true).build());
         return R.success();
     }
 
@@ -76,10 +72,9 @@ public class BaseResourceServerController implements ApplicationEventPublisherAw
     public R updateResourceServer(@RequestBody @Valid BaseResourceServer resourceServer){
         Assert.notBlank(resourceServer.getServiceId());
         baseResourceServerService.updateById(resourceServer);
-        eventPublisher.publishEvent(new RemoteRefreshRouteEvent(this,busProperties.getId(),null));
+        routeOutput.output().send(MessageBuilder.withPayload(new RefreshRouteEvent(resourceServer)).setHeader(RefreshRouteEvent.FLAG_NAME,true).build());
         return R.success();
     }
-
 
 
 
