@@ -2,19 +2,19 @@ spring:
   cloud:
     nacos:
       config:
-        namespace: ${config.namespace}
+        namespace: ${nacos.namespace}
         shared-configs[0]:
             dataId : redis.yml
             group: DEFAULT_GROUP
         shared-configs[1]:
             dataId: db.yml
             group: DEFAULT_GROUP
-        server-addr: ${config.server-addr}
+        server-addr: ${nacos.server-addr}
         file-extension: yaml
         name: auth.yml
       discovery:
-        namespace: ${config.namespace}
-        server-addr: ${config.server-addr}
+        namespace: ${nacos.namespace}
+        server-addr: ${nacos.server-addr}
   application:
     name: ${project.artifactId}
   main:

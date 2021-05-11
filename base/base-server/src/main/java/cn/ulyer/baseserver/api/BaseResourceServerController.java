@@ -5,7 +5,6 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import cn.ulyer.baseclient.entity.BaseResourceServer;
 import cn.ulyer.baseserver.service.BaseResourceServerService;
-import cn.ulyer.common.binder.RouteBinding;
 import cn.ulyer.common.binder.RouteOutput;
 import cn.ulyer.common.event.RefreshRouteEvent;
 import cn.ulyer.common.model.AbstractBaseModel;

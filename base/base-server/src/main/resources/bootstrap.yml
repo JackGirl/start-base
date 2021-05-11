@@ -9,11 +9,11 @@ spring:
           group: ${spring.application.name}
     nacos:
       config:
-        namespace: ${config.namespace}
+        namespace: ${nacos.namespace}
         shared-configs[0]:
           dataId: db.yml
           group: DEFAULT_GROUP
-        server-addr: ${config.server-addr}
+        server-addr: ${nacos.server-addr}
         file-extension: yaml
         shared-configs[1]:
           dataId: rocketmq.yml
@@ -22,9 +22,21 @@ spring:
           dataId: redis.yml
           group: DEFAULT_GROUP
       discovery:
-        namespace: ${config.namespace}
-        server-addr: ${config.server-addr}
-
+        namespace: ${nacos.namespace}
+        server-addr: ${nacos.server-addr}
+    sentinel:
+      transport:
+        dashboard: ${sentinel-dashboard-address}
+      datasource:
+        flow:
+          nacos:
+            serverAddr: ${nacos.server-addr}
+            groupId: SENTINEL_GROUP
+            namespace: ${nacos.namespace}
+            dataId: ${spring.application.name}-flow-rules
+            rule-type: flow
+            username: ${nacos.username}
+            password: ${nacos.password}
 
   main:
     allow-bean-definition-overriding: true

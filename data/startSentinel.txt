@@ -1,0 +1,6 @@
+
+目前流控是修改了 syStem(-system-rules)、degrade(-degrade-rules)、flow(-flow-rules),fw-flow(-gw-flow-rules) 都在nacos存储
+
+文件前缀服务名 分组为SENTINEL_GROUP
+比如服务base-server  flow 文件 就是 base-server-flow-rules  如果nacos没有文件 会自动创建
+java -jar -Dnacos.namespace=xxxxx -Dnacos.serverAddr=localhost:8848 sentinel-dashboard.jar --server.port=8188

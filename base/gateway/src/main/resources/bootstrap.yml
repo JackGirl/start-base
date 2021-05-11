@@ -13,10 +13,22 @@ spring:
         routeOutput:
           destination: routeRefresh
           group: ${spring.application.name}
-
+    sentinel:
+      transport:
+        dashboard: ${sentinel-dashboard-address}
+      datasource:
+        gw-flow:
+          nacos:
+            serverAddr: ${nacos.server-addr}
+            groupId: SENTINEL_GROUP
+            namespace: ${nacos.namespace}
+            dataId: ${spring.application.name}-gw-flow-rules
+            rule-type: gw-flow
+            username: ${nacos.username}
+            password: ${nacos.password}
     nacos:
       config:
-        namespace: ${config.namespace}
+        namespace: ${nacos.namespace}
         shared-configs[0]:
           dataId : redis.yml
           group: DEFAULT_GROUP
@@ -26,13 +38,13 @@ spring:
         shared-configs[2]:
             dataId: rocketmq.yml
             group: DEFAULT_GROUP
-        server-addr: ${config.server-addr}
+        server-addr: ${nacos.server-addr}
         file-extension: yaml
         name: gateway.yml
 
       discovery:
-        namespace: ${config.namespace}
-        server-addr: ${config.server-addr}
+        namespace: ${nacos.namespace}
+        server-addr: ${nacos.server-addr}
     gateway:
       discovery:
         locator:
