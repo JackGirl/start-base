@@ -120,8 +120,7 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
     /**
      * 获取浏览器类型
      * */
-    public static String getOperatorSystem(){
-        String userAgent = getAgent();
+    public static String getOperatorSystem(String userAgent){
         if (userAgent.toLowerCase().contains("windows" )) {
             return "Windows";
         } else if (userAgent.toLowerCase().contains("mac" )) {

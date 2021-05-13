@@ -21,7 +21,7 @@ public class R<T> implements Serializable {
     private T data;
 
     @JsonIgnore
-    private HttpStatus httpStatus;
+    private transient HttpStatus httpStatus;
 
     public static R success(){
         return new R<>().setMessage(ErrorCode.OK.getMessage()).setCode(ErrorCode.OK.getCode());
