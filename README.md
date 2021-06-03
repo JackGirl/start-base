@@ -1,4 +1,25 @@
 # 工程简介
-    当前项目主要作为我自己的一个代码框架库，以用于以后自己外包项目快速搭建开发。
-# 延伸阅读
 
+目前只有系统基础功能
+无首页看板 
+
+* rocketmq 消息中间件
+* nacos 服务配置 服务注册
+* sentine持久化nacos存储
+* redis统计token管理
+* app 应用权限单独接口过期授权
+* docker 镜像打包
+
+# 截图
+
+
+![sentinel](http://www.ulyer.cn:8084/start-base/sentinel.png)
+
+![sentinel](http://www.ulyer.cn:8084/start-base/sentinel-flow.png)
+
+![app接口权限修改](http://www.ulyer.cn:8084/start-base/approle.png)
+
+![app修改](http://www.ulyer.cn:8084/start-base/app-edit.png)
+![app](http://www.ulyer.cn:8084/start-base/app.png)
+
+![登录](http://www.ulyer.cn:8084/start-base/login.png)

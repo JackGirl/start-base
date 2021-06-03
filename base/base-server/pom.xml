@@ -41,6 +41,36 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <!--docker镜像相关的配置信息-->
+                <configuration>
+                    <!--镜像名-->
+                    <imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+                    <!--构建参数-->
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                    <!--指定dockerFile-->
+                  <dockerDirectory>${project.basedir}</dockerDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
