@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 统一异常处理器
- *
- * @author LYD
- * @date 2017/7/3
+ * reference by open-cloud
+ * 优化
+ * @author ulyer
  */
 @RestControllerAdvice
 @Slf4j
