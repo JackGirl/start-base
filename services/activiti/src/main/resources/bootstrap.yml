@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ${project.artifactId}
+  cloud:
+    nacos:
+      config:
+        name: activiti.yml
+        file-extension: yaml
+        namespace: ${nacos.namespace}
+        server-addr: ${nacos.server-addr}
+      shared-configs[0]:
+            dataId: redis.yml
+            group: DEFAULT_GROUP
+      discovery:
+        server-addr: ${nacos.server-addr}
+        namespace: ${nacos.namespace}
+  profiles:
+    active: activiti
+  devtools:
+    restart:
+      enabled: false
+  main:
+    allow-bean-definition-overriding: true
+  freemarker:
+    suffix: .html
+    template-loader-path: classpath:/templates/
+    content-type: text/html
+server:
+  port: 9797
