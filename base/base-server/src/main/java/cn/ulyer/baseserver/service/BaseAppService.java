@@ -15,7 +15,6 @@ import java.util.List;
  */
 public interface BaseAppService extends IService<BaseApp> {
 
-    void updateAppAndAuthorities(BaseApp baseApp, List<Long> authorities);
 
 
 }

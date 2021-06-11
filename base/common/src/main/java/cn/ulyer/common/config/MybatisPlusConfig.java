@@ -1,6 +1,5 @@
 package cn.ulyer.common.config;
 
-import cn.hutool.core.util.ReflectUtil;
 import cn.ulyer.common.model.AbstractBaseModel;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
-import java.util.List;
 
 
 @Configuration
