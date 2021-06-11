@@ -6,7 +6,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.ulyer.baseclient.entity.BaseRole;
 import cn.ulyer.baseclient.vo.MenuVo;
 import cn.ulyer.baseclient.vo.ResourceVo;
-import cn.ulyer.baseclient.vo.RoleVo;
 import cn.ulyer.baseserver.service.BaseMenuService;
 import cn.ulyer.baseserver.service.BaseResourceService;
 import cn.ulyer.baseserver.service.BaseRoleService;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * <p>

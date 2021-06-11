@@ -15,6 +15,7 @@ import cn.ulyer.baseserver.service.BaseRoleUserService;
 import cn.ulyer.baseserver.service.BaseUserService;
 import cn.ulyer.common.constants.RoleValue;
 import cn.ulyer.common.constants.SystemConstants;
+import cn.ulyer.common.utils.OauthUtil;
 import cn.ulyer.common.utils.PageResult;
 import cn.ulyer.common.utils.R;
 import com.alibaba.fastjson.JSONObject;
@@ -109,7 +110,14 @@ public class BaseUserController  implements UserClient {
     public R resetPassword(@RequestBody JSONObject params){
         String password = params.getString("password");
         String oldPassword = params.getString("oldPassword");
-
+        Long user = OauthUtil.getUserId();
+        BaseUser baseUser = baseUserService.getById(user);
+        Assert.notNull(baseUser);
+        if(!passwordEncoder.matches(oldPassword,baseUser.getPassword())){
+            return R.fail("原密码输入错误");
+        }
+        baseUser.setPassword(passwordEncoder.encode(password));
+        baseUserService.updateById(baseUser);
         return R.success();
     }
 

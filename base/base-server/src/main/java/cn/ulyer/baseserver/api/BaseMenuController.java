@@ -10,7 +10,6 @@ import cn.ulyer.common.model.TreeVo;
 import cn.ulyer.common.utils.TreeUtil;
 import cn.ulyer.common.utils.OauthUtil;
 import cn.ulyer.common.utils.R;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
