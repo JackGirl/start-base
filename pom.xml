@@ -9,6 +9,7 @@
 
     <modules>
         <module>base</module>
+        <module>services</module>
     </modules>
     <name>start-base</name>
     <description>a template project for boot</description>

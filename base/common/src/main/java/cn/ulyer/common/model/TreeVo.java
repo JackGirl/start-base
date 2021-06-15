@@ -1,14 +1,15 @@
 package cn.ulyer.common.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface TreeVo<T,E> {
+public interface TreeVo {
 
-   T getParentId();
+   Serializable getParentId();
 
-   T getId();
+   Serializable getId();
 
-   List<E> getChildren();
+   List getChildren();
 
-   void setChildren(List<E> children);
+   void setChildren(List children);
 }

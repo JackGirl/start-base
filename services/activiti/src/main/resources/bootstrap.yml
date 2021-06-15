@@ -14,8 +14,7 @@ spring:
       discovery:
         server-addr: ${nacos.server-addr}
         namespace: ${nacos.namespace}
-  profiles:
-    active: activiti
+
   devtools:
     restart:
       enabled: false
@@ -27,3 +26,16 @@ spring:
     content-type: text/html
 server:
   port: 9797
+dubbo:
+  registry:
+    enabled: false
+    parameters:
+      namespace: ${nacos.namespace}
+      group: DUBBO_GROUP
+
+    address: nacos://${nacos.server-addr}
+  scan:
+    base-packages: cn.ulyer.activiti.impl
+  protocol:
+    port: -1
+    name: dubbo

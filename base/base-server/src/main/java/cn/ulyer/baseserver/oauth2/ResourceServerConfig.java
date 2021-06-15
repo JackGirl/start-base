@@ -40,12 +40,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/baseUser/userLogin",
-                        "/baseApp/loadAppByAppId",
-                        "/baseResource/systemResources"
-                )
-                .permitAll()
                 // 监控端点内部放行
                 .anyRequest().authenticated()
                 .and()

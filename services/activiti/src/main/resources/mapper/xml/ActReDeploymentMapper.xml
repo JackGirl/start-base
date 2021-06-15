@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActReDeploymentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActReDeployment">
+        <id column="ID_" property="id" />
+        <result column="NAME_" property="name" />
+        <result column="CATEGORY_" property="category" />
+        <result column="KEY_" property="key" />
+        <result column="TENANT_ID_" property="tenantId" />
+        <result column="DEPLOY_TIME_" property="deployTime" />
+        <result column="ENGINE_VERSION_" property="engineVersion" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, NAME_, CATEGORY_, KEY_, TENANT_ID_, DEPLOY_TIME_, ENGINE_VERSION_
+    </sql>
+
+</mapper>

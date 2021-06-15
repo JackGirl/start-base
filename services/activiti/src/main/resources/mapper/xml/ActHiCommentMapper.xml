@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActHiCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActHiComment">
+        <id column="ID_" property="id" />
+        <result column="TYPE_" property="type" />
+        <result column="TIME_" property="time" />
+        <result column="USER_ID_" property="userId" />
+        <result column="TASK_ID_" property="taskId" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="ACTION_" property="action" />
+        <result column="MESSAGE_" property="message" />
+        <result column="FULL_MSG_" property="fullMsg" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, TYPE_, TIME_, USER_ID_, TASK_ID_, PROC_INST_ID_, ACTION_, MESSAGE_, FULL_MSG_
+    </sql>
+
+</mapper>

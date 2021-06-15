@@ -42,3 +42,17 @@ spring:
     allow-bean-definition-overriding: true
 server:
   port: 8090
+
+dubbo:
+  registry:
+    parameters:
+      namespace: ${nacos.namespace}
+      group: DUBBO_GROUP
+    address: nacos://${nacos.server-addr}
+    check: true
+    use-as-metadata-center: false
+  protocol:
+    port: -1
+    name: dubbo
+  scan:
+    base-packages: cn.ulyer.baseserver.service.impl

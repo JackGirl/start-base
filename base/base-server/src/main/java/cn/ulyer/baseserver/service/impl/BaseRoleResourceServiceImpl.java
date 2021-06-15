@@ -1,11 +1,11 @@
 package cn.ulyer.baseserver.service.impl;
 
-import cn.ulyer.baseclient.entity.BaseRoleResource;
+import cn.ulyer.baseapi.dubboapi.RoleResourceApi;
+import cn.ulyer.baseapi.entity.BaseRoleResource;
 import cn.ulyer.baseserver.mapper.BaseRoleResourceMapper;
 import cn.ulyer.baseserver.service.BaseRoleResourceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-@Service
+@DubboService(interfaceClass = RoleResourceApi.class)
 public class BaseRoleResourceServiceImpl extends ServiceImpl<BaseRoleResourceMapper, BaseRoleResource> implements BaseRoleResourceService {
 
 }

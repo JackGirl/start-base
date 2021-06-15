@@ -33,7 +33,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/editor/stencilset").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
         .and().exceptionHandling().accessDeniedHandler(new JSONAccessDeniedHandler())
         .authenticationEntryPoint(new JSONAuthenticationEntryPoint());
     }

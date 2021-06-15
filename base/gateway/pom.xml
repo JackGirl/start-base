@@ -37,7 +37,7 @@
         </dependency>
         <dependency>
             <groupId>cn.ulyer</groupId>
-            <artifactId>base-client</artifactId>
+            <artifactId>base-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

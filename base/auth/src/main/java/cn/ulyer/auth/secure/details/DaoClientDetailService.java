@@ -1,10 +1,9 @@
 package cn.ulyer.auth.secure.details;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ulyer.baseclient.client.AppClient;
-import cn.ulyer.baseclient.dto.App;
+import cn.ulyer.baseapi.dto.App;
+import cn.ulyer.baseapi.dubboapi.AppApi;
 import cn.ulyer.common.oauth.Oauth2ClientDetails;
-import cn.ulyer.common.utils.R;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
@@ -12,16 +11,15 @@ import org.springframework.security.oauth2.provider.NoSuchClientException;
 
 public class DaoClientDetailService  implements ClientDetailsService{
 
-    AppClient appClient;
+    AppApi appClient;
 
-    public DaoClientDetailService(AppClient appClient){
+    public DaoClientDetailService(AppApi appClient){
         this.appClient = appClient;
     }
 
     @Override
     public ClientDetails loadClientByClientId(String s) throws ClientRegistrationException {
-        R<App> res = appClient.loadAppByAppId(Long.valueOf(s));
-        App app = res.getData();
+        App app = appClient.loadAppById(Long.valueOf(s));
         if(app==null){
             throw new NoSuchClientException("找不到该应用 appId:"+s);
         }

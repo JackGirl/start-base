@@ -24,3 +24,20 @@ spring:
 server:
   port: 8080
 
+
+dubbo:
+  registry:
+    parameters:
+      namespace: ${nacos.namespace}
+      group: DUBBO_GROUP
+    address: nacos://${nacos.server-addr}
+    use-as-metadata-center: false
+
+  protocol:
+    port: -1
+    name: dubbo
+  consumer:
+    check: false
+
+  provider:
+    register: false

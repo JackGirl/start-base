@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.EepDepositdataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.EepDepositdata">
+        <id column="id" property="id" />
+        <result column="deposit_code" property="depositCode" />
+        <result column="access_biz_id" property="accessBizId" />
+        <result column="user_name" property="userName" />
+        <result column="content" property="content" />
+        <result column="client_code" property="clientCode" />
+        <result column="sys_time" property="sysTime" />
+        <result column="sys_time_sign" property="sysTimeSign" />
+        <result column="cert_source" property="certSource" />
+        <result column="source_ip" property="sourceIp" />
+        <result column="target_ip" property="targetIp" />
+        <result column="service_addr" property="serviceAddr" />
+        <result column="auth_server_savetime" property="authServerSavetime" />
+        <result column="custom_sign_cert" property="customSignCert" />
+        <result column="hash" property="hash" />
+        <result column="attach_hash" property="attachHash" />
+        <result column="custom_attach_sign" property="customAttachSign" />
+        <result column="custom_sign" property="customSign" />
+        <result column="sys_sign_pubkey" property="sysSignPubkey" />
+        <result column="sys_attach_sign" property="sysAttachSign" />
+        <result column="sys_sign" property="sysSign" />
+        <result column="status" property="status" />
+        <result column="tag" property="tag" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="dekV" property="dekv" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, deposit_code, access_biz_id, user_name, content, client_code, sys_time, sys_time_sign, cert_source, source_ip, target_ip, service_addr, auth_server_savetime, custom_sign_cert, hash, attach_hash, custom_attach_sign, custom_sign, sys_sign_pubkey, sys_attach_sign, sys_sign, status, tag, remark, create_time, dekV
+    </sql>
+
+</mapper>

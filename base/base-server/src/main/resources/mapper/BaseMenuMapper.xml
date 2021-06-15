@@ -3,7 +3,7 @@
 <mapper namespace="cn.ulyer.baseserver.mapper.BaseMenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseMenu">
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseapi.entity.BaseMenu">
         <id column="menuId" property="menuId" />
         <result column="parentId" property="parentId" />
         <result column="menuName" property="menuName" />
@@ -17,7 +17,7 @@
         <result column="redirect" property="redirect"/>
     </resultMap>
 
-    <resultMap id="menuVoMap" type="cn.ulyer.baseclient.vo.MenuVo">
+    <resultMap id="menuVoMap" type="cn.ulyer.baseapi.vo.MenuVo">
         <id column="menuId" property="menuId" />
         <result column="parentId" property="parentId" />
         <result column="menuName" property="menuName" />
@@ -35,7 +35,7 @@
     <sql id="Base_Column_List">
         menuId, parentId, menuName, path, status, priority, icon, target, createTime, updateTime,component,redirect
     </sql>
-    <select id="listUserMenuByUserId" resultType="cn.ulyer.baseclient.vo.MenuVo">
+    <select id="listUserMenuByUserId" resultType="cn.ulyer.baseapi.vo.MenuVo">
         select <include refid="Base_Column_List"/>
         from base_menu where status=1 and menuId in (
             select menuId from base_role_menu where roleId in(
@@ -48,7 +48,7 @@
         from base_menu where status=1
         order by priority asc ,createTime desc
     </select>
-    <select id="listByRoleId" resultType="cn.ulyer.baseclient.vo.MenuVo">
+    <select id="listByRoleId" resultType="cn.ulyer.baseapi.vo.MenuVo">
         select <include refid="Base_Column_List"/>
         from base_menu where status=1 and menuId in (
         select menuId from base_role_menu where roleId

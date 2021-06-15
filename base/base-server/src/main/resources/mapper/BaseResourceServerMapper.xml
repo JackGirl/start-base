@@ -3,7 +3,7 @@
 <mapper namespace="cn.ulyer.baseserver.mapper.BaseResourceServerMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseResourceServer">
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseapi.entity.BaseResourceServer">
         <id column="serviceId" property="serviceId" />
         <result column="serviceName" property="serviceName" />
         <result column="createTime" property="createTime" />

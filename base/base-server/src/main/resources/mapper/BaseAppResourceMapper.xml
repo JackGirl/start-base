@@ -3,7 +3,7 @@
 <mapper namespace="cn.ulyer.baseserver.mapper.BaseAppResourceMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseAppResource">
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseapi.entity.BaseAppResource">
         <result column="resourceId" property="resourceId" />
         <result column="appId" property="appId" />
         <result column="expireTime" property="expireTime" />

@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-
+!pom.xml
 ### STS ###
 .apt_generated
 .classpath
@@ -29,3 +29,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/services/pom.xml

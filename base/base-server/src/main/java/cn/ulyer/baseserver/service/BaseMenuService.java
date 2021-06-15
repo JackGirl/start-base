@@ -1,8 +1,7 @@
 package cn.ulyer.baseserver.service;
 
-import cn.ulyer.baseclient.entity.BaseMenu;
-import cn.ulyer.baseclient.vo.MenuVo;
-import com.baomidou.mybatisplus.extension.service.IService;
+import cn.ulyer.baseapi.dubboapi.MenuApi;
+import cn.ulyer.baseapi.vo.MenuVo;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseMenuService extends IService<BaseMenu> {
+public interface BaseMenuService extends MenuApi {
 
 
     List<MenuVo> listUserMenuByUserId(Long userId);
@@ -23,6 +22,7 @@ public interface BaseMenuService extends IService<BaseMenu> {
     List<MenuVo> listMenuVo();
 
     List<MenuVo> listByRoleId(Long roleId);
+
 
 
 }

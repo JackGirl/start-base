@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActHiTaskinstMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActHiTaskinst">
+        <id column="ID_" property="id" />
+        <result column="PROC_DEF_ID_" property="procDefId" />
+        <result column="TASK_DEF_KEY_" property="taskDefKey" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="EXECUTION_ID_" property="executionId" />
+        <result column="NAME_" property="name" />
+        <result column="PARENT_TASK_ID_" property="parentTaskId" />
+        <result column="DESCRIPTION_" property="description" />
+        <result column="OWNER_" property="owner" />
+        <result column="ASSIGNEE_" property="assignee" />
+        <result column="START_TIME_" property="startTime" />
+        <result column="CLAIM_TIME_" property="claimTime" />
+        <result column="END_TIME_" property="endTime" />
+        <result column="DURATION_" property="duration" />
+        <result column="DELETE_REASON_" property="deleteReason" />
+        <result column="PRIORITY_" property="priority" />
+        <result column="DUE_DATE_" property="dueDate" />
+        <result column="FORM_KEY_" property="formKey" />
+        <result column="CATEGORY_" property="category" />
+        <result column="TENANT_ID_" property="tenantId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, PROC_DEF_ID_, TASK_DEF_KEY_, PROC_INST_ID_, EXECUTION_ID_, NAME_, PARENT_TASK_ID_, DESCRIPTION_, OWNER_, ASSIGNEE_, START_TIME_, CLAIM_TIME_, END_TIME_, DURATION_, DELETE_REASON_, PRIORITY_, DUE_DATE_, FORM_KEY_, CATEGORY_, TENANT_ID_
+    </sql>
+
+</mapper>

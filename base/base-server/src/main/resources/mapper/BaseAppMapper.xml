@@ -3,7 +3,7 @@
 <mapper namespace="cn.ulyer.baseserver.mapper.BaseAppMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseApp">
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseapi.entity.BaseApp">
         <id column="appId" property="appId" />
         <result column="appName" property="appName" />
         <result column="appSecret" property="appSecret" />

@@ -1,7 +1,6 @@
 package cn.ulyer.baseserver.service;
 
-import cn.ulyer.baseclient.entity.BaseAppResource;
-import com.baomidou.mybatisplus.extension.service.IService;
+import cn.ulyer.baseapi.dubboapi.AppResourceApi;
 
 /**
  * <p>
@@ -11,6 +10,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseAppResourceService extends IService<BaseAppResource> {
+public interface BaseAppResourceService extends AppResourceApi {
 
 }

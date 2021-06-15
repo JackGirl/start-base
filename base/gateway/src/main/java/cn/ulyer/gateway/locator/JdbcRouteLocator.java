@@ -1,6 +1,6 @@
 package cn.ulyer.gateway.locator;
 
-import cn.ulyer.baseclient.entity.BaseResourceServer;
+import cn.ulyer.baseapi.entity.BaseResourceServer;
 import cn.ulyer.common.binder.RouteBinding;
 import cn.ulyer.common.event.RefreshRouteEvent;
 import cn.ulyer.common.utils.SpringUtils;

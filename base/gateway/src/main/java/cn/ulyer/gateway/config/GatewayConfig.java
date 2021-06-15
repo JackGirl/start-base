@@ -1,13 +1,14 @@
 package cn.ulyer.gateway.config;
 
 
-import cn.ulyer.baseclient.client.ResourceClient;
+import cn.ulyer.baseapi.dubboapi.ResourceApi;
 import cn.ulyer.gateway.locator.JdbcRouteLocator;
 import cn.ulyer.gateway.locator.ResourceLocator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
@@ -30,8 +31,8 @@ public class GatewayConfig {
     private JdbcTemplate jdbcTemplate;
 
 
-    @Autowired
-    private ResourceClient resourceClient;
+    @DubboReference
+    private ResourceApi resourceClient;
 
     @Bean
     public JdbcRouteLocator jdbcRouteLocator(){

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.EepDepositAttachMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.EepDepositAttach">
+        <id column="id" property="id" />
+        <result column="file_name" property="fileName" />
+        <result column="deposit_id" property="depositId" />
+        <result column="path" property="path" />
+        <result column="file_hash" property="fileHash" />
+        <result column="sign" property="sign" />
+        <result column="file_size" property="fileSize" />
+        <result column="file_type" property="fileType" />
+        <result column="sharding" property="sharding" />
+        <result column="create_time" property="createTime" />
+        <result column="dekv" property="dekv" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, file_name, deposit_id, path, file_hash, sign, file_size, file_type, sharding, create_time, dekv
+    </sql>
+
+</mapper>

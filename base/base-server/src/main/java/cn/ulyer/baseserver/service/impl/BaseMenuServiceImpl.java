@@ -1,12 +1,12 @@
 package cn.ulyer.baseserver.service.impl;
 
-import cn.ulyer.baseclient.entity.BaseMenu;
-import cn.ulyer.baseclient.vo.MenuVo;
+import cn.ulyer.baseapi.dubboapi.MenuApi;
+import cn.ulyer.baseapi.entity.BaseMenu;
+import cn.ulyer.baseapi.vo.MenuVo;
 import cn.ulyer.baseserver.mapper.BaseMenuMapper;
 import cn.ulyer.baseserver.service.BaseMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-@Service
+@DubboService(interfaceClass = MenuApi.class)
 public class BaseMenuServiceImpl extends ServiceImpl<BaseMenuMapper, BaseMenu> implements BaseMenuService {
 
     @Resource

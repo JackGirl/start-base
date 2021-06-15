@@ -1,14 +1,10 @@
 package cn.ulyer.baseserver.api;
 
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ulyer.baseclient.client.AppClient;
-import cn.ulyer.baseclient.entity.BaseApp;
-import cn.ulyer.baseclient.dto.App;
-import cn.ulyer.baseclient.entity.BaseAppResource;
-import cn.ulyer.baseclient.vo.AuthorityVo;
+import cn.ulyer.baseapi.entity.BaseApp;
+import cn.ulyer.baseapi.entity.BaseAppResource;
+import cn.ulyer.baseapi.vo.AuthorityVo;
 import cn.ulyer.baseserver.service.BaseAppResourceService;
 import cn.ulyer.baseserver.service.BaseAppService;
 import cn.ulyer.baseserver.service.BaseResourceService;
@@ -39,7 +35,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("/baseApp")
-public class BaseAppController implements AppClient {
+public class BaseAppController{
 
     @Autowired
     private BaseAppService baseAppService;
@@ -54,18 +50,7 @@ public class BaseAppController implements AppClient {
     @Autowired
     private BaseAppResourceService baseAppResourceService;
 
-    @Override
-    @GetMapping("/loadAppByAppId")
-    public R<App> loadAppByAppId(Long appId) {
-        BaseApp baseApp = baseAppService.getOne(Wrappers.<BaseApp>lambdaQuery().eq(BaseApp::getAppId, appId).eq(BaseApp::getStatus, SystemConstants.STATUS_VALID));
-        App app = null;
-        if (baseApp != null) {
-            app = new App();
-            BeanUtil.copyProperties(baseApp, app);
-            app.setAuthorities(CollectionUtil.newHashSet(baseResourceService.listAuthorityByAppId(appId)));
-        }
-        return R.success().setData(app);
-    }
+
 
     @GetMapping("/list")
     public R<List<BaseApp>> list(@RequestParam(value = SystemConstants.PAGE_NAME) Integer page,

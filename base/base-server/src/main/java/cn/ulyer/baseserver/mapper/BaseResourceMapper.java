@@ -1,9 +1,8 @@
 package cn.ulyer.baseserver.mapper;
 
-import cn.ulyer.baseclient.entity.BaseResource;
-import cn.ulyer.baseclient.entity.BaseRole;
-import cn.ulyer.baseclient.vo.AuthorityVo;
-import cn.ulyer.baseclient.vo.ResourceVo;
+import cn.ulyer.baseapi.entity.BaseResource;
+import cn.ulyer.baseapi.vo.AuthorityVo;
+import cn.ulyer.baseapi.vo.ResourceVo;
 import cn.ulyer.common.oauth.Oauth2Authority;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActHiProcinstMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActHiProcinst">
+        <id column="ID_" property="id" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="BUSINESS_KEY_" property="businessKey" />
+        <result column="PROC_DEF_ID_" property="procDefId" />
+        <result column="START_TIME_" property="startTime" />
+        <result column="END_TIME_" property="endTime" />
+        <result column="DURATION_" property="duration" />
+        <result column="START_USER_ID_" property="startUserId" />
+        <result column="START_ACT_ID_" property="startActId" />
+        <result column="END_ACT_ID_" property="endActId" />
+        <result column="SUPER_PROCESS_INSTANCE_ID_" property="superProcessInstanceId" />
+        <result column="DELETE_REASON_" property="deleteReason" />
+        <result column="TENANT_ID_" property="tenantId" />
+        <result column="NAME_" property="name" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, PROC_INST_ID_, BUSINESS_KEY_, PROC_DEF_ID_, START_TIME_, END_TIME_, DURATION_, START_USER_ID_, START_ACT_ID_, END_ACT_ID_, SUPER_PROCESS_INSTANCE_ID_, DELETE_REASON_, TENANT_ID_, NAME_
+    </sql>
+
+</mapper>

@@ -1,7 +1,7 @@
 package cn.ulyer.baseserver.mapper;
 
-import cn.ulyer.baseclient.entity.BaseMenu;
-import cn.ulyer.baseclient.vo.MenuVo;
+import cn.ulyer.baseapi.entity.BaseMenu;
+import cn.ulyer.baseapi.vo.MenuVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;

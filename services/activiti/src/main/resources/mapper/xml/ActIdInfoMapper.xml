@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActIdInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActIdInfo">
+        <id column="ID_" property="id" />
+        <result column="REV_" property="rev" />
+        <result column="USER_ID_" property="userId" />
+        <result column="TYPE_" property="type" />
+        <result column="KEY_" property="key" />
+        <result column="VALUE_" property="value" />
+        <result column="PASSWORD_" property="password" />
+        <result column="PARENT_ID_" property="parentId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, REV_, USER_ID_, TYPE_, KEY_, VALUE_, PASSWORD_, PARENT_ID_
+    </sql>
+
+</mapper>

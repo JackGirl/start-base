@@ -2,7 +2,8 @@ package cn.ulyer.auth.secure;
 
 import cn.ulyer.auth.secure.details.DaoUserDetailService;
 import cn.ulyer.auth.secure.phone.PhoneAuthenticationProvider;
-import cn.ulyer.baseclient.client.UserClient;
+import cn.ulyer.baseapi.dubboapi.UserApi;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,15 +14,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.annotation.Resource;
-
 
 @Configuration
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
 
-    @Resource
-    private UserClient userClient;
+    @DubboReference
+    private UserApi userClient;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

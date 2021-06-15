@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActRuEventSubscrMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActRuEventSubscr">
+        <id column="ID_" property="id" />
+        <result column="REV_" property="rev" />
+        <result column="EVENT_TYPE_" property="eventType" />
+        <result column="EVENT_NAME_" property="eventName" />
+        <result column="EXECUTION_ID_" property="executionId" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="ACTIVITY_ID_" property="activityId" />
+        <result column="CONFIGURATION_" property="configuration" />
+        <result column="CREATED_" property="created" />
+        <result column="PROC_DEF_ID_" property="procDefId" />
+        <result column="TENANT_ID_" property="tenantId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, REV_, EVENT_TYPE_, EVENT_NAME_, EXECUTION_ID_, PROC_INST_ID_, ACTIVITY_ID_, CONFIGURATION_, CREATED_, PROC_DEF_ID_, TENANT_ID_
+    </sql>
+
+</mapper>

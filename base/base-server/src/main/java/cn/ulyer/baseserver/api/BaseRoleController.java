@@ -3,9 +3,9 @@ package cn.ulyer.baseserver.api;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
-import cn.ulyer.baseclient.entity.BaseRole;
-import cn.ulyer.baseclient.vo.MenuVo;
-import cn.ulyer.baseclient.vo.ResourceVo;
+import cn.ulyer.baseapi.entity.BaseRole;
+import cn.ulyer.baseapi.vo.MenuVo;
+import cn.ulyer.baseapi.vo.ResourceVo;
 import cn.ulyer.baseserver.service.BaseMenuService;
 import cn.ulyer.baseserver.service.BaseResourceService;
 import cn.ulyer.baseserver.service.BaseRoleService;

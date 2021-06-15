@@ -1,19 +1,15 @@
 package cn.ulyer.gateway.locator;
 
-import cn.ulyer.baseclient.client.ResourceClient;
-import cn.ulyer.baseclient.entity.BaseResource;
-import cn.ulyer.baseclient.entity.BaseResourceServer;
+import cn.ulyer.baseapi.dubboapi.ResourceApi;
+import cn.ulyer.baseapi.entity.BaseResource;
+import cn.ulyer.baseapi.entity.BaseResourceServer;
 import cn.ulyer.common.binder.RouteBinding;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.event.RefreshResourceEvent;
-import cn.ulyer.common.event.RefreshRouteEvent;
-import cn.ulyer.common.utils.R;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -28,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceLocator {
 
-    private ResourceClient resourceClient;
+    private ResourceApi resourceClient;
 
     private JdbcTemplate jdbcTemplate;
 
@@ -44,7 +40,7 @@ public class ResourceLocator {
      */
     private Map<String, BaseResourceServer> serverMap         = new ConcurrentHashMap<>();
 
-    public ResourceLocator(ResourceClient resourceClient, JdbcTemplate jdbcTemplate) {
+    public ResourceLocator(ResourceApi resourceClient, JdbcTemplate jdbcTemplate) {
         this.resourceClient = resourceClient;
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -94,8 +90,7 @@ public class ResourceLocator {
     public void refreshResources() {
         routerResourceMap.clear();
 
-        R<List<BaseResource>> result = resourceClient.loadSystemResources();
-        List<BaseResource> resources = result.getData();
+        List<BaseResource> resources = resourceClient.loadSystemResources();
         resources.forEach(resource -> {
             BaseResourceServer resourceServer = serverMap.get(resource.getServiceId());
             if (resourceServer == null) {

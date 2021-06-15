@@ -1,10 +1,9 @@
 package cn.ulyer.auth.secure.details;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ulyer.baseclient.client.UserClient;
-import cn.ulyer.baseclient.dto.LoginUser;
+import cn.ulyer.baseapi.dto.LoginUser;
+import cn.ulyer.baseapi.dubboapi.UserApi;
 import cn.ulyer.common.oauth.Oauth2User;
-import cn.ulyer.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,12 +16,11 @@ public class DaoUserDetailService implements UserDetailsService {
 
 
     @Resource
-    private UserClient userClient;
+    private UserApi userClient;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        R<LoginUser> rData = userClient.login(s);
-        LoginUser user = rData.getData();
+        LoginUser user  = userClient.login(s);
         if(user==null){
             throw new UsernameNotFoundException("用户不存在");
         }

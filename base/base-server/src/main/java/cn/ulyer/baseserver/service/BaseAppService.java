@@ -1,9 +1,6 @@
 package cn.ulyer.baseserver.service;
 
-import cn.ulyer.baseclient.entity.BaseApp;
-import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import cn.ulyer.baseapi.dubboapi.AppApi;
 
 /**
  * <p>
@@ -13,7 +10,7 @@ import java.util.List;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseAppService extends IService<BaseApp> {
+public interface BaseAppService extends AppApi {
 
 
 

@@ -3,7 +3,7 @@
 <mapper namespace="cn.ulyer.baseserver.mapper.BaseResourceMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseResource">
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseapi.entity.BaseResource">
         <id column="resourceId" property="resourceId"/>
         <result column="path" property="path"/>
         <result column="authority" property="authority"/>
@@ -39,7 +39,7 @@
         )
 
     </select>
-    <select id="listResourceVo" resultType="cn.ulyer.baseclient.vo.ResourceVo">
+    <select id="listResourceVo" resultType="cn.ulyer.baseapi.vo.ResourceVo">
         select resource.*,server.serviceName resourceServerName from base_resource resource inner join
         base_resource_server server on resource.serviceId = server.serviceId
         <where>
@@ -60,7 +60,7 @@
 
 
     </select>
-    <select id="listResourceVoByRoleId" resultType="cn.ulyer.baseclient.vo.ResourceVo">
+    <select id="listResourceVoByRoleId" resultType="cn.ulyer.baseapi.vo.ResourceVo">
         select resource.*,server.serviceName resourceServerName from base_resource resource
         inner join base_resource_server server on resource.serviceId = server.serviceId
         where resourceId in (
@@ -74,7 +74,7 @@
                                                                                       on resource.resourceId = relation.resourceId
         where relation.appId = #{appId,jdbcType=BIGINT}
     </select>
-    <select id="listAuthorityVoByAppId" resultType="cn.ulyer.baseclient.vo.AuthorityVo">
+    <select id="listAuthorityVoByAppId" resultType="cn.ulyer.baseapi.vo.AuthorityVo">
         select resource.*,server.serviceName resourceServerName,relation.expireTime,relation.id appResourceId from base_resource resource left join
                                                                      base_resource_server server on resource.serviceId = server.serviceId
             inner join base_app_resource relation on resource.resourceId = relation.resourceId

@@ -5,11 +5,9 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ulyer.baseclient.client.UserClient;
-import cn.ulyer.baseclient.dto.LoginUser;
-import cn.ulyer.baseclient.entity.BaseRole;
-import cn.ulyer.baseclient.entity.BaseRoleUser;
-import cn.ulyer.baseclient.entity.BaseUser;
+import cn.ulyer.baseapi.entity.BaseRole;
+import cn.ulyer.baseapi.entity.BaseRoleUser;
+import cn.ulyer.baseapi.entity.BaseUser;
 import cn.ulyer.baseserver.service.BaseRoleService;
 import cn.ulyer.baseserver.service.BaseRoleUserService;
 import cn.ulyer.baseserver.service.BaseUserService;
@@ -39,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/baseUser")
-public class BaseUserController  implements UserClient {
+public class BaseUserController {
 
 
 
@@ -56,15 +54,10 @@ public class BaseUserController  implements UserClient {
     private BaseRoleUserService baseRoleUserService;
 
 
-    @PostMapping("/userLogin")
-    @Override
-    public R<LoginUser> login(@RequestParam(value = "account")String account) {
-        LoginUser baseUser = baseUserService.login(account);
-        return R.success().setData(baseUser);
-    }
+
 
     @GetMapping("/listUser")
-    public R<List<cn.ulyer.baseclient.entity.BaseUser>> listUser(cn.ulyer.baseclient.entity.BaseUser baseUser, @RequestParam(SystemConstants.PAGE_NAME) Integer current, @RequestParam(SystemConstants.SIZE_PARAM) Integer pageSize){
+    public R<List<cn.ulyer.baseapi.entity.BaseUser>> listUser(cn.ulyer.baseapi.entity.BaseUser baseUser, @RequestParam(SystemConstants.PAGE_NAME) Integer current, @RequestParam(SystemConstants.SIZE_PARAM) Integer pageSize){
         return R.success().setData(new PageResult<>(baseUserService.pageUserByWrapper(new Page<>(current,pageSize),baseUser)));
     }
 
@@ -72,13 +65,13 @@ public class BaseUserController  implements UserClient {
     @PreAuthorize("hasRole('"+ RoleValue.SUPER_ADMIN +"') ")
     @PostMapping("/update")
     public R update(@RequestBody BaseUser baseUser){
-        boolean updateFlag = baseUserService.update(Wrappers.<cn.ulyer.baseclient.entity.BaseUser>lambdaUpdate()
-        .eq(cn.ulyer.baseclient.entity.BaseUser::getId, baseUser.getId())
-        .set(cn.ulyer.baseclient.entity.BaseUser::getAccountLocked, baseUser.getAccountLocked())
-        .set(StrUtil.isNotBlank(baseUser.getAvatar()), cn.ulyer.baseclient.entity.BaseUser::getAvatar, baseUser.getAvatar())
-        .set(ObjectUtil.isNotNull(baseUser.getEnable()), cn.ulyer.baseclient.entity.BaseUser::getEnable, baseUser.getEnable())
-        .set(cn.ulyer.baseclient.entity.BaseUser::getRemark, baseUser.getRemark())
-        .set(StrUtil.isNotBlank(baseUser.getUsername()), cn.ulyer.baseclient.entity.BaseUser::getUsername, baseUser.getUsername()));
+        boolean updateFlag = baseUserService.update(Wrappers.<cn.ulyer.baseapi.entity.BaseUser>lambdaUpdate()
+        .eq(cn.ulyer.baseapi.entity.BaseUser::getId, baseUser.getId())
+        .set(cn.ulyer.baseapi.entity.BaseUser::getAccountLocked, baseUser.getAccountLocked())
+        .set(StrUtil.isNotBlank(baseUser.getAvatar()), cn.ulyer.baseapi.entity.BaseUser::getAvatar, baseUser.getAvatar())
+        .set(ObjectUtil.isNotNull(baseUser.getEnable()), cn.ulyer.baseapi.entity.BaseUser::getEnable, baseUser.getEnable())
+        .set(cn.ulyer.baseapi.entity.BaseUser::getRemark, baseUser.getRemark())
+        .set(StrUtil.isNotBlank(baseUser.getUsername()), cn.ulyer.baseapi.entity.BaseUser::getUsername, baseUser.getUsername()));
         return R.instance(updateFlag);
     }
 

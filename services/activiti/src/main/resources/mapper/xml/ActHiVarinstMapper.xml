@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActHiVarinstMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActHiVarinst">
+        <id column="ID_" property="id" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="EXECUTION_ID_" property="executionId" />
+        <result column="TASK_ID_" property="taskId" />
+        <result column="NAME_" property="name" />
+        <result column="VAR_TYPE_" property="varType" />
+        <result column="REV_" property="rev" />
+        <result column="BYTEARRAY_ID_" property="bytearrayId" />
+        <result column="DOUBLE_" property="adouble" />
+        <result column="LONG_" property="along" />
+        <result column="TEXT_" property="text" />
+        <result column="TEXT2_" property="text2" />
+        <result column="CREATE_TIME_" property="createTime" />
+        <result column="LAST_UPDATED_TIME_" property="lastUpdatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, PROC_INST_ID_, EXECUTION_ID_, TASK_ID_, NAME_, VAR_TYPE_, REV_, BYTEARRAY_ID_, DOUBLE_, LONG_, TEXT_, TEXT2_, CREATE_TIME_, LAST_UPDATED_TIME_
+    </sql>
+
+</mapper>

@@ -1,6 +1,6 @@
 package cn.ulyer.baseserver.mapper;
 
-import cn.ulyer.baseclient.entity.BaseRoleUser;
+import cn.ulyer.baseapi.entity.BaseRoleUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

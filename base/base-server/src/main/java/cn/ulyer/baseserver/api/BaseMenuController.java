@@ -1,8 +1,8 @@
 package cn.ulyer.baseserver.api;
 
 
-import cn.ulyer.baseclient.entity.BaseMenu;
-import cn.ulyer.baseclient.vo.MenuVo;
+import cn.ulyer.baseapi.entity.BaseMenu;
+import cn.ulyer.baseapi.vo.MenuVo;
 import cn.ulyer.baseserver.service.BaseMenuService;
 import cn.ulyer.common.constants.RoleValue;
 import cn.ulyer.common.constants.SystemConstants;
@@ -36,7 +36,7 @@ public class BaseMenuController {
     @GetMapping("/userMenu")
     public R<List<TreeVo>> getUserMenus(){
         List<MenuVo> menus = baseMenuService.listUserMenuByUserId(OauthUtil.getUserId());
-        return R.success().setData(TreeUtil.treeMenu(menus,0L));
+        return R.success().setData(TreeUtil.listToTree(menus,0L));
     }
 
     @GetMapping("/list")

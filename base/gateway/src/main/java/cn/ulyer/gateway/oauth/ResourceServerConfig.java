@@ -1,9 +1,7 @@
 package cn.ulyer.gateway.oauth;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
-import cn.ulyer.baseclient.client.ResourceClient;
 import cn.ulyer.common.oauth.OauthJdkSerialize;
-import cn.ulyer.common.oauth.RedisTokenServices;
 import cn.ulyer.gateway.locator.JdbcRouteLocator;
 import cn.ulyer.gateway.locator.ResourceLocator;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.oauth2.server.resource.web.server.ServerBearerTokenAuthenticationConverter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
@@ -49,8 +46,6 @@ public class ResourceServerConfig {
     }
 
 
-    @Autowired
-    private JdbcRouteLocator jdbcRouteLocator;
 
     /**
      * 跨域配置

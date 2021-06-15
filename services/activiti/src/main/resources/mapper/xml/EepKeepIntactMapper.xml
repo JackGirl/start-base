@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.EepKeepIntactMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.EepKeepIntact">
+        <id column="id" property="id" />
+        <result column="deposit_code" property="depositCode" />
+        <result column="deposit_id" property="depositId" />
+        <result column="auth_server_savetime" property="authServerSavetime" />
+        <result column="sys_time_sign" property="sysTimeSign" />
+        <result column="sys_time" property="sysTime" />
+        <result column="deposit_time" property="depositTime" />
+        <result column="access_biz_id" property="accessBizId" />
+        <result column="client_code" property="clientCode" />
+        <result column="hash" property="hash" />
+        <result column="attach_hash" property="attachHash" />
+        <result column="custom_sign" property="customSign" />
+        <result column="custom_sign_cert" property="customSignCert" />
+        <result column="custom_attach_sign" property="customAttachSign" />
+        <result column="sys_sign_pubkey" property="sysSignPubkey" />
+        <result column="sys_sign" property="sysSign" />
+        <result column="sys_attach_sign" property="sysAttachSign" />
+        <result column="notary_sign" property="notarySign" />
+        <result column="notary_time_sign" property="notaryTimeSign" />
+        <result column="notary_time" property="notaryTime" />
+        <result column="cert_number" property="certNumber" />
+        <result column="cert_source" property="certSource" />
+        <result column="source_ip" property="sourceIp" />
+        <result column="target_ip" property="targetIp" />
+        <result column="service_addr" property="serviceAddr" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="tag" property="tag" />
+        <result column="status" property="status" />
+        <result column="user_name" property="userName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, deposit_code, deposit_id, auth_server_savetime, sys_time_sign, sys_time, deposit_time, access_biz_id, client_code, hash, attach_hash, custom_sign, custom_sign_cert, custom_attach_sign, sys_sign_pubkey, sys_sign, sys_attach_sign, notary_sign, notary_time_sign, notary_time, cert_number, cert_source, source_ip, target_ip, service_addr, remark, create_time, tag, status, user_name
+    </sql>
+
+</mapper>

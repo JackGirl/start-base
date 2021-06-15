@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActEvtLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActEvtLog">
+        <id column="LOG_NR_" property="logNr" />
+        <result column="TYPE_" property="type" />
+        <result column="PROC_DEF_ID_" property="procDefId" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="EXECUTION_ID_" property="executionId" />
+        <result column="TASK_ID_" property="taskId" />
+        <result column="TIME_STAMP_" property="timeStamp" />
+        <result column="USER_ID_" property="userId" />
+        <result column="DATA_" property="data" />
+        <result column="LOCK_OWNER_" property="lockOwner" />
+        <result column="LOCK_TIME_" property="lockTime" />
+        <result column="IS_PROCESSED_" property="isProcessed" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        LOG_NR_, TYPE_, PROC_DEF_ID_, PROC_INST_ID_, EXECUTION_ID_, TASK_ID_, TIME_STAMP_, USER_ID_, DATA_, LOCK_OWNER_, LOCK_TIME_, IS_PROCESSED_
+    </sql>
+
+</mapper>

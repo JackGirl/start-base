@@ -3,7 +3,7 @@
 <mapper namespace="cn.ulyer.baseserver.mapper.BaseRoleUserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.ulyer.baseclient.entity.BaseRoleUser">
+    <resultMap id="BaseResultMap" type="cn.ulyer.baseapi.entity.BaseRoleUser">
         <result column="roleId" property="roleId" />
         <result column="userId" property="userId" />
         <result column="createTime" property="createTime" />

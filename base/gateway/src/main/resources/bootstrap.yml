@@ -55,3 +55,19 @@ spring:
     allow-bean-definition-overriding: true
 server:
   port: 9999
+dubbo:
+  registry:
+    use-as-metadata-center: false
+
+    parameters:
+      group: DUBBO_GROUP
+      namespace: ${nacos.namespace}
+    address: nacos://${nacos.server-addr}
+  consumer:
+    check: false
+  protocol:
+    port: -1
+    name: dubbo
+  provider:
+    register: false
+

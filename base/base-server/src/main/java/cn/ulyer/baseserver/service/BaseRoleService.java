@@ -1,7 +1,7 @@
 package cn.ulyer.baseserver.service;
 
-import cn.ulyer.baseclient.entity.BaseRole;
-import com.baomidou.mybatisplus.extension.service.IService;
+import cn.ulyer.baseapi.dubboapi.RoleApi;
+import cn.ulyer.baseapi.entity.BaseRole;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-public interface BaseRoleService extends IService<BaseRole> {
+public interface BaseRoleService extends RoleApi {
 
     void updateRolePermissions(BaseRole role, List<Long> menus, List<Long> resources);
 }

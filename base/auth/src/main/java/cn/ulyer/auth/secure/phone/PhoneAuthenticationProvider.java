@@ -1,6 +1,6 @@
 package cn.ulyer.auth.secure.phone;
 
-import cn.ulyer.baseclient.client.UserClient;
+import cn.ulyer.baseapi.dubboapi.UserApi;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -8,9 +8,9 @@ import org.springframework.security.core.AuthenticationException;
 
 public class PhoneAuthenticationProvider implements AuthenticationProvider {
 
-    private UserClient userClient;
+    private UserApi userClient;
 
-    public PhoneAuthenticationProvider(UserClient userClient){
+    public PhoneAuthenticationProvider(UserApi userClient){
         this.userClient = userClient;
     }
 

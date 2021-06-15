@@ -1,24 +1,19 @@
 package cn.ulyer.gateway.oauth;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.ulyer.baseclient.entity.BaseResource;
+import cn.ulyer.baseapi.entity.BaseResource;
 import cn.ulyer.common.constants.ErrorCode;
+import cn.ulyer.common.constants.RoleValue;
 import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.oauth.Oauth2Authority;
-import cn.ulyer.common.oauth.Oauth2ClientDetails;
-import cn.ulyer.common.oauth.Oauth2User;
 import cn.ulyer.gateway.locator.ResourceLocator;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -73,7 +68,8 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
         if (resource == null || !SystemConstants.STATUS_VALID.equals(resource.getStatus())) {
             return false;
         }
-        //不公开但不是内部应用
+
+        //不公开
         if (!resource.isPublicApi() ) {
             return false;
         }
@@ -90,6 +86,9 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
         int result = 0;
         while (iterator.hasNext()){
             Oauth2Authority authority = (Oauth2Authority) iterator.next();
+            if(authority.getAuthority().equals(RoleValue.ROLE_PREFIX+RoleValue.SUPER_ADMIN)){
+                return true;
+            }
             if(authority.getAuthority().equals(resource.getAuthority())){
                 if(authority.expired()){
                     throw new AccessDeniedException(ErrorCode.ACCESS_DENIED_AUTHORITY_EXPIRED.getMessage());

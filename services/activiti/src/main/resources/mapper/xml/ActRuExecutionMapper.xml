@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ulyer.activiti.mapper.ActRuExecutionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.ulyer.activiti.entity.ActRuExecution">
+        <id column="ID_" property="id" />
+        <result column="REV_" property="rev" />
+        <result column="PROC_INST_ID_" property="procInstId" />
+        <result column="BUSINESS_KEY_" property="businessKey" />
+        <result column="PARENT_ID_" property="parentId" />
+        <result column="PROC_DEF_ID_" property="procDefId" />
+        <result column="SUPER_EXEC_" property="superExec" />
+        <result column="ROOT_PROC_INST_ID_" property="rootProcInstId" />
+        <result column="ACT_ID_" property="actId" />
+        <result column="IS_ACTIVE_" property="isActive" />
+        <result column="IS_CONCURRENT_" property="isConcurrent" />
+        <result column="IS_SCOPE_" property="isScope" />
+        <result column="IS_EVENT_SCOPE_" property="isEventScope" />
+        <result column="IS_MI_ROOT_" property="isMiRoot" />
+        <result column="SUSPENSION_STATE_" property="suspensionState" />
+        <result column="CACHED_ENT_STATE_" property="cachedEntState" />
+        <result column="TENANT_ID_" property="tenantId" />
+        <result column="NAME_" property="name" />
+        <result column="START_TIME_" property="startTime" />
+        <result column="START_USER_ID_" property="startUserId" />
+        <result column="LOCK_TIME_" property="lockTime" />
+        <result column="IS_COUNT_ENABLED_" property="isCountEnabled" />
+        <result column="EVT_SUBSCR_COUNT_" property="evtSubscrCount" />
+        <result column="TASK_COUNT_" property="taskCount" />
+        <result column="JOB_COUNT_" property="jobCount" />
+        <result column="TIMER_JOB_COUNT_" property="timerJobCount" />
+        <result column="SUSP_JOB_COUNT_" property="suspJobCount" />
+        <result column="DEADLETTER_JOB_COUNT_" property="deadletterJobCount" />
+        <result column="VAR_COUNT_" property="varCount" />
+        <result column="ID_LINK_COUNT_" property="idLinkCount" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID_, REV_, PROC_INST_ID_, BUSINESS_KEY_, PARENT_ID_, PROC_DEF_ID_, SUPER_EXEC_, ROOT_PROC_INST_ID_, ACT_ID_, IS_ACTIVE_, IS_CONCURRENT_, IS_SCOPE_, IS_EVENT_SCOPE_, IS_MI_ROOT_, SUSPENSION_STATE_, CACHED_ENT_STATE_, TENANT_ID_, NAME_, START_TIME_, START_USER_ID_, LOCK_TIME_, IS_COUNT_ENABLED_, EVT_SUBSCR_COUNT_, TASK_COUNT_, JOB_COUNT_, TIMER_JOB_COUNT_, SUSP_JOB_COUNT_, DEADLETTER_JOB_COUNT_, VAR_COUNT_, ID_LINK_COUNT_
+    </sql>
+
+</mapper>

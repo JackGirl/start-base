@@ -2,10 +2,9 @@ package cn.ulyer.baseserver.api;
 
 
 import cn.hutool.core.lang.Assert;
-import cn.ulyer.baseclient.client.ResourceClient;
-import cn.ulyer.baseclient.entity.BaseResource;
-import cn.ulyer.baseclient.entity.BaseResourceServer;
-import cn.ulyer.baseclient.vo.ResourceVo;
+import cn.ulyer.baseapi.entity.BaseResource;
+import cn.ulyer.baseapi.entity.BaseResourceServer;
+import cn.ulyer.baseapi.vo.ResourceVo;
 import cn.ulyer.baseserver.service.BaseResourceServerService;
 import cn.ulyer.baseserver.service.BaseResourceService;
 import cn.ulyer.common.binder.RouteOutput;
@@ -30,7 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/baseResource")
-public class BaseResourceController implements ResourceClient {
+public class BaseResourceController {
 
     @Autowired
     private BaseResourceServerService baseResourceServerService;
@@ -42,11 +41,7 @@ public class BaseResourceController implements ResourceClient {
     @Autowired
     private RouteOutput routeOutput;
 
-    @Override
-    @PostMapping("/systemResources")
-    public R<List<BaseResource>> loadSystemResources() {
-        return R.success().setData(baseResourceService.list(Wrappers.<BaseResource>lambdaQuery().eq(BaseResource::getStatus, SystemConstants.STATUS_VALID)));
-    }
+
 
 
     @GetMapping("/list")

@@ -1,14 +1,16 @@
 package cn.ulyer.baseserver.service.impl;
 
-import cn.ulyer.baseclient.entity.BaseResource;
-import cn.ulyer.baseclient.vo.AuthorityVo;
-import cn.ulyer.baseclient.vo.ResourceVo;
+import cn.ulyer.baseapi.dubboapi.ResourceApi;
+import cn.ulyer.baseapi.entity.BaseResource;
+import cn.ulyer.baseapi.vo.AuthorityVo;
+import cn.ulyer.baseapi.vo.ResourceVo;
 import cn.ulyer.baseserver.mapper.BaseResourceMapper;
 import cn.ulyer.baseserver.service.BaseResourceService;
+import cn.ulyer.common.constants.SystemConstants;
 import cn.ulyer.common.oauth.Oauth2Authority;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.DubboService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
  * @author mybatis-plus generator
  * @since 2021-04-15
  */
-@Service
+@DubboService(interfaceClass = ResourceApi.class)
 public class BaseResourceServiceImpl extends ServiceImpl<BaseResourceMapper, BaseResource> implements BaseResourceService {
 
     @Resource
@@ -50,5 +52,10 @@ public class BaseResourceServiceImpl extends ServiceImpl<BaseResourceMapper, Bas
     @Override
     public List<AuthorityVo> listAuthorityVoByAppId(Long appId) {
         return baseResourceMapper.listAuthorityVoByAppId(appId);
+    }
+
+    @Override
+    public List<BaseResource> loadSystemResources() {
+        return list(Wrappers.<BaseResource>lambdaQuery().eq(BaseResource::getStatus, SystemConstants.STATUS_VALID));
     }
 }
