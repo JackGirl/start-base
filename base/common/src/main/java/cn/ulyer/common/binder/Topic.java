@@ -1,7 +1,9 @@
 package cn.ulyer.common.binder;
 
-public class Topic {
+public interface Topic {
 
     String ROUTE_BINDING = "refreshRoute";
+
+    String LOG_BINDING = "logTopic";
 
 }

@@ -1,5 +1,6 @@
 package cn.ulyer.gateway;
 
+import cn.ulyer.common.binder.LogOutput;
 import cn.ulyer.common.binder.RouteBinding;
 import cn.ulyer.common.utils.SpringUtils;
 import cn.ulyer.gateway.locator.JdbcRouteLocator;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Import(SpringUtils.class)
-@EnableBinding(RouteBinding.class)
+@EnableBinding({RouteBinding.class, LogOutput.class})
 public class GatewayApplication implements CommandLineRunner {
 
     @Autowired

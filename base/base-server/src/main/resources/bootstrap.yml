@@ -7,6 +7,9 @@ spring:
         routeOutput:
           destination: routeRefresh
           group: ${spring.application.name}
+        logInput:
+          destination: logTopic
+          group: ${spring.application.name}
     nacos:
       config:
         namespace: ${nacos.namespace}

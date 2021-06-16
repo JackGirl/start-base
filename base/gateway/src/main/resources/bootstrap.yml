@@ -13,6 +13,9 @@ spring:
         routeOutput:
           destination: routeRefresh
           group: ${spring.application.name}
+        logOutput:
+          destination: logTopic
+          group: ${spring.application.name}
     sentinel:
       transport:
         dashboard: ${sentinel-dashboard-address}
